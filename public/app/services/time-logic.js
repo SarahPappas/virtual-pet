@@ -1,41 +1,40 @@
 angular.module("VirtualPetApp")
-.service("TimeLogic", ["$http", function($http) {
-	// this.pet = {
-	// 	sleep: {
-	// 		last: "",
-	// 		next: ""
-	// 	},
-	// 	feed: {
-	// 		last: "",
-	// 		next: ""
-	// 	},
-	// 	clean: {
-	// 		last: "",
-	// 		next: ""
-	// 	},
-	// 	exercise: {
-	// 		last: "",
-	// 		next: ""
-	// 	},
-	// 	nurse: {
-	// 		last: "",
-	// 		next: ""
-	// 	},
-	// };
+.service("TimeLogicService", ["$http", function($http) {
+	this.pet = {
+		sleep: {
+			last: "",
+			next: ""
+		},
+		feed: {
+			last: "",
+			next: ""
+		},
+		clean: {
+			last: "",
+			next: ""
+		},
+		exercise: {
+			last: "",
+			next: ""
+		},
+		nurse: {
+			last: "",
+			next: ""
+		},
+	};
 
 	var millisecondHr = 3600000;
 
 	this.actionBy = {
-		// 20 hours
 		sleep: {
-			hours: 20,
+			hours: 10,
 			mood: {
 				missed: .25,
 				acted: .15,
 			}, 
 		},
 		feed: {
-			hours: 2,
+			hours: 4,
 			mood: {
 				missed: .25,
 				acted: .15,
@@ -45,15 +44,24 @@ angular.module("VirtualPetApp")
 			hours: millisecondHr/4,
 			health: {
 				missed: .25,
-
 			}
 		},
 		exercise: {
-			hours:
+			hours: 4
+			health: {
+				missed: .15,
+				acted: .5
+			}
 		},
-		nurse: 1
+		nurse: {
+			hours: 0;
+			health: {
+				acted: Math.random() * (1 - .5) + .5;
+			}
+		}
 	}
 
+	// call onlogin, setTimeouts
 	this.getStats = function() {
 		return $http({
 			url: "/api/users",
@@ -64,16 +72,22 @@ angular.module("VirtualPetApp")
 	};
 
 	this.saveStats = function(activity, lastDate, nextDate) {
+		// finish put route for stats
 		return $http.put("/api/users");
 	};
 
-	this.setMood = function() {
+	var feedTimeoutID;
+	var playTimeoutID;
+	var sleepTimeoutID;
+	var exerciseTimeoutID;
+	var cleanTimeoutID;
+	var gameoverTimeoutID;
 
-	};
+	function feedTimeout(timeToFeed) {
+	  feedTimeoutID = window.setTimeout(function() {}
+	  	, );
+	}
 
-	this.isFed = function() {
-
-	};
 
 
 
