@@ -9,6 +9,19 @@
   function SignUpCtrl($http){
     console.log("SignUpCtrl loaded!");
     var SignUpCtrl = this;
+
+    SignUpCtrl.signingUp = false;
+    SignUpCtrl.loggingIn = false;
+
+    SignUpCtrl.clickSignUp = function(){
+      SignUpCtrl.signingUp = !SignUpCtrl.signingUp;
+      SignUpCtrl.loggingIn = false;
+    }
+
+    SignUpCtrl.clickLogin = function(){
+      SignUpCtrl.loggingIn = !SignUpCtrl.loggingIn;
+      SignUpCtrl.signingUp = false;
+    }
   
 
   SignUpCtrl.newUser = {
@@ -16,10 +29,10 @@
     password: ""
   };
 
-  // headerComp.logInInfo = {
-  //   email: "",
-  //   password: ""
-  // };
+  SignUpCtrl.loginInfo = {
+    email: "",
+    password: ""
+  };
 
   SignUpCtrl.createUser = function() {
     $http.post('/api/users', SignUpCtrl.newUser)
@@ -30,22 +43,22 @@
     })
 }
 
-  // headerComp.logInUser = function() {
-  //   console.log(headerComp.logInInfo);
-  //   $http({
-  //     method: "GET",
-  //     url: "/api/users/login",
-  //     params: headerComp.logInInfo
-  //   })
-  //   .then(function success(res){
-  //     console.log("success");
-  //     console.log("user: " + res.user);
-  //     console.log("token: " + res.token);
-  //     headerComp.currentUser = res.data[0];
-  //   }, function error(err){
-  //     console.log('you done fucked up sir: ' + err);
-  //   })
-  // }
+  SignUpCtrl.loginUser = function() {
+    console.log(SignUpCtrl.logInInfo);
+    $http({
+      method: "GET",
+      url: "/api/users/login",
+      params: SignUpCtrl.loginInfo
+    })
+    .then(function success(res){
+      console.log("success");
+      console.log("user: " + res.user);
+      console.log("token: " + res.token);
+      headerComp.currentUser = res.data[0];
+    }, function error(err){
+      console.log('you done fucked up sir: ' + err);
+    })
+  }
 
 
   SignUpCtrl.$inject = ['$http'];

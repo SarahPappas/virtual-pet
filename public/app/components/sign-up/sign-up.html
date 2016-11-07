@@ -1,6 +1,9 @@
-<h1>Sign-Up Form</h1>
+<button ng-click="SignUpCtrl.clickLogin()">Login</button>
+<button ng-click="SignUpCtrl.clickSignUp()">Sign Up</button>
 
-<form ng-submit="createUser()">
+<!-- SIGN UP FORM -->
+<form ng-if="SignUpCtrl.signingUp" ng-submit="SignUpCtrl.createUser()">
+	<h3>Sign Up</h3>
   <div class="form-group">
     <label for="email">Email</label>
     <input type="email" class="form-control" id="email" placeholder="test@test.com" ng-model="SignUpCtrl.newUser.email">
@@ -9,6 +12,19 @@
     <label for="password">Password</label>
     <input type="password" class="form-control" id="password" placeholder="********" ng-model="SignUpCtrl.newUser.password">
   </div>
+  <button type="submit" class="btn btn-primary">Signup</button>
+</form>
 
+<!-- LOGIN FORM -->
+<form ng-if="SignUpCtrl.loggingIn" ng-submit="SignUpCtrl.loginUser()">
+	<h3>Login</h3>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" placeholder="test@test.com" ng-model="SignUpCtrl.loginInfo.email">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="********" ng-model="SignUpCtrl.loginInfo.password">
+  </div>
   <button type="submit" class="btn btn-primary">Signup</button>
 </form>
