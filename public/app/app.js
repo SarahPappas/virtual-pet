@@ -15,6 +15,8 @@ angular.module("VirtualPetApp", ["ui.router"])
 		url: "/play/{activity}",
 		templateUrl: "app/views/play.html"
 	})
+
+	$locationProvider.html5Mode(true);
 }])
 .run(["$rootScope", "$state", function($rootScope, $state) {
 	$rootScope.state = $state;
