@@ -2,12 +2,28 @@
 	angular.module("VirtualPetApp")
 	.component("stats", {
 		templateUrl: "app/components/stats/stats.html",
-		controller: Stats,
+		controller: StatsCtrl,
 		controllerAs: "stats"
 	});
 
-	function Stats() {
+	function StatsCtrl(TimeLogicService) {
+    var health = 100;
+    var mood = 100;
+    var currentDate = Date.now()
+
+    function totalMood(playVar, feedVar) {
+      if (mood <= 0) {
+        health -= 25;
+      }
+      else if(currentDate > TimeLogicService.pet.feed.next) {
+        mood -= 25;
+      }
+      else if(currentDate > TimeLogicService.pet.sleep.next) {
+        
+      }
+    }
 
 	}
-
+StatsCtrl.$inject = ['TimeLogicService']
 })()
+
