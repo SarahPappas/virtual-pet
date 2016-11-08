@@ -1,6 +1,7 @@
+require("dotenv").config();
 var express = require('express');
 var jwt = require('jsonwebtoken');
-var secret = "supersecretstarwars" || process.env.JWT_SECRET;
+var secret = process.env.JWT_SECRET || "blahblahblah";
 var User = require('../models/user');
 var router = express.Router();
 
