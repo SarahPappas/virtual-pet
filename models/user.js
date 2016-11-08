@@ -6,7 +6,7 @@ var UserSchema = mongoose.Schema({
     password: { type: String, required: true },
     pet : {
       petname: String,
-      type: String,
+      species: String,
       health: Number,
       mood: Number,
       stats: [

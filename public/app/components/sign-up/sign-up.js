@@ -29,7 +29,7 @@
     password: "",
     pet : {
       petname: "",
-      type: "",
+      species: "",
       health: 100,
       mood: 100,
       stats: [
