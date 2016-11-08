@@ -29,13 +29,14 @@
     password: "",
     pet : {
       petname: "",
-      type: "",
+      species: "",
       health: 100,
       mood: 100,
       stats: [
         {
           name: "sleep",
-          last: null
+          last: null,
+          isSleeping: false
         },
         {
           name: "feed",
