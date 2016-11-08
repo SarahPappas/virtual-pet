@@ -1,108 +1,73 @@
 angular.module("VirtualPetApp")
-.service("TimeLogicService", ["$http", function($http) {
-	this.pet = [
-		sleep: {
-			last: "",
-			next: ""
-		},
-		feed: {
-			last: "",
-			next: ""
-		},
-		clean: {
-			last: "",
-			next: ""
-		},
-		exercise: {
-			last: "",
-			next: ""
-		},
-		nurse: {
-			last: "",
-			next: ""
-		],
-	};
+.service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
 
-	var millisecondHr = 3600000;
+    this.msPerHour = 1000 * 60 * 60;
 
-	this.actionBy = {
-		sleep: {
-			hours: 10,
-			health: {
-				missed: .25,
-				acted: .125,
-				effect: 0
-			}, 
-		},
-		feed: {
-			hours: 4,
-			mood: {
-				missed: .25,
-				acted: .125,
-				effect: 0
-			},
-			health: {
-				missed: .25,
-				acted: .125,
-				effect: 0
-			}
-		},
-		clean: {
-			hours: millisecondHr/4,
-			health: {
-				missed: .25,
-				effect: 0
-			}
-		},
-		exercise: {
-			hours: 4
-			health: {
-				missed: .15,
-				acted: .75,
-				effect: 0
-			}
-		},
-		nurse: {
-			hours: 0;
-			health: {
-				acted: Math.random() * (1 - .5) + .5;
-			}
-		}
-	}
+    // constants
+    this.actionInfos = {
+        sleep: {
+        },
+        feed: {
+            // msUntilNeeded: 4 * this.msPerHour,
+            msUntilMissed: 1000,
+            msUntilMissed: 5 * this.msPerHour,
+            moodDeltas: {
+                missed: -20,
+                acted: 10,
+            },
+            healthDeltas: {
+                missed: -20,
+                acted: 10,
+            }
+        },
+        clean: {
+        },
+        exercise: {
+        },
+        nurse: {
+        }
+    }
 
-	// call onlogin, setTimeouts
-	this.getStats = function() {
-		return $http({
-			url: "/api/users",
-			method: "GET"
-		}).then(function(res) {
-			return res.data;
-		});
-	};
+    // call onlogin, setTimeouts
+    // gets all stats
+    this.getStats = function() {
+        return $http({
+            url: "/api/users",
+            method: "GET"
+        }).then(function(res) {
+            return res.data;
+        });
+    };
 
-	this.saveStats = function(activity, lastDate, nextDate) {
-		// finish put route for stats
-		return $http.put("/api/users");
-	};
+    this.saveStats = function(activity, lastDate, nextDate) {
+        // finish put route for stats
+        return $http.put("/api/users");
+    };
 
-	var feedTimeoutID;
-	var playTimeoutID;
-	var sleepTimeoutID;
-	var exerciseTimeoutID;
-	var cleanTimeoutID;
-	var gameoverTimeoutID;
+    // game loop, where should this be called?
+    setInterval(checkForUpdate, 3000);
 
-	// Interval or game loop
-	// function feedTimeout(timeToFeed) {
-	//   feedTimeoutID = window.setTimeout(function() {}
-	//   	, timeToFeed);
-	// }
+    function checkForUpdate() {
+        this.getStats()
+            .then(function(stats) {
+                var timeLastExecuted = new Date().now();
+                var now = new Date().now();
+                var actionInfo = this.actionInfos.feed;
+                var msUntilMissed = actionInfo.msUntilMissed;
+                if(now > timeLastExecuted + msUntilMissed) {
+                    this.mood += actionInfo.moodDeltas.missed;
+                    this.health += actionInfo.healthDeltas.missed;
+                }
+            }.bind(this));
 
-	function isGameover(){
-		//call health
-	}
+        // get stats from db
+        // do calculations
+        // if missed acition broadcast "miss" to stats component
+            //>> if currentTime-nextTime = 0
+            // then sets action's next time
+        // if stats are different broadcast to components for update
+    }
 
-	this.mood;
-	this.health;
-
+    this.mood = 100;
+    this.health = 100;
 }]);
