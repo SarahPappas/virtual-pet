@@ -7,10 +7,6 @@ angular.module("VirtualPetApp", ["ui.router"])
 		url: "/",
 		templateUrl: "app/views/home.html"
 	})
-	.state("signup", {
-		url: "/signup",
-		templateUrl: "app/views/signup.html"
-	})
 	.state("play", {
 		url: "/play/{activity}",
 		templateUrl: "app/views/play.html"
