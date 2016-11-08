@@ -12,7 +12,7 @@ angular.module("VirtualPetApp")
         },
         feed: {
             // msUntilNeeded: 4 * this.msPerHour,
-            msUntilMissed: 10000,
+            msUntilMissed: 6000,
             // msUntilMissed: 5 * this.msPerHour,
             moodDeltas: {
                 missed: -20,
@@ -59,8 +59,17 @@ angular.module("VirtualPetApp")
                 var msUntilMissed = actionInfo.msUntilMissed;
                 if(now > this.timeLastExecuted + msUntilMissed) {
                     console.log("if ran");
-                    this.mood += actionInfo.moodDeltas.missed;
-                    this.health += actionInfo.healthDeltas.missed;
+                    //+= actionInfo.moodDeltas.missed 
+                    if(this.mood + actionInfo.moodDeltas.missed < 0){
+                        this.mood = 0;
+                    } else {
+                        this.mood += actionInfo.moodDeltas.missed;
+                    }
+                    if(this.health + actionInfo.healthDeltas.missed < 0){
+                        this.health = 0
+                    } else {
+                        this.health += actionInfo.healthDeltas.missed;
+                    }
                     $rootScope.$broadcast("update", this);
                 }
             }.bind(this)();
