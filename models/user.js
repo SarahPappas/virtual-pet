@@ -4,9 +4,36 @@ var bcrypt = require('bcrypt');
 var UserSchema = mongoose.Schema({
     email: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
-    pet: {
-      name: String,
-      type: String
+    pet : {
+      petname: "",
+      type: "",
+      stats: [
+        {
+          name: String,
+          next: Date,
+          last: Date
+        },
+        {
+          name: String,
+          next: Date,
+          last: Date
+        },
+        {
+          name: String,
+          next: Date,
+          last: Date
+        },
+        {
+          name: String,
+          next: Date,
+          last: Date
+        },
+        {
+          name: String,
+          next: Date,
+          last: Date
+        }
+      ]
     }
 });
 
