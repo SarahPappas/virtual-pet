@@ -7,7 +7,9 @@
 	});
 
 	function Feed() {
-	
+		var feed = this;
+		
+
 	}
 
 })()
