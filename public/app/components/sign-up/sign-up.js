@@ -6,7 +6,7 @@
     controllerAs: 'SignUpCtrl'
   });
 
-  function SignUpCtrl($http, $state){
+  function SignUpCtrl($http, $state, authService){
     console.log("SignUpCtrl loaded!");
     var SignUpCtrl = this;
 
@@ -30,69 +30,60 @@
     pet : {
       petname: "",
       type: "",
+      health: 100,
+      mood: 100,
       stats: [
         {
           name: "sleep",
-          next: null,
           last: null
         },
         {
           name: "feed",
-          next: null,
           last: null
         },
         {
           name: "clean",
-          next: null,
           last: null
         },
         {
           name: "excercise",
-          next: null,
           last: null
         },
         {
           name: "nurse",
-          next: null,
           last: null
         }
       ]
     }
   };
 
+
+  SignUpCtrl.createUser = function() {
+    $http.post('/api/users', SignUpCtrl.newUser).then(function success(res) {
+      $state.go('play');
+    }, function error(err) {
+      console.log(err);
+    });
+  }
+
   SignUpCtrl.loginInfo = {
     email: "",
     password: ""
   };
 
-  SignUpCtrl.createUser = function() {
-    $http.post('/api/users', SignUpCtrl.newUser)
+  SignUpCtrl.loginUser = function() {
+    console.log(SignUpCtrl.loginInfo);
+    $http.post('/api/users/auth', SignUpCtrl.loginInfo)
     .then(function success(res){
-      console.log("success: " + res);
+      console.log("res: " + res);
+      authService.saveToken(res.data.token);
       $state.go('play');
     }, function error(err){
-      console.log("error: " + err);
-    })
-}
-
-  SignUpCtrl.loginUser = function() {
-    console.log(SignUpCtrl.logInInfo);
-    $http({
-      method: "GET",
-      url: "/api/users/login",
-      params: SignUpCtrl.loginInfo
-    })
-    .then(function success(res){
-      console.log("success");
-      console.log("user: " + res.user);
-      console.log("token: " + res.token);
-      headerComp.currentUser = res.data[0];
-    }, function error(err){
-      console.log('you done fucked up sir: ' + err);
+      console.log('There is an issue!: ' + err);
     })
   }
 
 
-  SignUpCtrl.$inject = ['$http', '$state'];
+  SignUpCtrl.$inject = ['$http', '$state', 'authService'];
 }
 })()
