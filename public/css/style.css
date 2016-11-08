@@ -1,0 +1,101 @@
+/*  MAIN  */
+body {
+	background-image: url('/img/bg2.jpg');
+	background-position: top center;
+}
+#game {
+margin: 45px auto;
+background-image:url('/img/gamebg.png');
+width:753px;
+height:558px;
+overflow: hidden;
+}
+#gameplay {
+	width:444px;
+	height:404px;
+	float:left;
+	position: relative;
+	left:75px;
+	top:30px;
+	overflow: hidden;
+}
+/*  STATS BAR  */
+#stats {
+	position: relative;
+	left:176px;
+	top: 50px;
+	height:80px;
+	display:block;
+}
+#health-stats-icon {
+background-image:url('/img/health-icon.png');
+width: 57px;
+height: 46px;
+float:left;
+margin-right:6px;
+overflow: hidden;
+}
+#mood-stats-icon {
+background-image:url('/img/mood-icon.png');
+width: 50px;
+height: 50px;
+float:left;
+margin-left: 45px;
+margin-right:6px;
+overflow: hidden;
+}
+.stats-bar {
+	float:left;
+	width: 24px;
+	height: 38px;
+	background-color: #bcbcbc;
+	border-radius: 4px;
+	margin-left:5px;
+	margin-top: 5px;
+overflow: hidden;
+}
+
+/*  NAVIGATION ICONS  */
+.nav {
+	width: 75px;
+	height: 75px;
+	margin-top: 58px;
+}
+#left-nav {
+	float:left;
+	position:relative;
+	left: 43px;
+	top: 0px;
+	width:80px;
+	overflow: hidden;
+	clear:both;
+}
+#right-nav {
+	float:left;
+	position: relative;
+	left:112px;
+	top:0px;
+	width:80px;
+	overflow: hidden;
+}
+/*left side*/
+.nav-feed {
+	background-image:url('/img/feed-icon.svg');
+}
+.nav-game {
+	background-image:url('/img/game-icon.svg');
+}
+.nav-train {
+	background-image:url('/img/train-icon.svg');
+}
+/*right side*/
+.nav-nurse {
+	background-image:url('/img/nurse-icon.svg');
+}
+.nav-clean {
+	background-image:url('/img/clean-icon.svg');
+}
+.nav-sleep {
+	background-image:url('/img/sleep-icon.svg');
+}
+
