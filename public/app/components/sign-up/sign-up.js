@@ -35,7 +35,8 @@
       stats: [
         {
           name: "sleep",
-          last: null
+          last: null,
+          isSleeping: false
         },
         {
           name: "feed",

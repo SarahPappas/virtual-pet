@@ -12,7 +12,8 @@ var UserSchema = mongoose.Schema({
       stats: [
         {
           name: String,
-          last: Date
+          last: Date,
+          isSleeping: Boolean
         },
         {
           name: String,
