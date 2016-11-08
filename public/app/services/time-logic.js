@@ -1,6 +1,6 @@
 angular.module("VirtualPetApp")
 .service("TimeLogicService", ["$http", function($http) {
-	this.pet = {
+	this.pet = [
 		sleep: {
 			last: "",
 			next: ""
@@ -20,7 +20,7 @@ angular.module("VirtualPetApp")
 		nurse: {
 			last: "",
 			next: ""
-		},
+		],
 	};
 
 	var millisecondHr = 3600000;
@@ -83,12 +83,17 @@ angular.module("VirtualPetApp")
 	var cleanTimeoutID;
 	var gameoverTimeoutID;
 
-	function feedTimeout(timeToFeed) {
-	  feedTimeoutID = window.setTimeout(function() {}
-	  	, );
+	// Interval or game loop
+	// function feedTimeout(timeToFeed) {
+	//   feedTimeoutID = window.setTimeout(function() {}
+	//   	, timeToFeed);
+	// }
+
+	function isGameover(){
+		//call health
 	}
 
-
-
+	this.mood;
+	this.health;
 
 }]);
