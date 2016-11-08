@@ -12,11 +12,12 @@ router.route('/')
   .post(function(req, res) {
     // SIGNING UP FOR THE FIRST TIME
     console.log(req.body);
-    // find the user first in case the email already exists
+    //find the user first in case the email already exists
     User.findOne({ email: req.body.email }, function(err, user) {
       if (user) return res.status(400).send({ message: 'Email already exists' });
 
       User.create(req.body, function(err, user) {
+        console.log("post backend", req.body);
         if (err) return res.status(500).send(err);
 
         return res.send(user);

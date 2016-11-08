@@ -16,6 +16,16 @@ angular.module("VirtualPetApp")
   // constants
   this.actionInfos = {
       sleep: {
+        msUntilMissed: 6000,
+        // msUntilMissed: 5 * this.msPerHour,
+        moodDeltas: {
+            missed: 0,
+            acted: 0,
+        },
+        healthDeltas: {
+            missed: -20,
+            acted: 10,
+        }
       },
       feed: {
           // msUntilNeeded: 4 * this.msPerHour,
@@ -63,28 +73,31 @@ angular.module("VirtualPetApp")
       });
   };
 
-  this.onClick = function(currentActivity){
-    this.calcMood(currentActivity);
-  
+  this.calcStatsOnClick = function(currentActivity){
+    this.calcStats(currentActivity);
   }.bind(this);
 
-  this.calcMood = function(activity, actedOrMissed) {
+
+
+  this.calcStats = function(activity, actedOrMissed) {
 
       var now = Date.now();
       console.log(activity);
       console.log(this.actionInfos[activity]);
+      // set action to passed action
       var actionInfo = this.actionInfos[activity];
+      // seting time untill missed
       var msUntilMissed = actionInfo.msUntilMissed;
+      // setting delta
       var delta = actionInfo.moodDeltas.missed;
-        if(actedOrMissed == "missed") {
-          var delta = actionInfo.moodDeltas.missed;
-        } else {
-          var delta = actionInfo.moodDeltas.acted;
-        }
+      // using actedOrMissed to set equal to missed
+      if( actedOrMissed == "missed" ) {
+        var delta = actionInfo.moodDeltas.missed;
+      } else {
+        var delta = actionInfo.moodDeltas.acted;
+      }
 
         if(now > this.timeLastExecuted + msUntilMissed) {
-            console.log("if ran");
-            //+= actionInfo.moodDeltas.missed 
             if(this.mood + delta < 0){
                 this.mood = 0;
             } else {
@@ -103,21 +116,18 @@ angular.module("VirtualPetApp")
   this.checkForUpdate = function() {
           console.log("fire");
           //loop?
-          this.calcMood("feed", "missed");
+          this.calcStats("feed", "missed");
 
       // this.getStats()
       //     .then(function(stats) {
-      //         this.calMood(stats.activity);
+      //         this.calcStats(stats.activity);
       //     }.bind(this));
 
 
 
       // get stats from db
       // do calculations
-      // if missed acition broadcast "miss" to stats component
-          //>> if currentTime-nextTime = 0
-          // then sets action's next time
-      // if stats are different broadcast to components for update
+      // if change broadcast and change inside db
   }.bind(this);
 
   // game loop, where should this be called?
