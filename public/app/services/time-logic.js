@@ -28,29 +28,38 @@ angular.module("VirtualPetApp")
 	this.actionBy = {
 		sleep: {
 			hours: 10,
-			mood: {
+			health: {
 				missed: .25,
-				acted: .15,
+				acted: .125,
+				effect: 0
 			}, 
 		},
 		feed: {
 			hours: 4,
 			mood: {
 				missed: .25,
-				acted: .15,
+				acted: .125,
+				effect: 0
+			},
+			health: {
+				missed: .25,
+				acted: .125,
+				effect: 0
 			}
 		},
 		clean: {
 			hours: millisecondHr/4,
 			health: {
 				missed: .25,
+				effect: 0
 			}
 		},
 		exercise: {
 			hours: 4
 			health: {
 				missed: .15,
-				acted: .5
+				acted: .75,
+				effect: 0
 			}
 		},
 		nurse: {
