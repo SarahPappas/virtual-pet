@@ -8,7 +8,8 @@
 
     function Feed(ApplicationService, $scope) {
         var feed = this;
-        feed.stats = {};
+
+        // <-------- the only thing the feed needs to do is update server on click ------->
         feed.data = ApplicationService;
 
         $scope.$on("update", function(event, args) {
@@ -18,13 +19,8 @@
             console.log("feed", feed.data)
             $scope.$apply();
         })
+        // <--------- remove above, update function below that runs on click -------->
 
-
-        ApplicationService.getStats()
-            .then(function() {
-                //this path may need to change
-                data.pet.stats.feed = feed.stats
-            });
 
         //function to run on click
         feed.feeding = function () {

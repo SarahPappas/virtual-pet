@@ -3,6 +3,9 @@ angular.module("VirtualPetApp")
 
     this.msPerHour = 1000 * 60 * 60;
 
+    //for testing
+    this.timeLastExecuted = Date.now();
+
     // constants
     this.actionInfos = {
         sleep: {
@@ -47,27 +50,36 @@ angular.module("VirtualPetApp")
 
     this.checkForUpdate = function() {
             console.log("fire");
-    
-            this.mood +=5;
-            this.health +=10;
 
-            $rootScope.$broadcast("update", this);
+            var run = function() {
+                console.log("Run ran");
+                var now = Date.now();
+                
+                var actionInfo = this.actionInfos.feed;
+                var msUntilMissed = actionInfo.msUntilMissed;
+                if(now > this.timeLastExecuted + msUntilMissed) {
+                    console.log("if ran");
+                    this.mood += actionInfo.moodDeltas.missed;
+                    this.health += actionInfo.healthDeltas.missed;
+                    $rootScope.$broadcast("update", this);
+                }
+            }.bind(this)();
 
-            console.log("mood", this.mood);
-            console.log("health", this.health);
-            console.log(this);
 
         // this.getStats()
         //     .then(function(stats) {
-        //         var timeLastExecuted = new Date().now();
-        //         var now = new Date().now();
+        //         var timeLastExecuted = new Date();
+        //         var now = new Date();
         //         var actionInfo = this.actionInfos.feed;
         //         var msUntilMissed = actionInfo.msUntilMissed;
         //         if(now > timeLastExecuted + msUntilMissed) {
         //             this.mood += actionInfo.moodDeltas.missed;
         //             this.health += actionInfo.healthDeltas.missed;
+        //             $rootScope.$broadcast("update", this);
         //         }
         //     }.bind(this));
+
+
 
         // get stats from db
         // do calculations
