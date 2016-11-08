@@ -1,38 +1,43 @@
-<button ng-click="SignUpCtrl.clickLogin()">Login</button>
-<button ng-click="SignUpCtrl.clickSignUp()">Sign Up</button>
-
+<div id="home-buttons">
+  <button class="home-button" ng-click="SignUpCtrl.clickLogin()">Login</button>
+  <button class="home-button" ng-click="SignUpCtrl.clickSignUp()">Sign Up</button>
+</div>
 <!-- SIGN UP FORM -->
-<form ng-if="SignUpCtrl.signingUp" ng-submit="SignUpCtrl.createUser()">
-	<h3>Sign Up</h3>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" class="form-control" id="email" placeholder="test@test.com" ng-model="SignUpCtrl.newUser.email">
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" placeholder="********" ng-model="SignUpCtrl.newUser.password">
-  </div>
-  <h4>Pick Your Pet</h4>
-  <img style="display: inline" src="http://pngimg.com/upload/dog_PNG2446.png">
-  <img style="display: inline" src="http://orig10.deviantart.net/a9a9/f/2013/228/4/d/cat_cute_rolling_png_by_princessbubblegum5-d6igiqf.png">
-  <input type="radio" ng-model="SignUpCtrl.newUser.pet.species" name="pet" value="dog" checked> Dog<br>
-  <input type="radio" ng-model="SignUpCtrl.newUser.pet.species" name="pet" value="cat"> Cat<br> 
-  <label for="petName">Pet's Name: </label>
-  <input type="text" ng-model="SignUpCtrl.newUser.pet.petname" name="petName">
-  <button type="submit" class="btn btn-primary">Start!</button>
-</form>
 
+<div id="home-form">
+  <form class="home-form" ng-if="SignUpCtrl.signingUp" ng-submit="SignUpCtrl.createUser()">
+    <hr>
+  	<h3>Sign Up</h3>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="test@test.com" ng-model="SignUpCtrl.newUser.email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="********" ng-model="SignUpCtrl.newUser.password">
+    </div>
+    <h4>Pick Your Pet</h4>
+    <img style="display: inline" src="http://pngimg.com/upload/dog_PNG2446.png">
+    <img style="display: inline" src="http://orig10.deviantart.net/a9a9/f/2013/228/4/d/cat_cute_rolling_png_by_princessbubblegum5-d6igiqf.png">
+    <input type="radio" ng-model="SignUpCtrl.newUser.pet.species" name="pet" value="dog" checked> Dog<br>
+    <input type="radio" ng-model="SignUpCtrl.newUser.pet.species" name="pet" value="cat"> Cat<br> 
+    <label for="petName">Pet's Name: </label>
+    <input type="text" ng-model="SignUpCtrl.newUser.pet.petname" name="petName">
+    <button type="submit" class="btn btn-primary">Start!</button>
+  </form>
 
-<!-- LOGIN FORM -->
-<form ng-if="SignUpCtrl.loggingIn" ng-submit="SignUpCtrl.loginUser()">
-	<h3>Login</h3>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" class="form-control" id="email" placeholder="test@test.com" ng-model="SignUpCtrl.loginInfo.email">
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" placeholder="********" ng-model="SignUpCtrl.loginInfo.password">
-  </div>
-  <button type="submit" class="btn btn-primary">Login</button>
-</form>
+  <!-- LOGIN FORM -->
+  <form class="home-form" ng-if="SignUpCtrl.loggingIn" ng-submit="SignUpCtrl.loginUser()">
+    <hr>
+  	<h3>Login</h3>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="test@test.com" ng-model="SignUpCtrl.loginInfo.email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="********" ng-model="SignUpCtrl.loginInfo.password">
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+</div>
