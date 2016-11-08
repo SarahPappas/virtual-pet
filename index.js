@@ -15,8 +15,10 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
+
 app.use('/api/users', expressJWT({secret: secret}).unless({
-  path: [{ url: '/api/users', methods: ['POST'] }]
+  path: [{ url: '/api/users', methods: ['POST'] },
+  {url: '/api/users/auth', methods: ['POST'] }]
 }), require('./controllers/users'));
 
 app.use(function (err, req, res, next) {
