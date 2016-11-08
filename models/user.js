@@ -5,32 +5,29 @@ var UserSchema = mongoose.Schema({
     email: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
     pet : {
-      petname: "",
-      type: "",
+      petname: String,
+      type: String,
+      health: Number,
+      mood: Number,
       stats: [
         {
           name: String,
-          next: Date,
           last: Date
         },
         {
           name: String,
-          next: Date,
           last: Date
         },
         {
           name: String,
-          next: Date,
           last: Date
         },
         {
           name: String,
-          next: Date,
           last: Date
         },
         {
           name: String,
-          next: Date,
           last: Date
         }
       ]
