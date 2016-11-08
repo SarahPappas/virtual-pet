@@ -1,47 +1,29 @@
 angular.module("VirtualPetApp")
-.service("TimeLogicService", ["$http", function($http) {
+.service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
 
-	this.millisecondHr = 3600000;
-
+	this.msPerHour = 1000 * 60 * 60;
 
 	// constants 
-	this.actionBy = {
+	this.actionInfos = {
 		sleep: {
-			hours: 10,
-			health: {
-				missed: .25,
-				acted: .125,
-			}, 
 		},
 		feed: {
-			hours: 4,
-			mood: {
-				missed: .25,
-				acted: .125,
+			msUntilNeeded: 4 * this.msPerHour,
+			msUntilMissed: 5 * this.msPerHour,
+			moodDeltas: {
+				missed: -20,
+				acted: 10,
 			},
-			health: {
-				missed: .25,
-				acted: .125,
+			healthDeltas: {
+				missed: -20,
+				acted: 10,
 			}
 		},
 		clean: {
-			hours: millisecondHr/4,
-			health: {
-				missed: .25,
-			}
 		},
 		exercise: {
-			hours: 4
-			health: {
-				missed: .15,
-				acted: .75,
-			}
 		},
 		nurse: {
-			hours: 0;
-			health: {
-				acted: Math.random() * (1 - .5) + .5;
-			}
 		}
 	}
 
@@ -61,38 +43,30 @@ angular.module("VirtualPetApp")
 		return $http.put("/api/users");
 	};
 
-	// var feedTimeoutID;
-	// var playTimeoutID;
-	// var sleepTimeoutID;
-	// var exerciseTimeoutID;
-	// var cleanTimeoutID;
-	// var gameoverTimeoutID;
-
-	// Interval or game loop
-	// function feedTimeout(timeToFeed) {
-	//   feedTimeoutID = window.setTimeout(function() {}
-	//   	, timeToFeed);
-	// }
-
-
-	this.gameLoop = function() {
-
-	}
-
 	// game loop, where should this be called?
-	setInterval(checkForUpdate, 60);
+	setInterval(checkForUpdate, 3000);
 
 	function checkForUpdate() {
-		// get stats from db, if they are 
+		this.getStats()
+			.then(function(stats) {
+				var timeLastExecuted = new Date().now();
+				var now = new Date().now();
+				var actionInfo = this.actionInfos.feed;
+				var msUntilMissed = actionInfo.msUntilMissed;
+				if(now > timeLastExecuted + msUntilMissed) {
+					this.mood += actionInfo.moodDeltas.missed;
+					this.health += actionInfo.healthDeltas.missed;
+				}
+			}.bind(this));
+
+		// get stats from db 
 		// do calculations
+		// if missed acition broadcast "miss" to stats component
+			//>> if currentTime-nextTime = 0	
+			// then sets action's next time
 		// if stats are different broadcast to components for update
 	}
 
-	this.isGameover = function() {
-		//call from heealth ctroller
-	}
-
-	this.mood;
-	this.health;
-
+	this.mood = 100;
+	this.health = 100;
 }]);
