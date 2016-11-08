@@ -6,13 +6,14 @@ var UserSchema = mongoose.Schema({
     password: { type: String, required: true },
     pet : {
       petname: String,
-      type: String,
+      species: String,
       health: Number,
       mood: Number,
       stats: [
         {
           name: String,
-          last: Date
+          last: Date,
+          isSleeping: Boolean
         },
         {
           name: String,

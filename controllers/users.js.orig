@@ -17,11 +17,16 @@ router.route('/')
       if (user) return res.status(400).send({ message: 'Email already exists' });
 
       User.create(req.body, function(err, user) {
+<<<<<<< .merge_file_eSAqM0
+        console.log("post backend", req.body);
+        if (err) return res.status(500).send(err);
+=======
         console.log("tried to create user");
         if (err) {
           console.log("create user err:", err);
           return res.status(500).send(err);
         }
+>>>>>>> .merge_file_9a4qgI
 
         console.log("created user", user);
         return res.send(user);
