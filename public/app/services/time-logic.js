@@ -102,6 +102,7 @@ angular.module("VirtualPetApp")
 
   this.checkForUpdate = function() {
           console.log("fire");
+          //loop?
           this.calcMood("feed", "missed");
 
       // this.getStats()
