@@ -1,37 +1,16 @@
 angular.module("VirtualPetApp")
 .service("TimeLogicService", ["$http", function($http) {
-	this.pet = [
-		sleep: {
-			last: "",
-			next: ""
-		},
-		feed: {
-			last: "",
-			next: ""
-		},
-		clean: {
-			last: "",
-			next: ""
-		},
-		exercise: {
-			last: "",
-			next: ""
-		},
-		nurse: {
-			last: "",
-			next: ""
-		],
-	};
 
-	var millisecondHr = 3600000;
+	this.millisecondHr = 3600000;
 
+
+	// constants 
 	this.actionBy = {
 		sleep: {
 			hours: 10,
 			health: {
 				missed: .25,
 				acted: .125,
-				effect: 0
 			}, 
 		},
 		feed: {
@@ -39,19 +18,16 @@ angular.module("VirtualPetApp")
 			mood: {
 				missed: .25,
 				acted: .125,
-				effect: 0
 			},
 			health: {
 				missed: .25,
 				acted: .125,
-				effect: 0
 			}
 		},
 		clean: {
 			hours: millisecondHr/4,
 			health: {
 				missed: .25,
-				effect: 0
 			}
 		},
 		exercise: {
@@ -59,7 +35,6 @@ angular.module("VirtualPetApp")
 			health: {
 				missed: .15,
 				acted: .75,
-				effect: 0
 			}
 		},
 		nurse: {
@@ -71,6 +46,7 @@ angular.module("VirtualPetApp")
 	}
 
 	// call onlogin, setTimeouts
+	// gets all stats
 	this.getStats = function() {
 		return $http({
 			url: "/api/users",
@@ -85,12 +61,12 @@ angular.module("VirtualPetApp")
 		return $http.put("/api/users");
 	};
 
-	var feedTimeoutID;
-	var playTimeoutID;
-	var sleepTimeoutID;
-	var exerciseTimeoutID;
-	var cleanTimeoutID;
-	var gameoverTimeoutID;
+	// var feedTimeoutID;
+	// var playTimeoutID;
+	// var sleepTimeoutID;
+	// var exerciseTimeoutID;
+	// var cleanTimeoutID;
+	// var gameoverTimeoutID;
 
 	// Interval or game loop
 	// function feedTimeout(timeToFeed) {
@@ -98,8 +74,22 @@ angular.module("VirtualPetApp")
 	//   	, timeToFeed);
 	// }
 
-	function isGameover(){
-		//call health
+
+	this.gameLoop = function() {
+
+	}
+
+	// game loop, where should this be called?
+	setInterval(checkForUpdate, 60);
+
+	function checkForUpdate() {
+		// get stats from db, if they are 
+		// do calculations
+		// if stats are different broadcast to components for update
+	}
+
+	this.isGameover = function() {
+		//call from heealth ctroller
 	}
 
 	this.mood;
