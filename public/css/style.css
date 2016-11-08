@@ -1,7 +1,10 @@
 /*  MAIN  */
 body {
 	background-image: url('/img/bg2.jpg');
+	background-repeat:no-repeat;
 	background-position: top center;
+	background-attachment: fixed;
+	margin: 0;
 }
 #game {
 margin: 45px auto;
@@ -19,6 +22,132 @@ overflow: hidden;
 	top:30px;
 	overflow: hidden;
 }
+h1 {
+	font-family:'Comfortaa';
+	color:white;
+	text-shadow: 2px 2px 2px #78909c;
+	font-size: 50pt;
+}
+#home {
+	margin: 0 auto;
+	width: 500px;
+	min-height:500px;
+	text-align:center;
+	padding:30px;
+	background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.5)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.5)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.5)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.5)); /* Standard syntax (must be last) */
+}
+
+
+
+/*  LOGIN/SIGNUP FORMS  */
+#home-form {
+	text-align:center;
+}
+.home-button {
+	background-color:#1fbee8;
+	border:none;
+	width:180px;
+	height: 50px;
+	font-family: 'Comfortaa';
+	font-size:18pt;
+	border-radius:8px;
+	text-transform:uppercase;
+	margin:10px;
+	color:white;
+}
+.home-button:hover{
+	background-color:#ffca28;
+	color:#fff;
+}
+.home-form {
+	text-align:center;
+	font-family: 'Comfortaa';
+	font-weight: 700;
+	font-size:12pt;
+	color:#fff;
+}
+.home-form h3 {
+	font-family: 'Comfortaa';
+	font-size:30pt;
+	color: #fff;
+	text-shadow: 1px 1px 1.5px #546e7a;
+	/*border-bottom:2px solid white;*/
+}
+.home-form h4 {
+	font-family: 'Comfortaa';
+	font-size:22pt;
+	color: #fff;
+}
+#home-form label {
+	color:#1fbee8;
+	display:block;
+	text-align:left;
+	font-family: 'Comfortaa';
+	font-weight: 700;
+	font-size:12pt;
+	text-transform:uppercase;
+	padding-bottom:8px;
+	margin-left:60px;
+}
+.home-form input,
+.home-form textarea {
+  width: 350px;
+  border: none;
+  border-bottom: 2px solid #1fbee8;
+  /*left: 25px;*/
+  padding: 14px;
+  padding-bottom:5px;
+  margin-bottom:20px;
+  font-family: 'Comfortaa';
+  font-weight:300;
+  font-color:#1583a0;
+  text-transform: uppercase;
+  font-size:20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+.home-form input:focus {
+	border-bottom:4px solid #ffca28;
+}
+.home-form button{
+	background-color:#1fbee8;
+	border:none;
+	width:120px;
+	height:36px;
+	font-family: 'Comfortaa';
+	font-size:15pt;
+	border-radius:5px;
+	text-transform:uppercase;
+	margin:4px;
+	color:white;
+}
+.home-form button:hover{
+	background-color:#ffca28;
+	color:#fff;
+}
+hr {
+	background-color: rgba(255, 255, 255, 0.5);
+	width:450px;
+	margin-top:40px;
+	border:none;
+	height:2px;
+}
+::-webkit-input-placeholder {
+   color: #ffca28;
+}
+:-moz-placeholder {
+   color: #ffca28;  
+}
+::-moz-placeholder {  
+   color: #ffca28;  
+}
+:-ms-input-placeholder {  
+   color: #ffca28;  
+}
+
 /*  STATS BAR  */
 #stats {
 	position: relative;
