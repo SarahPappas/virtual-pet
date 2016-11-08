@@ -6,10 +6,19 @@
         controllerAs: "feed"
     });
 
-    function Feed(ApplicationService) {
+    function Feed(ApplicationService, $scope) {
         var feed = this;
         feed.stats = {};
         feed.data = ApplicationService;
+
+        $scope.$on("update", function(event, args) {
+            console.log("caught braodcast");
+            console.log("args", args);
+            feed.data = args;
+            console.log("feed", feed.data)
+            $scope.$apply();
+        })
+
 
         ApplicationService.getStats()
             .then(function() {
@@ -21,12 +30,12 @@
         feed.feeding = function () {
             // update database,
             var msUntilNeeded = ApplicationService.actionInfos.feed.msUntilNeeded;
-            ApplicationService.saveStats("feed", date.now(), date.now() + msUntilNeeded);
+            ApplicationService.saveStats("feed", date.now());
             //exectue game loop and game loop will braodcast if changes?
         };
 
     }
 
-    Feed.$inject = ["ApplicationService"];
+    Feed.$inject = ["ApplicationService", "$scope"];
 
 })()

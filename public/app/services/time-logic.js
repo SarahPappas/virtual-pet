@@ -9,8 +9,8 @@ angular.module("VirtualPetApp")
         },
         feed: {
             // msUntilNeeded: 4 * this.msPerHour,
-            msUntilMissed: 1000,
-            msUntilMissed: 5 * this.msPerHour,
+            msUntilMissed: 10000,
+            // msUntilMissed: 5 * this.msPerHour,
             moodDeltas: {
                 missed: -20,
                 acted: 10,
@@ -39,26 +39,35 @@ angular.module("VirtualPetApp")
         });
     };
 
-    this.saveStats = function(activity, lastDate, nextDate) {
+    this.saveStats = function(activity, lastDate) {
         // finish put route for stats
         return $http.put("/api/users");
     };
 
-    // game loop, where should this be called?
-    setInterval(checkForUpdate, 3000);
 
-    function checkForUpdate() {
-        this.getStats()
-            .then(function(stats) {
-                var timeLastExecuted = new Date().now();
-                var now = new Date().now();
-                var actionInfo = this.actionInfos.feed;
-                var msUntilMissed = actionInfo.msUntilMissed;
-                if(now > timeLastExecuted + msUntilMissed) {
-                    this.mood += actionInfo.moodDeltas.missed;
-                    this.health += actionInfo.healthDeltas.missed;
-                }
-            }.bind(this));
+    this.checkForUpdate = function() {
+            console.log("fire");
+    
+            this.mood +=5;
+            this.health +=10;
+
+            $rootScope.$broadcast("update", this);
+
+            console.log("mood", this.mood);
+            console.log("health", this.health);
+            console.log(this);
+
+        // this.getStats()
+        //     .then(function(stats) {
+        //         var timeLastExecuted = new Date().now();
+        //         var now = new Date().now();
+        //         var actionInfo = this.actionInfos.feed;
+        //         var msUntilMissed = actionInfo.msUntilMissed;
+        //         if(now > timeLastExecuted + msUntilMissed) {
+        //             this.mood += actionInfo.moodDeltas.missed;
+        //             this.health += actionInfo.healthDeltas.missed;
+        //         }
+        //     }.bind(this));
 
         // get stats from db
         // do calculations
@@ -66,7 +75,10 @@ angular.module("VirtualPetApp")
             //>> if currentTime-nextTime = 0
             // then sets action's next time
         // if stats are different broadcast to components for update
-    }
+    }.bind(this);
+
+    // game loop, where should this be called?
+    setInterval(this.checkForUpdate, 3000);
 
     this.mood = 100;
     this.health = 100;
