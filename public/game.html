@@ -1,0 +1,53 @@
+<!-- KEEP THIS FILE for now  -->
+<!-- (Kim is using for testing. Will delete at the end) -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Virtual Pet Game</title>
+	<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+	<div id="game">
+		<!-- STATS BAR -->
+		<div id="stats">
+			<div id="health-stats">
+				<div id="health-stats-icon"></div>
+				<div class="stats-bar"></div>
+				<div class="stats-bar"></div>
+				<div class="stats-bar"></div>
+				<div class="stats-bar"></div>
+			</div>
+			<div id="mood-stats">
+				<div id="mood-stats-icon"></div>
+				<div class="stats-bar"></div>
+				<div class="stats-bar"></div>
+				<div class="stats-bar"></div>
+				<div class="stats-bar"></div>
+			</div>
+		</div>
+		<!-- LEFT NAV -->
+		<div id="left-nav">
+			<div class="nav nav-feed"></div>
+			<div class="nav nav-game"></div>
+			<div class="nav nav-train"></div>
+		</div>
+		<!-- GAME AREA -->
+		<div id="gameplay">
+			<feed ng-show="state.params.activity == 'feed'"></feed>
+			<clean ng-show="state.params.activity == 'clean'"></clean>
+			<exercise ng-show="state.params.activity == 'exercise'"></exercise>
+			<gameover ng-show="state.params.activity == 'gameover'"></gameover>
+			<nurse ng-show="state.params.activity == 'nurse'"></nurse>
+			<sleep ng-show="state.params.activity == 'sleep'"></sleep>
+			<stats ng-show="state.params.activity == 'stats'"></stats>
+		</div>
+		<!-- RIGHT NAV -->
+		<div id="right-nav">
+			<div class="nav nav-nurse"></div>
+			<div class="nav nav-clean"></div>
+			<div class="nav nav-sleep"></div>
+		</div>
+	</div>
+</body>
+</html>
