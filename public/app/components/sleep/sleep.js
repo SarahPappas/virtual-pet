@@ -14,7 +14,7 @@
 
     sleep.petSleeping = function() {
       sleep.sleeping = !sleep.sleeping;
-      if(currentDate > (ApplicationService.pet.feed.last + 72000000 {
+      if(currentDate > (ApplicationService.pet.feed.last + 72000000)) {
         ApplicationService.minusHealth()
       }
     } 
