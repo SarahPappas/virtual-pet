@@ -19,6 +19,12 @@ app.use('/api/users', expressJWT({secret: secret}).unless({
   path: [{ url: '/api/users', methods: ['POST'] }]
 }), require('./controllers/users'));
 
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).send({ message: 'You need a login token to view this page.' });
+  }
+});
+
 
 app.get("/*", function(req, res) {
 	console.log("hello from the backend");
