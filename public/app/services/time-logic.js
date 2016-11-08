@@ -54,12 +54,13 @@ angular.module("VirtualPetApp")
       return $http.put("/api/users");
   };
 
-  this.onClick = function(currentActivity, data){
-        this.calcMood(currentActivity);
+  this.onClick = function(currentActivity){
+    this.calcMood(currentActivity);
   
   }.bind(this);
 
   this.calcMood = function(activity) {
+
       var now = Date.now();
       console.log(activity);
       console.log(this.actionInfos[activity]);
