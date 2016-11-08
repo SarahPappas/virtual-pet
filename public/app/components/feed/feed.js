@@ -22,7 +22,7 @@
         // <--------- remove above, update function below that runs on click -------->
 
         feed.feeding = function() {
-            ApplicationService.onClick("feed");
+            ApplicationService.onClick("feed", "acted");
         }
 
         // //function to run on click

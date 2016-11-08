@@ -49,9 +49,18 @@ angular.module("VirtualPetApp")
       });
   };
 
-  this.saveStats = function(activity, lastDate) {
+  this.saveStats = function(activity, lastDate, mood, health) {
       // finish put route for stats
-      return $http.put("/api/users");
+      return $http({
+        url: "/api/users/stats",
+        method: "PUT",
+        data: {
+          activity: activity,
+          lastTime: lastDate,
+          mood: mood,
+          health: health
+        }
+      });
   };
 
   this.onClick = function(currentActivity){
@@ -59,36 +68,41 @@ angular.module("VirtualPetApp")
   
   }.bind(this);
 
-  this.calcMood = function(activity) {
+  this.calcMood = function(activity, actedOrMissed) {
 
       var now = Date.now();
       console.log(activity);
       console.log(this.actionInfos[activity]);
       var actionInfo = this.actionInfos[activity];
       var msUntilMissed = actionInfo.msUntilMissed;
+      var delta = actionInfo.moodDeltas.missed;
+        if(actedOrMissed == "missed") {
+          var delta = actionInfo.moodDeltas.missed;
+        } else {
+          var delta = actionInfo.moodDeltas.acted;
+        }
 
-     
-          if(now > this.timeLastExecuted + msUntilMissed) {
-              console.log("if ran");
-              //+= actionInfo.moodDeltas.missed 
-              if(this.mood + actionInfo.moodDeltas.missed < 0){
-                  this.mood = 0;
-              } else {
-                  this.mood += actionInfo.moodDeltas.missed;
-              }
-              if(this.health + actionInfo.healthDeltas.missed < 0){
-                  this.health = 0
-              } else {
-                  this.health += actionInfo.healthDeltas.missed;
-              }
-              $rootScope.$broadcast("update", this);
-          }
+        if(now > this.timeLastExecuted + msUntilMissed) {
+            console.log("if ran");
+            //+= actionInfo.moodDeltas.missed 
+            if(this.mood + delta < 0){
+                this.mood = 0;
+            } else {
+                this.mood += delta;
+            }
+            if(this.health + delta < 0){
+                this.health = 0
+            } else {
+                this.health += delta;
+            }
+            $rootScope.$broadcast("update", this);
+        }
   }.bind(this);
 
 
   this.checkForUpdate = function() {
           console.log("fire");
-          this.calcMood("feed");
+          this.calcMood("feed", "missed");
 
       // this.getStats()
       //     .then(function(stats) {
