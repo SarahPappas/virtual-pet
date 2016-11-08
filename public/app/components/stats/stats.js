@@ -41,8 +41,8 @@
         }
       return $http({
         method: 'PUT',
-        url: '/api/users',
-        data: {mood: mood, food: foodMoodUp, play: playMaxUp}
+        url: '/api/users/stats',
+        data: {mood: mood}
       });    
     }
 
@@ -76,8 +76,8 @@
       }
       return $http({
         method: 'PUT',
-        url: '/api/users',
-        data: {health: health, food: foodMaxUp, sleep: sleepMaxUp, clean: cleanMaxUp}
+        url: '/api/users/stats',
+        data: {health: health}
       });    
     }
 
