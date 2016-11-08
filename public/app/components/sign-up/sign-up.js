@@ -6,7 +6,7 @@
     controllerAs: 'SignUpCtrl'
   });
 
-  function SignUpCtrl($http){
+  function SignUpCtrl($http, $state){
     console.log("SignUpCtrl loaded!");
     var SignUpCtrl = this;
 
@@ -26,7 +26,38 @@
 
   SignUpCtrl.newUser = {
     email: "",
-    password: ""
+    password: "",
+    pet : {
+      petname: "",
+      type: "",
+      stats: [
+        {
+          name: "sleep",
+          next: null,
+          last: null
+        },
+        {
+          name: "feed",
+          next: null,
+          last: null
+        },
+        {
+          name: "clean",
+          next: null,
+          last: null
+        },
+        {
+          name: "excercise",
+          next: null,
+          last: null
+        },
+        {
+          name: "nurse",
+          next: null,
+          last: null
+        }
+      ]
+    }
   };
 
   SignUpCtrl.loginInfo = {
@@ -38,6 +69,7 @@
     $http.post('/api/users', SignUpCtrl.newUser)
     .then(function success(res){
       console.log("success: " + res);
+      $state.go('play');
     }, function error(err){
       console.log("error: " + err);
     })
@@ -61,6 +93,6 @@
   }
 
 
-  SignUpCtrl.$inject = ['$http'];
+  SignUpCtrl.$inject = ['$http', '$state'];
 }
 })()

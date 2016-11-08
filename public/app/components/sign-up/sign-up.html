@@ -12,8 +12,16 @@
     <label for="password">Password</label>
     <input type="password" class="form-control" id="password" placeholder="********" ng-model="SignUpCtrl.newUser.password">
   </div>
-  <button type="submit" class="btn btn-primary">Signup</button>
+  <h4>Pick Your Pet</h4>
+  <img style="display: inline" src="http://pngimg.com/upload/dog_PNG2446.png">
+  <img style="display: inline" src="http://orig10.deviantart.net/a9a9/f/2013/228/4/d/cat_cute_rolling_png_by_princessbubblegum5-d6igiqf.png">
+  <input type="radio" ng-model="SignUpCtrl.newUser.pet.type" name="pet" value="dog" checked> Dog<br>
+  <input type="radio" ng-model="SignUpCtrl.newUser.pet.type" name="pet" value="cat"> Cat<br> 
+  <label for="petName">Pet's Name: </label>
+  <input type="text" ng-model="SignUpCtrl.newUser.pet.petname" name="petName">
+  <button type="submit" class="btn btn-primary">Start!</button>
 </form>
+
 
 <!-- LOGIN FORM -->
 <form ng-if="SignUpCtrl.loggingIn" ng-submit="SignUpCtrl.loginUser()">
@@ -26,5 +34,5 @@
     <label for="password">Password</label>
     <input type="password" class="form-control" id="password" placeholder="********" ng-model="SignUpCtrl.loginInfo.password">
   </div>
-  <button type="submit" class="btn btn-primary">Signup</button>
+  <button type="submit" class="btn btn-primary">Login</button>
 </form>
