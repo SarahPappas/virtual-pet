@@ -1,0 +1,54 @@
+
+/*SLEEP ANIMATION*/
+/*.sleep-anim {
+  width: 329px;
+  height: 270px;
+  margin: 2% auto;
+  background: url('/img/animation/sleepsheet.png') left center;
+  animation: play 5s steps(4) infinite;
+  margin-top:90px;
+}
+@keyframes play {
+	100% { background-position: -1318px; }
+}*/
+
+
+/*DEFAULT ANIMATION*/
+/*.default-anim {
+  width: 229px;
+  height: 304px;
+  margin: 2% auto;
+  background: url('/img/defaultsheet.png') left center;
+  animation: play 6s steps(8) infinite;
+  margin-top:90px;
+}
+@keyframes play {
+	100% { background-position: -1830px; }
+}*/
+
+/*DEFAULT ANIMATION 2*/
+.default-anim {
+  width: 229px;
+  height: 304px;
+  margin: 2% auto;
+  background: url('/img/animation/defaultsheet3.png') left center;
+  animation: play 6s steps(12) infinite;
+  margin-top:90px;
+}
+@keyframes play {
+	100% { background-position: -2746px; }
+}
+
+
+
+/*FEED ANIMATION*/
+/*.feed-anim {
+  width: 322px;
+  height: 265px;
+  margin: 2% auto;
+  background: url('/img/feedsheet2.png') left center;
+  animation: play 4s steps(10) infinite;
+}
+@keyframes play {
+	100% { background-position: -3236px; }
+}*/
