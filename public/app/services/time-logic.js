@@ -9,6 +9,8 @@ angular.module("VirtualPetApp")
     }
   }  
   
+  // for testing
+  this.isSleeping = true;
 
   this.msPerHour = 1000 * 60 * 60;
 
@@ -17,6 +19,8 @@ angular.module("VirtualPetApp")
   this.actionInfos = {
       sleep: {
         msUntilMissed: 6000,
+        // 10 * this.msPerHour
+        msSleeping: 10000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -52,12 +56,14 @@ angular.module("VirtualPetApp")
   // gets all stats
   this.getStats = function() {
       return $http({
-          url: "/api/users",
+          url: "/api/users/stats",
           method: "GET"
-      }).then(function(res) {
-          return res.data;
       });
   };
+
+  // this.getStats().then(function(res) {
+  //   console.log("res from service", res);
+  // });
 
   this.saveStats = function(activity, lastDate, mood, health) {
       // finish put route for stats
@@ -88,6 +94,7 @@ angular.module("VirtualPetApp")
       var actionInfo = this.actionInfos[activity];
       // seting time untill missed
       var msUntilMissed = actionInfo.msUntilMissed;
+      var totalTime = this.timeLastExecuted + msUntilMissed;
       // setting delta
       var delta = actionInfo.moodDeltas.missed;
       // using actedOrMissed to set equal to missed
@@ -96,20 +103,28 @@ angular.module("VirtualPetApp")
       } else {
         var delta = actionInfo.moodDeltas.acted;
       }
+      
+      if (this.isSleeping) {
+        totalTime += this.actionInfos.sleep.msSleeping;
+      }
 
-        if(now > this.timeLastExecuted + msUntilMissed) {
-            if(this.mood + delta < 0){
-                this.mood = 0;
-            } else {
-                this.mood += delta;
-            }
-            if(this.health + delta < 0){
-                this.health = 0
-            } else {
-                this.health += delta;
-            }
-            $rootScope.$broadcast("update", this);
+      if (now > totalTime) {
+        if(this.mood + delta < 0){
+          this.mood = 0;
+        } else if (this.mood + delta >= 100) {
+          this.mood = 100;
+        } else {
+          this.mood += delta;
         }
+        if(this.health + delta < 0){
+          this.health = 0
+        } else if (this.health + delta >= 100) {
+          this.health = 100;
+        } else {
+          this.health += delta;
+        }
+        $rootScope.$broadcast("update", this);
+      }
   }.bind(this);
 
 

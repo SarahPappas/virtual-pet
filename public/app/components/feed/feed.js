@@ -12,6 +12,7 @@
         // <-------- the only thing the feed needs to do is update server on click ------->
         feed.data = ApplicationService;
 
+
         $scope.$on("update", function(event, args) {
             console.log("caught braodcast");
             console.log("args", args);
@@ -21,8 +22,13 @@
         })
         // <--------- remove above, update function below that runs on click -------->
 
+        ApplicationService.getStats()
+            .then(function(res) {
+                console.log(res);
+            });
+
         feed.feeding = function() {
-            ApplicationService.calcStasOnClick("feed", "acted");
+            ApplicationService.calcStatsOnClick("feed", "acted");
         }
 
         // //function to run on click
