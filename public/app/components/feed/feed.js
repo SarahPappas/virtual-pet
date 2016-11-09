@@ -21,17 +21,14 @@
         })
         // <--------- remove above, update function below that runs on click -------->
 
-        feed.feeding = function() {
-            ApplicationService.onClick("feed");
-        }
 
-        // //function to run on click
-        // feed.feeding = function () {
-        //     // update database,
-        //     var msUntilNeeded = ApplicationService.actionInfos.feed.msUntilNeeded;
-        //     ApplicationService.saveStats("feed", date.now());
-        //     //exectue game loop and game loop will braodcast if changes?
-        // };
+        //function to run on click
+        feed.feeding = function () {
+            // update database,
+            var msUntilNeeded = ApplicationService.actionInfos.feed.msUntilNeeded;
+            ApplicationService.saveStats("feed", date.now());
+            //exectue game loop and game loop will braodcast if changes?
+        };
 
     }
 
