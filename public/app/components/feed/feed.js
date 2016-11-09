@@ -16,7 +16,6 @@
         $scope.$on("update", function(event, args) {
             console.log("caught braodcast");
             console.log("args", args);
-            feed.data = args;
             console.log("feed", feed.data)
             $scope.$apply();
         })
@@ -24,7 +23,8 @@
 
         ApplicationService.getStats()
             .then(function(res) {
-                console.log(res);
+                console.log("this ran");
+                console.log("res", res);
             });
 
         feed.feeding = function() {

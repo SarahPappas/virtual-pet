@@ -68,7 +68,27 @@ router.route('/auth')
 
   router.route('/stats')
   .get(function(req, res) {
-    console.log("this is a route for editing stats");
+    //getting the stats for the current user3
+    var authHeader = req.headers.authorization;
+    var authHeaderParts = authHeader.split(" ");
+    var token = authHeaderParts[1];
+    jwt.verify(token, secret, function(err, decoded) {
+      var userId = decoded._doc._id;
+      User.findOne({_id: userId}, function(err, user) {
+        if (err) {
+          res.send(err);
+          return;
+        }
+
+        if (!user) {
+          res.send(404);
+          return;
+        }
+
+        console.log("backend get response firing", user);
+        res.send(user);
+      })
+    });
   })
   .put(function(req, res) {
     console.log(req.body);

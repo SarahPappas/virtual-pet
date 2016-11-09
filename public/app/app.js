@@ -14,6 +14,9 @@ angular.module("VirtualPetApp", ["ui.router"])
 
 	$locationProvider.html5Mode(true);
 }])
+.config(["$httpProvider", function($httpProvider){
+  $httpProvider.interceptors.push("AuthInterceptor");
+}]) 
 .run(["$rootScope", "$state", function($rootScope, $state) {
 	$rootScope.state = $state;
 }]);
