@@ -148,51 +148,6 @@ angular.module("VirtualPetApp")
   // game loop, where should this be called?
   setInterval(this.checkForUpdate, 3000);
 
-  this.mood = 100;
-  this.health = 100;
+  this.mood = 80;
+  this.health = 80;
 }]);
-
-
-//     function StatsCtrl(ApplicationService) {
-//     var health = 100;
-//     var mood = 100;
-//     var currentDate = Date.now();
-   
-//     function totalMood(playVar, feedVar) {
-//       ApplicationService.getStats();
-//       if (mood <= 0) {
-//         health -= 25;
-//       }
-//       else if(currentDate > ApplicationService.pet.feed.next) {
-//         mood -= 25;
-//       }
-//       }
-//       else if(currentDate > ApplicationService.pet.exercise.next) {
-//         mood -= 25;
-//       }
-//       return $http({
-//         method: 'PUT',
-//         url: '/api/users/stats',
-//         data: {mood: mood}
-//       });    
-//     }
-//     function totalHealth(ApplicationService) {
-//       ApplicationService.getStats()
-//       if(currentDate > ApplicationService.pet.sleep.next) {
-//         health -= 25;
-//       }
-//       else if(currentDate > ApplicationService.pet.clean.next) {
-//         health -= 25;
-//       }
-//       else if(currentDate > ApplicationService.pet.feed.next) {
-//         health -= 25;
-//       }
-//       return $http({
-//         method: 'PUT',
-//         url: '/api/users/stats',
-//         data: {health: health}
-//       });    
-//     }
-//     }
-// StatsCtrl.$inject = ['ApplicationService'];
-// })()
