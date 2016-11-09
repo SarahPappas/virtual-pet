@@ -47,22 +47,20 @@ router.route('/auth')
 
       if (!user) {
         console.log("email not found");
-        return res.status(400).send({ message: 'email not found' });
+        return res.status(400).send({ message: 'email not found', status: 400 });
       }
       
       console.log("authing");
       if (user.authenticated(req.body.password)) {
         console.log("authed");
-        if (err) {
-          console.log("auth failed");
-          return res.status(401).send({message: 'User not authenticated'});
-        }
-
         console.log("making token")
         var token = jwt.sign(user, secret);
         console.log("token:", token);
         res.send({user: user, token: token});
-      };
+      }
+      else{
+        return res.status(401).send({ message: 'email not found' });
+      }
     });
   });
 
@@ -91,23 +89,56 @@ router.route('/auth')
     });
   })
   .put(function(req, res) {
-    console.log(req.body);
-    console.log(req.body.data);
-    User.findOne({email : user.email}, function(err, user) {
-      if(req.data.health){user.pet.health = req.data.health};
-      if(req.data.mood){user.pet.mood = req.data.mood};
-      var activityId;
-      if(req.data.activity){
-        if(req.data.activity === 'feed'){activityId = 0};
-        if(req.data.activity === 'sleep'){activityId = 1};
-        if(req.data.activity === 'play'){activityId = 2};
-        if(req.data.activity === 'clean'){activityId = 3};
-        if(req.data.activity === 'nurse'){activityId = 4};
-      }
-      if(req.data.mhi){user.pet.stats[activityId].mhi += req.data.mhi};
-      if(req.data.mmi){user.pet.stats[activityId].mmi += req.data.mmi};
-      if(req.data.lastTime){user.pet.stats[activityId].lastTime = req.data.lastTime};
-    })
+    // header is sending password!!??
+    var authHeader = req.headers.authorization;
+    var authHeaderParts = authHeader.split(" ");
+    var token = authHeaderParts[1];
+    jwt.verify(token, secret, function(err, decoded) {
+      var userId = decoded._doc._id;
+      console.log("put backend", req.body);
+      console.log("put backend", req.body.activity);
+      // User.findOne({_id: userId}, function(err, user)
+      User.findOne({_id: userId}, function(err, user) {
+        if (err) {
+          res.send(err);
+          console.log(err);
+          return;
+        }
+        if (!user) {
+          res.send(404);
+          console.log(err);
+          return;
+        }
+        var activityId;
+        if(req.body.activity){
+          if(req.body.activity === 'sleep'){activityId = 0};
+          if(req.body.activity === 'feed'){activityId = 1};
+          if(req.body.activity === 'play'){activityId = 2};
+          if(req.body.activity === 'clean'){activityId = 3};
+          if(req.body.activity === 'nurse'){activityId = 4};
+        }
+        // if(req.body.mhi){user.pet.stats[activityId].mhi += req.body.mhi};
+        // if(req.body.mmi){user.pet.stats[activityId].mmi += req.body.mmi};
+        if(req.body.lastTime) {
+          user.pet.stats[activityId].last = req.body.lastTime;
+        }
+        console.log("req.body", req.body);
+        
+        if(req.body.health){
+          console.log("updating health");
+          user.pet.health = req.body.health
+        };
+        console.log(req.body.mood);
+        
+        if(req.body.mood){
+          console.log("updating mood");
+          user.pet.mood = req.body.mood
+        };
+        user.save(function() {
+          console.log("saved!!");
+        });
+      })
+    });
   })
 
 
