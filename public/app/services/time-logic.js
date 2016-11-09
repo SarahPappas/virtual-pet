@@ -1,22 +1,11 @@
 angular.module("VirtualPetApp")
 .service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
-  this.data = {
-    health: 100,
-    mood: 100,
-    stats: {
-      activity: "feed",
-      timeExecuted: Date.now()
-    }
-  }  
+  this.data = {};  
   
   this.mood = 100;
   this.health = 100;
-  // for testing
-  this.isSleeping = true;
-
   this.msPerHour = 1000 * 60 * 60;
 
-  this.timeLastExecuted = Date.now();
   // constants
   this.actionInfos = {
       sleep: {

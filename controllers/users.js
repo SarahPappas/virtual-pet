@@ -47,22 +47,20 @@ router.route('/auth')
 
       if (!user) {
         console.log("email not found");
-        return res.status(400).send({ message: 'email not found' });
+        return res.status(400).send({ message: 'email not found', status: 400 });
       }
       
       console.log("authing");
       if (user.authenticated(req.body.password)) {
         console.log("authed");
-        if (err) {
-          console.log("auth failed");
-          return res.status(401).send({message: 'User not authenticated'});
-        }
-
         console.log("making token")
         var token = jwt.sign(user, secret);
         console.log("token:", token);
         res.send({user: user, token: token});
-      };
+      }
+      else{
+        return res.status(401).send({ message: 'email not found' });
+      }
     });
   });
 
@@ -106,7 +104,6 @@ router.route('/auth')
           console.log(err);
           return;
         }
-
         if (!user) {
           res.send(404);
           console.log(err);
@@ -137,7 +134,6 @@ router.route('/auth')
           console.log("updating mood");
           user.pet.mood = req.body.mood
         };
-
         user.save(function() {
           console.log("saved!!");
         });

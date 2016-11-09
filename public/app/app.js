@@ -1,6 +1,6 @@
 angular.module("VirtualPetApp", ["ui.router"])
-.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", function($stateProvider, $urlRouterProvider, $locationProvider) {
-	$urlRouterProvider.otherwise("/");
+.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", '$httpProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+			$urlRouterProvider.otherwise("/");
 
 	$stateProvider
 	.state("home", {
