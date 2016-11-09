@@ -64,9 +64,9 @@ angular.module("VirtualPetApp")
       })
       .then(function(res) {
         if(!res) {
-          console.log("get no response", res);
+          
         } else {
-          console.log("response", res);
+          
         }
       });
   };
@@ -97,7 +97,7 @@ angular.module("VirtualPetApp")
   this.calcStats = function(activity, actedOrMissed) {
 
     var now = Date.now();
-    console.log(this.actionInfos[activity]);
+    
     // set action to passed action
     var actionInfo = this.actionInfos[activity];
     // seting time untill missed
