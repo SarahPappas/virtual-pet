@@ -1,125 +1,170 @@
 angular.module("VirtualPetApp")
-.service("TimeLogicService", ["$http", "authService", "$window", function($http, authService, $window) {
-	// this.pet = [
-	// 	sleep: {
-	// 		last: "",
-	// 		next: ""
-	// 	},
-	// 	feed: {
-	// 		last: "",
-	// 		next: ""
-	// 	},
-	// 	clean: {
-	// 		last: "",
-	// 		next: ""
-	// 	},
-	// 	exercise: {
-	// 		last: "",
-	// 		next: ""
-	// 	},
-	// 	nurse: {
-	// 		last: "",
-	// 		next: ""
-	// 	],
-	// };
-
-	var millisecondHr = 3600000;
-
-	this.actionBy = {
-		sleep: {
-			hours: 10,
-			health: {
-				missed: .25,
-				acted: .125,
-				effect: 0
-			}, 
-		},
-		feed: {
-			hours: 4,
-			mood: {
-				missed: .25,
-				acted: .125,
-				effect: 0
-			},
-			health: {
-				missed: .25,
-				acted: .125,
-				effect: 0
-			}
-		},
-		clean: {
-			hours: millisecondHr/4,
-			health: {
-				missed: .25,
-				effect: 0
-			}
-		},
-		exercise: {
-			hours: 4,
-			health: {
-				missed: .15,
-				acted: .75,
-				effect: 0
-			}
-		},
-		nurse: {
-			hours: 0,
-			health: {
-				acted: Math.random() * (1 - .5) + .5
-			}
-		}
-	}
-
-
-	// call onlogin, setTimeouts
-	this.getStats = function() {
-		var token = authService.getToken();
-		var payload = JSON.parse($window.atob(token.split('.')[1]));
-		var userEmail = payload._doc.email;
-		console.log("about to make request for current users stats");
-		console.log("get stats is using token:", token);
-		console.log("get stats is using payload:", payload);
-		$http.get('/api/users/getstats', userEmail)
-		.then(function(res) {
-			console.log("this is what came back");
-			console.log("This came from the backend: " + res);
-		});
-	};
-
-	this.saveStats = function(activity, lastDate, nextDate) {
-		// finish put route for stats
-		return $http.put("/api/users");
-	};
-
-	var feedTimeoutID;
-	var playTimeoutID;
-	var sleepTimeoutID;
-	var exerciseTimeoutID;
-	var cleanTimeoutID;
-	var gameoverTimeoutID;
-
-	// Interval or game loop
-	// function feedTimeout(timeToFeed) {
-	//   feedTimeoutID = window.setTimeout(function() {}
-	//   	, timeToFeed);
-	// }
-
-	function isGameover(){
-		//call health
-	}
-
-	this.mood;
-	this.health;
-
-}])
-.factory('AuthInterceptor', ['authService', function(authService) {
-  return {
-    request: function(config) {
-      var token = authService.getToken();
-      if(token) {
-        config.headers.Authorization = 'Bearer ' + token;
-      }
-      return config;
+.service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
+  this.data = {
+    health: 100,
+    mood: 100,
+    stats: {
+      activity: "feed",
+      timeExecuted: Date.now()
     }
+  }  
+  
+  // for testing
+  this.isSleeping = true;
+
+  this.msPerHour = 1000 * 60 * 60;
+
+  this.timeLastExecuted = Date.now();
+  // constants
+  this.actionInfos = {
+      sleep: {
+        msUntilMissed: 6000,
+        // 10 * this.msPerHour
+        msSleeping: 10000,
+        // msUntilMissed: 5 * this.msPerHour,
+        moodDeltas: {
+            missed: 0,
+            acted: 0,
+        },
+        healthDeltas: {
+            missed: -20,
+            acted: 10,
+        }
+      },
+      feed: {
+          // msUntilNeeded: 4 * this.msPerHour,
+          msUntilMissed: 6000,
+          // msUntilMissed: 5 * this.msPerHour,
+          moodDeltas: {
+              missed: -20,
+              acted: 10,
+          },
+          healthDeltas: {
+              missed: -20,
+              acted: 10,
+          }
+      },
+      clean: {
+      },
+      exercise: {
+      },
+      nurse: {
+      }
   }
+
+  // call onlogin, setTimeouts
+  // gets all stats
+  
+  this.getStats = function() {
+      return $http({
+          url: "/api/users/stats",
+          method: "GET"
+      })
+      .then(function(res) {
+        if(!res) {
+          console.log("get no response", res);
+        } else {
+          console.log("response", res);
+        }
+      });
+  };
+
+
+
+  this.saveStats = function(activity, lastDate, mood, health) {
+      // finish put route for stats
+      return $http({
+        url: "/api/users/stats",
+        method: "PUT",
+        data: {
+          activity: activity,
+          lastTime: lastDate,
+          mood: mood,
+          health: health
+        }
+      });
+  };
+
+  this.calcStatsOnClick = function(currentActivity){
+    this.calcStats(currentActivity);
+  }.bind(this);
+
+
+
+  this.calcStats = function(activity, actedOrMissed) {
+
+    var now = Date.now();
+    console.log(this.actionInfos[activity]);
+    // set action to passed action
+    var actionInfo = this.actionInfos[activity];
+    // seting time untill missed
+    var msUntilMissed = actionInfo.msUntilMissed;
+    var totalTime = this.timeLastExecuted + msUntilMissed;
+    // setting delta
+    var delta = actionInfo.moodDeltas.missed;
+    // using actedOrMissed to set equal to missed
+    if( actedOrMissed == "missed" ) {
+      var delta = actionInfo.moodDeltas.missed;
+    } else {
+      var delta = actionInfo.moodDeltas.acted;
+    }
+    
+    if (this.isSleeping) {
+      totalTime += this.actionInfos.sleep.msSleeping;
+    }
+
+    if (now > totalTime) {
+      if(this.mood + delta < 0){
+        this.mood = 0;
+      } else if (this.mood + delta >= 100) {
+        this.mood = 100;
+      } else {
+        this.mood += delta;
+      }
+      if(this.health + delta < 0){
+        this.health = 0
+      } else if (this.health + delta >= 100) {
+        this.health = 100;
+      } else {
+        this.health += delta;
+      }
+      $rootScope.$broadcast("update", this);
+    }
+  }.bind(this);
+
+
+  this.checkForUpdate = function() {
+    // get function
+    this.getStats();
+
+
+    //loop?
+    this.calcStats("feed", "missed");
+
+
+    // this.getStats()
+    //     .then(function(stats) {
+    //         this.calcStats(stats.activity);
+    //     }.bind(this));
+
+
+
+    // get stats from db
+    // do calculations
+    // if change broadcast and change inside db
+  }.bind(this);
+
+
+  // login function to be moved to proper controller
+  this.onLogin = function() {
+    // get data
+    // calc data
+    // set new base dates
+  }
+
+  // game loop, where should this be called?
+  setInterval(this.checkForUpdate, 3000);
+
+  this.mood = 80;
+  this.health = 80;
 }]);

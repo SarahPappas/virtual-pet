@@ -19,8 +19,8 @@ router.route('/')
     })
   })
   .post(function(req, res) {
-    // SIGNING UP FOR THE FIRST TIME
-    // find the user first in case the email already exists
+    console.log(req.body);
+    //find the user first in case the email already exists
     User.findOne({ email: req.body.email }, function(err, user) {
       console.log("done looking for user!");
       if (user) return res.status(400).send({ message: 'Email already exists' });
@@ -90,7 +90,27 @@ router.route('/auth')
 
   router.route('/stats')
   .get(function(req, res) {
-    console.log("this is a route for editing stats");
+    //getting the stats for the current user3
+    var authHeader = req.headers.authorization;
+    var authHeaderParts = authHeader.split(" ");
+    var token = authHeaderParts[1];
+    jwt.verify(token, secret, function(err, decoded) {
+      var userId = decoded._doc._id;
+      User.findOne({_id: userId}, function(err, user) {
+        if (err) {
+          res.send(err);
+          return;
+        }
+
+        if (!user) {
+          res.send(404);
+          return;
+        }
+
+        console.log("backend get response firing", user);
+        res.send(user);
+      })
+    });
   })
   .put(function(req, res) {
     console.log(req.body);
