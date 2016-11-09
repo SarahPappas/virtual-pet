@@ -9,6 +9,8 @@ angular.module("VirtualPetApp")
     }
   }  
   
+  // for testing
+  this.isSleeping = true;
 
   this.msPerHour = 1000 * 60 * 60;
 
@@ -16,6 +18,18 @@ angular.module("VirtualPetApp")
   // constants
   this.actionInfos = {
       sleep: {
+        msUntilMissed: 6000,
+        // 10 * this.msPerHour
+        msSleeping: 10000,
+        // msUntilMissed: 5 * this.msPerHour,
+        moodDeltas: {
+            missed: 0,
+            acted: 0,
+        },
+        healthDeltas: {
+            missed: -20,
+            acted: 10,
+        }
       },
       feed: {
           // msUntilNeeded: 4 * this.msPerHour,
@@ -40,14 +54,22 @@ angular.module("VirtualPetApp")
 
   // call onlogin, setTimeouts
   // gets all stats
+  
   this.getStats = function() {
       return $http({
-          url: "/api/users",
+          url: "/api/users/stats",
           method: "GET"
-      }).then(function(res) {
-          return res.data;
+      })
+      .then(function(res) {
+        if(!res) {
+          console.log("get no response", res);
+        } else {
+          console.log("response", res);
+        }
       });
   };
+
+
 
   this.saveStats = function(activity, lastDate, mood, health) {
       // finish put route for stats
@@ -63,105 +85,86 @@ angular.module("VirtualPetApp")
       });
   };
 
-  this.onClick = function(currentActivity){
-    this.calcMood(currentActivity);
-  
+  this.calcStatsOnClick = function(currentActivity){
+    this.calcStats(currentActivity);
   }.bind(this);
 
-  this.calcMood = function(activity) {
 
-      var now = Date.now();
-      console.log(activity);
-      console.log(this.actionInfos[activity]);
-      var actionInfo = this.actionInfos[activity];
-      var msUntilMissed = actionInfo.msUntilMissed;
 
-     
-          if(now > this.timeLastExecuted + msUntilMissed) {
-              console.log("if ran");
-              //+= actionInfo.moodDeltas.missed 
-              if(this.mood + actionInfo.moodDeltas.missed < 0){
-                  this.mood = 0;
-              } else {
-                  this.mood += actionInfo.moodDeltas.missed;
-              }
-              if(this.health + actionInfo.healthDeltas.missed < 0){
-                  this.health = 0
-              } else {
-                  this.health += actionInfo.healthDeltas.missed;
-              }
-              $rootScope.$broadcast("update", this);
-          }
+  this.calcStats = function(activity, actedOrMissed) {
+
+    var now = Date.now();
+    console.log(this.actionInfos[activity]);
+    // set action to passed action
+    var actionInfo = this.actionInfos[activity];
+    // seting time untill missed
+    var msUntilMissed = actionInfo.msUntilMissed;
+    var totalTime = this.timeLastExecuted + msUntilMissed;
+    // setting delta
+    var delta = actionInfo.moodDeltas.missed;
+    // using actedOrMissed to set equal to missed
+    if( actedOrMissed == "missed" ) {
+      var delta = actionInfo.moodDeltas.missed;
+    } else {
+      var delta = actionInfo.moodDeltas.acted;
+    }
+    
+    if (this.isSleeping) {
+      totalTime += this.actionInfos.sleep.msSleeping;
+    }
+
+    if (now > totalTime) {
+      if(this.mood + delta < 0){
+        this.mood = 0;
+      } else if (this.mood + delta >= 100) {
+        this.mood = 100;
+      } else {
+        this.mood += delta;
+      }
+      if(this.health + delta < 0){
+        this.health = 0
+      } else if (this.health + delta >= 100) {
+        this.health = 100;
+      } else {
+        this.health += delta;
+      }
+      $rootScope.$broadcast("update", this);
+    }
   }.bind(this);
 
 
   this.checkForUpdate = function() {
-          console.log("fire");
-          this.calcMood("feed");
-
-      // this.getStats()
-      //     .then(function(stats) {
-      //         this.calMood(stats.activity);
-      //     }.bind(this));
+    // get function
+    this.getStats();
 
 
+    //loop?
+    this.calcStats("feed", "missed");
 
-      // get stats from db
-      // do calculations
-      // if missed acition broadcast "miss" to stats component
-          //>> if currentTime-nextTime = 0
-          // then sets action's next time
-      // if stats are different broadcast to components for update
+
+    // this.getStats()
+    //     .then(function(stats) {
+    //         this.calcStats(stats.activity);
+    //     }.bind(this));
+
+
+
+    // get stats from db
+    // do calculations
+    // if change broadcast and change inside db
   }.bind(this);
+
+
+  // login function to be moved to proper controller
+  this.onLogin = function() {
+    // get data
+    // calc data
+    // set new base dates
+  }
 
   // game loop, where should this be called?
   setInterval(this.checkForUpdate, 3000);
 
-  this.mood = 100;
-  this.health = 100;
+  this.mood = 80;
+  this.health = 80;
 }]);
-
-
-//     function StatsCtrl(ApplicationService) {
-//     var health = 100;
-//     var mood = 100;
-//     var currentDate = Date.now();
-   
-//     function totalMood(playVar, feedVar) {
-//       ApplicationService.getStats();
-//       if (mood <= 0) {
-//         health -= 25;
-//       }
-//       else if(currentDate > ApplicationService.pet.feed.next) {
-//         mood -= 25;
-//       }
-//       }
-//       else if(currentDate > ApplicationService.pet.exercise.next) {
-//         mood -= 25;
-//       }
-//       return $http({
-//         method: 'PUT',
-//         url: '/api/users/stats',
-//         data: {mood: mood}
-//       });    
-//     }
-//     function totalHealth(ApplicationService) {
-//       ApplicationService.getStats()
-//       if(currentDate > ApplicationService.pet.sleep.next) {
-//         health -= 25;
-//       }
-//       else if(currentDate > ApplicationService.pet.clean.next) {
-//         health -= 25;
-//       }
-//       else if(currentDate > ApplicationService.pet.feed.next) {
-//         health -= 25;
-//       }
-//       return $http({
-//         method: 'PUT',
-//         url: '/api/users/stats',
-//         data: {health: health}
-//       });    
-//     }
-//     }
-// StatsCtrl.$inject = ['ApplicationService'];
-// })()

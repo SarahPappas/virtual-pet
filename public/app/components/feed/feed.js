@@ -12,23 +12,31 @@
         // <-------- the only thing the feed needs to do is update server on click ------->
         feed.data = ApplicationService;
 
+
         $scope.$on("update", function(event, args) {
-            console.log("caught braodcast");
-            console.log("args", args);
-            feed.data = args;
-            console.log("feed", feed.data)
+            // console.log("caught braodcast");
+            // console.log("args", args);
+            // console.log("feed", feed.data)
             $scope.$apply();
         })
         // <--------- remove above, update function below that runs on click -------->
 
+        ApplicationService.getStats()
+            .then(function(res) {
+                // console.log("res", res);
+            });
 
-        //function to run on click
-        feed.feeding = function () {
-            // update database,
-            var msUntilNeeded = ApplicationService.actionInfos.feed.msUntilNeeded;
-            ApplicationService.saveStats("feed", date.now());
-            //exectue game loop and game loop will braodcast if changes?
-        };
+        feed.feeding = function() {
+            ApplicationService.calcStatsOnClick("feed", "acted");
+        }
+
+        // //function to run on click
+        // feed.feeding = function () {
+        //     // update database,
+        //     var msUntilNeeded = ApplicationService.actionInfos.feed.msUntilNeeded;
+        //     ApplicationService.saveStats("feed", date.now());
+        //     //exectue game loop and game loop will braodcast if changes?
+        // };
 
     }
 
