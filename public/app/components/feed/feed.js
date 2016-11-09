@@ -28,6 +28,7 @@
 
         feed.feeding = function() {
             ApplicationService.calcStatsOnClick("feed", "acted");
+            ApplicationService.saveStats("feed", Date.now(), ApplicationService.mood, ApplicationService.health);
         }
 
         // //function to run on click

@@ -9,6 +9,8 @@ angular.module("VirtualPetApp")
     }
   }  
   
+  this.mood = 100;
+  this.health = 100;
   // for testing
   this.isSleeping = true;
 
@@ -70,20 +72,21 @@ angular.module("VirtualPetApp")
   };
 
 
-
   this.saveStats = function(activity, lastDate, mood, health) {
       // finish put route for stats
       return $http({
         url: "/api/users/stats",
         method: "PUT",
         data: {
-          activity: activity,
-          lastTime: lastDate,
-          mood: mood,
-          health: health
+          activity: activity || null,
+          lastTime: lastDate || null,
+          mood: mood || null,
+          health: health || null
         }
       });
   };
+
+  this.saveStats("feed", Date.now(), null, this.health);
 
   this.calcStatsOnClick = function(currentActivity){
     this.calcStats(currentActivity);
@@ -135,7 +138,7 @@ angular.module("VirtualPetApp")
 
   this.checkForUpdate = function() {
     // get function
-    this.getStats();
+    // this.getStats();
 
 
     //loop?
@@ -165,6 +168,4 @@ angular.module("VirtualPetApp")
   // game loop, where should this be called?
   setInterval(this.checkForUpdate, 3000);
 
-  this.mood = 80;
-  this.health = 80;
 }]);
