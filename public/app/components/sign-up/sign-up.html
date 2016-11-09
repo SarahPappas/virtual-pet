@@ -39,5 +39,8 @@
       <input type="password" class="form-control" id="password" placeholder="********" ng-model="SignUpCtrl.loginInfo.password">
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
+    <p style="color:red" ng-if="SignUpCtrl.noPassword === true">Please enter a password.</p>
+    <p style="color:red" ng-if="SignUpCtrl.noSpecies">Choose your pet.</p>
+    <p style="color:red" ng-if="SignUpCtrl.noPetname">Give your pet a name.</p>
   </form>
 </div>

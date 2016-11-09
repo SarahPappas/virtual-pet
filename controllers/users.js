@@ -3,14 +3,23 @@ var jwt = require('jsonwebtoken');
 var secret = "supersecretstarwars" || process.env.JWT_SECRET;
 var User = require('../models/user');
 var router = express.Router();
+const util = require('util');
+
 
 router.route('/')
-  .get(function(req, res) {
-    console.log("This is the backend yo!");
+  .put(function(req, res) {
+    //getting the stats for the current user
+    console.log("made it to the get route");
+    console.log("this info came from the front end: " + util.inspect(req.body, false, null))
+    User.findOne({email: req.body.email}, function(err, user) {
+      if (err) {return res.send(err)};
+      if (user) {
+        res.send(user);
+      }
+    })
   })
   .post(function(req, res) {
     // SIGNING UP FOR THE FIRST TIME
-    console.log(req.body);
     // find the user first in case the email already exists
     User.findOne({ email: req.body.email }, function(err, user) {
       console.log("done looking for user!");
@@ -28,6 +37,19 @@ router.route('/')
       });
     });
   });
+
+router.route('/getstats')
+.get(function(req, res) {
+  console.log("made it to the getstats route");
+  User.findOne({email: req.body.email}, function(err, user) {
+    if (err) {
+      return res.send(err)
+    };
+    if (user) {
+      res.send(user);
+    }
+  })
+});
 
 router.route('/auth')
   .get(function(req, res) {
@@ -58,7 +80,7 @@ router.route('/auth')
           return res.status(401).send({message: 'User not authenticated'});
         }
 
-        console.log("making token")
+        console.log("making token");
         var token = jwt.sign(user, secret);
         console.log("token:", token);
         res.send({user: user, token: token});

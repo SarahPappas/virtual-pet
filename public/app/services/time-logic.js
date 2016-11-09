@@ -1,27 +1,27 @@
 angular.module("VirtualPetApp")
-.service("TimeLogicService", ["$http", function($http) {
-	this.pet = [
-		sleep: {
-			last: "",
-			next: ""
-		},
-		feed: {
-			last: "",
-			next: ""
-		},
-		clean: {
-			last: "",
-			next: ""
-		},
-		exercise: {
-			last: "",
-			next: ""
-		},
-		nurse: {
-			last: "",
-			next: ""
-		],
-	};
+.service("TimeLogicService", ["$http", "authService", "$window", function($http, authService, $window) {
+	// this.pet = [
+	// 	sleep: {
+	// 		last: "",
+	// 		next: ""
+	// 	},
+	// 	feed: {
+	// 		last: "",
+	// 		next: ""
+	// 	},
+	// 	clean: {
+	// 		last: "",
+	// 		next: ""
+	// 	},
+	// 	exercise: {
+	// 		last: "",
+	// 		next: ""
+	// 	},
+	// 	nurse: {
+	// 		last: "",
+	// 		next: ""
+	// 	],
+	// };
 
 	var millisecondHr = 3600000;
 
@@ -55,7 +55,7 @@ angular.module("VirtualPetApp")
 			}
 		},
 		exercise: {
-			hours: 4
+			hours: 4,
 			health: {
 				missed: .15,
 				acted: .75,
@@ -63,20 +63,26 @@ angular.module("VirtualPetApp")
 			}
 		},
 		nurse: {
-			hours: 0;
+			hours: 0,
 			health: {
-				acted: Math.random() * (1 - .5) + .5;
+				acted: Math.random() * (1 - .5) + .5
 			}
 		}
 	}
 
+
 	// call onlogin, setTimeouts
 	this.getStats = function() {
-		return $http({
-			url: "/api/users",
-			method: "GET"
-		}).then(function(res) {
-			return res.data;
+		var token = authService.getToken();
+		var payload = JSON.parse($window.atob(token.split('.')[1]));
+		var userEmail = payload._doc.email;
+		console.log("about to make request for current users stats");
+		console.log("get stats is using token:", token);
+		console.log("get stats is using payload:", payload);
+		$http.get('/api/users/getstats', userEmail)
+		.then(function(res) {
+			console.log("this is what came back");
+			console.log("This came from the backend: " + res);
 		});
 	};
 
@@ -105,4 +111,15 @@ angular.module("VirtualPetApp")
 	this.mood;
 	this.health;
 
+}])
+.factory('AuthInterceptor', ['authService', function(authService) {
+  return {
+    request: function(config) {
+      var token = authService.getToken();
+      if(token) {
+        config.headers.Authorization = 'Bearer ' + token;
+      }
+      return config;
+    }
+  }
 }]);

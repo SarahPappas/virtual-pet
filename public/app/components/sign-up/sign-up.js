@@ -12,6 +12,9 @@
 
     SignUpCtrl.signingUp = false;
     SignUpCtrl.loggingIn = false;
+    SignUpCtrl.noPassword = false;
+    SignUpCtrl.noSpecies = false;
+    SignUpCtrl.noPetname = false;
 
     SignUpCtrl.clickSignUp = function(){
       SignUpCtrl.signingUp = !SignUpCtrl.signingUp;
@@ -60,6 +63,12 @@
 
 
   SignUpCtrl.createUser = function() {
+    if(SignUpCtrl.newUser.password.length <= 6) {
+      console.log("password is too short");
+      SignUpCtrl.noPassword = true;
+      setTimeout(function(){SignUpCtrl.noPassword = false}, 3000);
+      return;
+    }
     $http.post('/api/users', SignUpCtrl.newUser).then(function success(res) {
       $state.go('play');
     }, function error(err) {
@@ -77,6 +86,7 @@
     $http.post('/api/users/auth', SignUpCtrl.loginInfo)
     .then(function success(res){
       console.log("res: " + res);
+      console.log('current user:' + authService.currentUser());
       authService.saveToken(res.data.token);
       $state.go('play');
     }, function error(err){
