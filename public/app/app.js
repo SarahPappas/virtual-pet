@@ -1,7 +1,6 @@
 angular.module("VirtualPetApp", ["ui.router"])
-.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", '$httpProvider',
-		function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-	$urlRouterProvider.otherwise("/");
+.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", '$httpProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+			$urlRouterProvider.otherwise("/");
 
 	$stateProvider
 	.state("home", {
@@ -14,8 +13,6 @@ angular.module("VirtualPetApp", ["ui.router"])
 	})
 
 	$locationProvider.html5Mode(true);
-
-  	$httpProvider.interceptors.push('AuthInterceptor');
 }])
 .config(["$httpProvider", function($httpProvider){
   $httpProvider.interceptors.push("AuthInterceptor");
@@ -23,4 +20,3 @@ angular.module("VirtualPetApp", ["ui.router"])
 .run(["$rootScope", "$state", function($rootScope, $state) {
 	$rootScope.state = $state;
 }]);
-

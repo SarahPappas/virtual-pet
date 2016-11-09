@@ -23,6 +23,10 @@
     <input type="radio" ng-model="SignUpCtrl.newUser.pet.species" name="pet" value="cat"> Cat<br> 
     <label for="petName">Pet's Name: </label>
     <input type="text" ng-model="SignUpCtrl.newUser.pet.petname" name="petName">
+    <p style="color:red" ng-if="SignUpCtrl.noPassword == true">Please enter a password at least 6 characters long.</p>
+    <p style="color:red" ng-if="SignUpCtrl.noSpecies">Choose your pet.</p>
+    <p style="color:red" ng-if="SignUpCtrl.noPetname">Give your pet a name.</p>
+    <p style="color:red" ng-if="SignUpCtrl.emailTaken">That email is already in use.</p>
     <button type="submit" class="btn btn-primary">Start!</button>
   </form>
 
@@ -38,9 +42,8 @@
       <label for="password">Password</label>
       <input type="password" class="form-control" id="password" placeholder="********" ng-model="SignUpCtrl.loginInfo.password">
     </div>
+    <p style="color:red" ng-if="SignUpCtrl.userNotFound">User not Found.</p>
+    <p style="color:red" ng-if="SignUpCtrl.invalidPassword">Invalid Password.</p>
     <button type="submit" class="btn btn-primary">Login</button>
-    <p style="color:red" ng-if="SignUpCtrl.noPassword === true">Please enter a password.</p>
-    <p style="color:red" ng-if="SignUpCtrl.noSpecies">Choose your pet.</p>
-    <p style="color:red" ng-if="SignUpCtrl.noPetname">Give your pet a name.</p>
   </form>
 </div>

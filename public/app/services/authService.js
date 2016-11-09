@@ -32,7 +32,6 @@ angular.module('VirtualPetApp')
   return {
     request: function(config) {
       var token = authService.getToken();
-      console.log("Auth service token:", token);
       if(token) {
         config.headers.Authorization = 'Bearer ' + token;
       }

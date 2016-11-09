@@ -6,7 +6,7 @@
     controllerAs: 'SignUpCtrl'
   });
 
-  function SignUpCtrl($http, $state, authService){
+  function SignUpCtrl($http, $state, authService, $timeout){
     console.log("SignUpCtrl loaded!");
     var SignUpCtrl = this;
 
@@ -15,6 +15,9 @@
     SignUpCtrl.noPassword = false;
     SignUpCtrl.noSpecies = false;
     SignUpCtrl.noPetname = false;
+    SignUpCtrl.emailTaken = false;
+    SignUpCtrl.userNotFound = false;
+    SignUpCtrl.invalidPassword = false;
 
     SignUpCtrl.clickSignUp = function(){
       SignUpCtrl.signingUp = !SignUpCtrl.signingUp;
@@ -64,17 +67,29 @@
 
   SignUpCtrl.createUser = function() {
     if(SignUpCtrl.newUser.password.length <= 6) {
-      console.log("password is too short");
       SignUpCtrl.noPassword = true;
-      setTimeout(function(){SignUpCtrl.noPassword = false}, 3000);
-      return;
+      $timeout(function(){ SignUpCtrl.noPassword = !SignUpCtrl.noPassword }, 3000);
     }
+    else if(SignUpCtrl.newUser.pet.petname.length === 0) {
+      SignUpCtrl.noPetname = true;
+      $timeout(function(){ SignUpCtrl.noPetname = !SignUpCtrl.noPetname }, 3000);
+    }
+    else if (SignUpCtrl.newUser.pet.species.length === 0) {
+      SignUpCtrl.noSpecies = true;
+      $timeout(function(){ SignUpCtrl.noSpecies = !SignUpCtrl.noSpecies }, 3000);
+    }
+    else {
     $http.post('/api/users', SignUpCtrl.newUser).then(function success(res) {
       $state.go('play');
     }, function error(err) {
       console.log(err);
+      if (err.status === 400){
+        SignUpCtrl.emailTaken = true;
+        $timeout(function(){ SignUpCtrl.emailTaken = !SignUpCtrl.emailTaken }, 3000);
+      }
     });
   }
+}
 
   SignUpCtrl.loginInfo = {
     email: "",
@@ -85,16 +100,23 @@
     console.log(SignUpCtrl.loginInfo);
     $http.post('/api/users/auth', SignUpCtrl.loginInfo)
     .then(function success(res){
-      console.log("res: " + res);
+      console.log(res);
       console.log('current user:' + authService.currentUser());
       authService.saveToken(res.data.token);
       $state.go('play');
     }, function error(err){
-      console.log('There is an issue!: ' + err);
+      if(err.status === 400){
+        SignUpCtrl.userNotFound = true;
+        $timeout(function(){ SignUpCtrl.userNotFound = !SignUpCtrl.userNotFound }, 3000);
+      }
+      if(err.status === 401){
+        SignUpCtrl.invalidPassword = true;
+        $timeout(function(){ SignUpCtrl.invalidPassword = !SignUpCtrl.invalidPassword }, 3000);
+      }
     })
   }
 
 
-  SignUpCtrl.$inject = ['$http', '$state', 'authService'];
+  SignUpCtrl.$inject = ['$http', '$state', 'authService', '$timeout'];
 }
 })()
