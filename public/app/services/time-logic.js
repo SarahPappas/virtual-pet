@@ -75,7 +75,7 @@ angular.module("VirtualPetApp")
       });
   };
 
-  this.saveStats("feed", Date.now(), null, this.health);
+  this.saveStats("feed", Date.now(), null, null);
 
   this.calcStatsOnClick = function(currentActivity){
     this.calcStats(currentActivity);
