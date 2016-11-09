@@ -14,17 +14,16 @@
 
 
         $scope.$on("update", function(event, args) {
-            console.log("caught braodcast");
-            console.log("args", args);
-            console.log("feed", feed.data)
+            // console.log("caught braodcast");
+            // console.log("args", args);
+            // console.log("feed", feed.data)
             $scope.$apply();
         })
         // <--------- remove above, update function below that runs on click -------->
 
         ApplicationService.getStats()
             .then(function(res) {
-                console.log("this ran");
-                console.log("res", res);
+                // console.log("res", res);
             });
 
         feed.feeding = function() {

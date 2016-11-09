@@ -61,11 +61,11 @@ angular.module("VirtualPetApp")
           method: "GET"
       })
       .then(function(res) {
-        // if(!res) {
-        //   console.log("get no response", res);
-        // } else {
-        //   console.log("response", res);
-        // }
+        if(!res) {
+          console.log("get no response", res);
+        } else {
+          console.log("response", res);
+        }
       });
   };
 
