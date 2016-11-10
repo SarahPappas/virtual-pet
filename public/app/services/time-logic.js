@@ -4,6 +4,7 @@ angular.module("VirtualPetApp")
   
   this.mood = 100;
   this.health = 100;
+  this.sleep = false;
   this.msPerHour = 1000 * 60 * 60;
 
   // constants
@@ -36,10 +37,43 @@ angular.module("VirtualPetApp")
           }
       },
       clean: {
+        // msUntilNeeded: 4 * this.msPerHour,
+        msUntilMissed: 6000,
+        // msUntilMissed: 5 * this.msPerHour,
+        moodDeltas: {
+            missed: 0,
+            acted: 0,
+        },
+        healthDeltas: {
+            missed: -20,
+            acted: 10,
+        }
       },
       exercise: {
+        // msUntilNeeded: 4 * this.msPerHour,
+        msUntilMissed: 6000,
+        // msUntilMissed: 5 * this.msPerHour,
+        moodDeltas: {
+            missed: -20,
+            acted: 10,
+        },
+        healthDeltas: {
+            missed: 0,
+            acted: 0,
+        }
       },
       nurse: {
+        // msUntilNeeded: 4 * this.msPerHour,
+        msUntilMissed: 6000,
+        // msUntilMissed: 5 * this.msPerHour,
+        moodDeltas: {
+            missed: 0,
+            acted: 0,
+        },
+        healthDeltas: {
+            missed: 0,
+            acted: 70,
+        }
       }
   }
 
@@ -75,8 +109,6 @@ angular.module("VirtualPetApp")
       });
   };
 
-  this.saveStats("feed", Date.now(), null, null);
-
   this.calcStatsOnClick = function(currentActivity){
     this.calcStats(currentActivity);
   }.bind(this);
@@ -86,11 +118,14 @@ angular.module("VirtualPetApp")
   this.calcStats = function(activity, actedOrMissed) {
 
     var now = Date.now();
-    
+    console.log("ran ", activity);
+    console.log("action Infos", this.actionInfos);
     // set action to passed action
     var actionInfo = this.actionInfos[activity];
     // seting time untill missed
+    console.log("actionInfo", actionInfo);
     var msUntilMissed = actionInfo.msUntilMissed;
+    console.log("msUntilMissed", msUntilMissed);
     var totalTime = this.timeLastExecuted + msUntilMissed;
     // setting delta
     var delta = actionInfo.moodDeltas.missed;
@@ -129,13 +164,13 @@ angular.module("VirtualPetApp")
     // get function
     // this.getStats();
     //loop?
-    this.calcStats("feed", "missed");
+    // this.calcStats("feed", "missed");
     // get stats from db
     // do calculations
     // if change broadcast and change inside db
   }.bind(this);
 
-
+  var self = this;
   // login function to be moved to proper controller
   this.onLogin = function() {
     this.getStats()
@@ -143,10 +178,12 @@ angular.module("VirtualPetApp")
         this.stats = res.data.pet.stats;
         this.mood = res.data.pet.mood;
         this.health = res.data.pet.health;
+        this.sleep = res.data.pet.sleap;
       })
       .then(function() {
-        for (var i = 0; i < this.actionInfos.length; i++) {
-          this.calcStats(this.actionInfos[i]);
+        for (var i = 0; i < this.stats.length; i++) {
+          console.log("name", this.stats[i]);
+          self.calcStats(this.stats[i], "missed");
         }
       });
     // calc data
@@ -156,8 +193,6 @@ angular.module("VirtualPetApp")
 
   this.onLogin();
   // console.log(this.stats);
-
-  console.log(this.actionInfos[1]);
 
   // game loop, where should this be called?
   setInterval(this.checkForUpdate, 3000);

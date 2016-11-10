@@ -14,9 +14,6 @@
 
 
         $scope.$on("update", function(event, args) {
-            // console.log("caught braodcast");
-            // console.log("args", args);
-            // console.log("feed", feed.data)
             $scope.$apply();
         })
         // <--------- remove above, update function below that runs on click -------->
@@ -27,8 +24,8 @@
             });
 
         feed.feeding = function() {
-            ApplicationService.calcStatsOnClick("feed", "acted");
-            ApplicationService.saveStats("feed", Date.now(), ApplicationService.mood, ApplicationService.health);
+            // ApplicationService.calcStatsOnClick("feed", "acted");
+            // ApplicationService.saveStats("feed", Date.now(), ApplicationService.mood, ApplicationService.health);
         }
 
         // //function to run on click
