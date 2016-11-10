@@ -53,7 +53,7 @@
           last: null
         },
         {
-          name: "excercise",
+          name: "exercise",
           last: null
         },
         {

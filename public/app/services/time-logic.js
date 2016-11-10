@@ -109,12 +109,6 @@ angular.module("VirtualPetApp")
       });
   };
 
-  this.calcStatsOnClick = function(currentActivity){
-    this.calcStats(currentActivity);
-  }.bind(this);
-
-
-
   this.calcStats = function(activity, actedOrMissed) {
 
     var now = Date.now();
@@ -170,7 +164,6 @@ angular.module("VirtualPetApp")
     // if change broadcast and change inside db
   }.bind(this);
 
-  var self = this;
   // login function to be moved to proper controller
   this.onLogin = function() {
     this.getStats()
@@ -179,13 +172,12 @@ angular.module("VirtualPetApp")
         this.mood = res.data.pet.mood;
         this.health = res.data.pet.health;
         this.sleep = res.data.pet.sleap;
-      })
+      }.bind(this))
       .then(function() {
         for (var i = 0; i < this.stats.length; i++) {
-          console.log("name", this.stats[i]);
-          self.calcStats(this.stats[i], "missed");
+          this.calcStats(this.stats[i].name, "missed");
         }
-      });
+      }.bind(this));
     // calc data
 
     // set new base dates
