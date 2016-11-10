@@ -147,7 +147,7 @@ angular.module("VirtualPetApp")
       } else {
         this.health += delta;
       }
-      this.saveStats("feed", Date.now(), this.mood, this.health);
+      this.saveStats(activity, Date.now(), this.mood, this.health);
       $rootScope.$broadcast("update", this);
     }
   }.bind(this);
