@@ -23,10 +23,10 @@ router.route('/')
           return res.status(500).send(err);
         }
 
-        var authHeader = req.headers.authorization;
-        var authHeaderParts = authHeader.split(" ");
-        var token = authHeaderParts[1];
-        return res.send({user: user, token:token});
+        // var authHeader = req.headers.authorization;
+        // var authHeaderParts = authHeader.split(" ");
+        // var token = authHeaderParts[1];
+        return res.send(user);
         
         return res.send(user);
       });
