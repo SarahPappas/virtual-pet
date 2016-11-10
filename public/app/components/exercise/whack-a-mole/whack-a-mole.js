@@ -24,20 +24,18 @@
 			else {
 				WhackCtrl.lastYoda = randomNum;
 				var character = document.getElementById("moleYoda" + randomNum);
-				console.log(character);
 				var splitMargin = character.style.marginTop.split('');
 				var currentMargin = parseInt(splitMargin[0] + splitMargin[1]);
-				console.log(currentMargin);
 				character.style.marginTop = currentMargin - 15 + '%';
-				setTimeout(function(){character.style.marginTop = currentMargin + '%'}, 700)
+				setTimeout(function(){character.style.marginTop = currentMargin + '%'}, 1000)
 			}
 		}
 
 		WhackCtrl.addPoint = function() {
 			WhackCtrl.score += 1;
-			// if(WhackCtrl.score === 5) {
-			// 	window.location.assign("http://localhost:3000/play/");
-			// }
+			if(WhackCtrl.score === 5) {
+				window.location.assign("http://localhost:3000/play/");
+			}
 		}
 
 		setInterval(function(){ WhackCtrl.popUp() }, 3000);
