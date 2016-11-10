@@ -1,6 +1,6 @@
 angular.module("VirtualPetApp")
 .service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
-  this.data = {};  
+  this.stats = {};  
   
   this.mood = 100;
   this.health = 100;
@@ -53,12 +53,12 @@ angular.module("VirtualPetApp")
       })
       .then(function(res) {
         if(!res) {
-          
+          console.log("front-end error when getting Stats");
         } else {
-          
+          return res;
         }
       });
-  };
+  }.bind(this);
 
 
   this.saveStats = function(activity, lastDate, mood, health) {
@@ -128,19 +128,8 @@ angular.module("VirtualPetApp")
   this.checkForUpdate = function() {
     // get function
     // this.getStats();
-
-
     //loop?
     this.calcStats("feed", "missed");
-
-
-    // this.getStats()
-    //     .then(function(stats) {
-    //         this.calcStats(stats.activity);
-    //     }.bind(this));
-
-
-
     // get stats from db
     // do calculations
     // if change broadcast and change inside db
@@ -149,10 +138,26 @@ angular.module("VirtualPetApp")
 
   // login function to be moved to proper controller
   this.onLogin = function() {
-    // get data
+    this.getStats()
+      .then(function(res) {
+        this.stats = res.data.pet.stats;
+        this.mood = res.data.pet.mood;
+        this.health = res.data.pet.health;
+      })
+      .then(function() {
+        for (var i = 0; i < this.actionInfos.length; i++) {
+          this.calcStats(this.actionInfos[i]);
+        }
+      });
     // calc data
+
     // set new base dates
-  }
+  }.bind(this);
+
+  this.onLogin();
+  // console.log(this.stats);
+
+  console.log(this.actionInfos[1]);
 
   // game loop, where should this be called?
   setInterval(this.checkForUpdate, 3000);
