@@ -6,32 +6,18 @@ body {
 	background-attachment: fixed;
 	margin: 0;
 }
-#game {
-margin: 45px auto;
-background-image:url('/img/gamebg.png');
-width:753px;
-height:558px;
-overflow: hidden;
-}
-#gameplay {
-	width:444px;
-	height:404px;
-	float:left;
-	position: relative;
-	left:75px;
-	top:30px;
-	overflow: hidden;
-}
 h1 {
 	font-family:'Comfortaa';
 	color:white;
 	text-shadow: 2px 2px 8px #1fbee8;
 	font-size: 50pt;
 }
+
+/* ===== LOGIN/SIGNUP FORMS ===== */
 #home {
 	margin: 0 auto;
 	width: 500px;
-	min-height:500px;
+	min-height:500px;	
 	text-align:center;
 	padding:30px;
 	background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.5)); /* For Safari 5.1 to 6.0 */
@@ -39,10 +25,6 @@ h1 {
   background: -moz-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.5)); /* For Firefox 3.6 to 15 */
   background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.5)); /* Standard syntax (must be last) */
 }
-
-
-
-/*  LOGIN/SIGNUP FORMS  */
 #home-form {
 	text-align:center;
 }
@@ -141,6 +123,10 @@ hr {
 	border:none;
 	height:2px;
 }
+.alert-red {
+	color:red;
+}
+/*form placeholder color*/
 ::-webkit-input-placeholder {
    color: #B0BEC5;
 }
@@ -153,7 +139,7 @@ hr {
 :-ms-input-placeholder {  
    color: #B0BEC5;  
 }
-
+/*pet images*/
 .pet1, .pet2, .pet4 {
 	width: 126px;
 	float:left;
@@ -168,7 +154,25 @@ hr {
 	clear:both;
 }
 
-/*  STATS BAR  */
+/* ========= GAMEPLAY PAGE ========= */
+#game {
+margin: 45px auto;
+background-image:url('/img/gamebg.png');
+width:753px;
+height:558px;
+overflow: hidden;
+}
+#gameplay {
+	width:444px;
+	height:404px;
+	float:left;
+	position: relative;
+	left:75px;
+	top:30px;
+	overflow: hidden;
+}
+
+/*  GAMEPLAY PAGE: stats bar  */
 #stats {
 	position: relative;
 	left:176px;
@@ -203,8 +207,18 @@ overflow: hidden;
 	margin-top: 5px;
 overflow: hidden;
 }
+.stats-bar:hover {
+	float:left;
+	width: 8px;
+	height: 38px;
+	background-color: #ff9e16;
+	border-radius: 4px;
+	margin-left:5px;
+	margin-top: 5px;
+  overflow: hidden;
+}
 
-/*  NAVIGATION ICONS  */
+/*  GAMEPLAY PAGE: navigation   */
 .nav {
 	height: 75px;
 	margin-top: 58px;
@@ -214,11 +228,10 @@ overflow: hidden;
 	height: 75px;
 	margin-top: 58px;
 }
-
 #left-nav {
 	float:left;
 	position:relative;
-	left: 43px;
+	left: 36px;
 	top: 0px;
 	width:95px;
 	overflow: hidden;
@@ -228,7 +241,7 @@ overflow: hidden;
 #right-nav {
 	float:left;
 	position: relative;
-	left:98px;
+	left:90px;
 	top:0px;
 	width:95px;
 	overflow: hidden;
@@ -236,7 +249,7 @@ overflow: hidden;
 /*left side*/
 .nav-feed {
 	background-image:url('/img/feed-icon.svg');
-	width:75px;
+	width:95px;
 }
 .nav-feed:hover {
 	background-image:url('/img/feed-iconH.svg');
@@ -244,7 +257,7 @@ overflow: hidden;
 }
 .nav-game {
 	background-image:url('/img/game-icon.svg');
-	width:75px;
+	width:95px;
 }
 .nav-game:hover {
 	background-image:url('/img/game-iconH.svg');
@@ -252,7 +265,7 @@ overflow: hidden;
 }
 .nav-train {
 	background-image:url('/img/train-icon.svg');
-	width:75px;
+	width:95px;
 }
 .nav-train:hover {
 	background-image:url('/img/train-iconH.svg');
@@ -261,7 +274,7 @@ overflow: hidden;
 /*right side*/
 .nav-nurse {
 	background-image:url('/img/nurse-icon.svg');
-	width:75px;
+	width:95px;
 }
 .nav-nurse:hover {
 	background-image:url('/img/nurse-iconH.svg');
@@ -269,7 +282,7 @@ overflow: hidden;
 }
 .nav-clean {
 	background-image:url('/img/clean-icon.svg');
-	width:75px;
+	width:95px;
 }
 .nav-clean:hover {
 	background-image:url('/img/clean-iconH.svg');
@@ -277,7 +290,7 @@ overflow: hidden;
 }
 .nav-sleep {
 	background-image:url('/img/sleep-icon.svg');
-	width:75px;
+	width:95px;
 }
 .nav-sleep:hover {
 	background-image:url('/img/sleep-iconH.svg');
