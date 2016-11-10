@@ -24,7 +24,10 @@ router.route('/')
         }
 
         console.log("created user", user);
-        return res.send(user);
+        var authHeader = req.headers.authorization;
+        var authHeaderParts = authHeader.split(" ");
+        var token = authHeaderParts[1];
+        return res.send({user: user, token:token});
       });
     });
   });
