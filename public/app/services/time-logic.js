@@ -1,3 +1,4 @@
+var APPLY;
 angular.module("VirtualPetApp")
 .service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
   this.stats = {};  
@@ -152,7 +153,18 @@ angular.module("VirtualPetApp")
     console.log("totalTime", totalTime);
     console.log("countDown", totalTime - now);
 
-    if( now < totalTime && actedOrMissed == "acted" ) {
+    var isTimeExpired = false;
+    if (now > totalTime) {
+      isTimeExpired = true;
+    }
+
+    this.applyUpdates(activity, actedOrMissed, isTimeExpired);
+  }
+
+  this.applyUpdates = function(activity, actedOrMissed, isTimeExpired) {
+    var actionInfo = this.actionInfos[activity];
+
+    if(!isTimeExpired && actedOrMissed == "acted" ) {
       console.log("acted");
       var delta = actionInfo.moodDeltas.acted;
       if(this.mood + delta < 0){
@@ -178,11 +190,11 @@ angular.module("VirtualPetApp")
               this.health = res.data.pet.health;
               this.sleep = res.data.pet.sleap;
             }.bind(this))
-        });
+        }.bind(this));
       $rootScope.$broadcast("update", this); 
     }
     
-    if (now > totalTime) {
+    if (isTimeExpired) {
       var delta = actionInfo.moodDeltas.missed;
       console.log("now is passed totalTime");
       if(this.mood + delta < 0){
@@ -199,16 +211,18 @@ angular.module("VirtualPetApp")
       } else {
         this.health += delta;
       }
+      console.log("saving stats:", this.mood, this.health);
       this.saveStats(activity, Date.now(), this.mood, this.health)
       .then(function() {
-        this.getStats()
-          .then(function(res) {
-            this.stats = res.data.pet.stats;
-            this.mood = res.data.pet.mood;
-            this.health = res.data.pet.health;
-            this.sleep = res.data.pet.sleap;
-          }.bind(this))
-        });
+        console.log("getting stats");
+        this.getStats().then(function(res) {
+          console.log("   got stats:", res.data.pet.mood, res.data.pet.health);
+          this.stats = res.data.pet.stats;
+          this.mood = res.data.pet.mood;
+          this.health = res.data.pet.health;
+          this.sleep = res.data.pet.sleap;
+        }.bind(this))
+      }.bind(this));
       $rootScope.$broadcast("update", this);
     }
   }.bind(this);
@@ -253,4 +267,5 @@ angular.module("VirtualPetApp")
   }.bind(this);
     
   setInterval(this.checkForUpdate, 3000);  
+  APPLY = this.applyUpdates;
 }]);
