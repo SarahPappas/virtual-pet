@@ -80,8 +80,8 @@
     }
     else {
     $http.post('/api/users', SignUpCtrl.newUser).then(function success(res) {
-      authService.saveToken(res.data.token);
-      $state.go('play');
+      SignUpCtrl.signingUp = false;
+      SignUpCtrl.loggingIn = true;
     }, function error(err) {
       console.log(err);
       if (err.status === 400){

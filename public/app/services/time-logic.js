@@ -223,9 +223,9 @@ angular.module("VirtualPetApp")
         this.sleep = res.data.pet.sleap;
       }.bind(this))
       .then(function() {
-        // for (var i = 0; i < this.stats.length; i++) {
-        //   this.calcStats(this.stats[1].name, "missed");
-        // }
+        for (var i = 0; i < this.stats.length; i++) {
+          this.calcStats(this.stats[1].name, "missed");
+        }
       }.bind(this));
       // .then(function() {
       //   for (var i = 0; i < this.stats.length; i++) {
