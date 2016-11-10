@@ -234,26 +234,26 @@ angular.module("VirtualPetApp")
       // });
   }.bind(this);
 
-  // this.onLogin = function() {
-  //   this.getStats()
-  //     .then(function(res) {
-  //       this.stats = res.data.pet.stats;
-  //       this.mood = res.data.pet.mood;
-  //       this.health = res.data.pet.health;
-  //       this.sleep = res.data.pet.sleap;
-  //     }.bind(this))
-  //     .then(function() {
-  //       for (var i = 0; i < this.stats.length; i++) {
-  //         this.calcStats(this.stats[i].name, "missed");
-  //         console.log("onLogin", this.stats[i].name);
-  //       }
-  //     }.bind(this))
-  //     .then(function() {
-  //       // for (var i = 0; i < this.stats.length; i++) {
-  //       //   this.saveStats(this.stats[i].name, Date.now(), this.mood, this.health);
-  //       // }
-  //     });
-  // }.bind(this);
+  this.onLogin = function() {
+    this.getStats()
+      .then(function(res) {
+        this.stats = res.data.pet.stats;
+        this.mood = res.data.pet.mood;
+        this.health = res.data.pet.health;
+        this.sleep = res.data.pet.sleap;
+      }.bind(this))
+      .then(function() {
+        for (var i = 0; i < this.stats.length; i++) {
+          this.calcStats(this.stats[i].name, "missed");
+          console.log("onLogin", this.stats[i].name);
+        }
+      }.bind(this))
+      .then(function() {
+        for (var i = 0; i < this.stats.length; i++) {
+          this.saveStats(this.stats[i].name, Date.now(), this.mood, this.health);
+        }
+      });
+  }.bind(this);
 
   // this.onLogin();
   // console.log(this.stats);
