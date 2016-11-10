@@ -34,6 +34,10 @@
             });
 
         feed.feeding = function() {
+            document.getElementById("feedMe").style.display = "none";
+            setTimeout(function() {
+                document.getElementById("feedMe").style.display = "block";
+            }, 4000);
             // getstats,then calcstats, then save stats
             ApplicationService.calcStats("feed", "acted");
             // ApplicationService.saveStats("feed", Date.now(), ApplicationService.mood, ApplicationService.health);
