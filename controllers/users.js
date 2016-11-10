@@ -111,11 +111,11 @@ router.route('/auth')
         }
         var activityId;
         if(req.body.activity){
-          if(req.body.activity === 'sleep'){activityId = 0};
-          if(req.body.activity === 'feed'){activityId = 1};
-          if(req.body.activity === 'play'){activityId = 2};
-          if(req.body.activity === 'clean'){activityId = 3};
-          if(req.body.activity === 'nurse'){activityId = 4};
+          if(req.body.activity == 'sleep'){activityId = 0};
+          if(req.body.activity == 'feed'){activityId = 1};
+          if(req.body.activity == 'exercise'){activityId = 2};
+          if(req.body.activity == 'clean'){activityId = 3};
+          if(req.body.activity == 'nurse'){activityId = 4};
         }
         // if(req.body.mhi){user.pet.stats[activityId].mhi += req.body.mhi};
         // if(req.body.mmi){user.pet.stats[activityId].mmi += req.body.mmi};

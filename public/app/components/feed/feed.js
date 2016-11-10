@@ -12,12 +12,19 @@
         // <-------- the only thing the feed needs to do is update server on click ------->
         feed.data = ApplicationService;
 
+        $scope.safeApply = function(fn) {
+          var phase = this.$root.$$phase;
+          if(phase == '$apply' || phase == '$digest') {
+            if(fn && (typeof(fn) === 'function')) {
+              fn();
+            }
+          } else {
+            this.$apply(fn);
+          }
+        };
 
         $scope.$on("update", function(event, args) {
-            // console.log("caught braodcast");
-            // console.log("args", args);
-            // console.log("feed", feed.data)
-            $scope.$apply();
+            $scope.safeApply();
         })
         // <--------- remove above, update function below that runs on click -------->
 
@@ -27,7 +34,9 @@
             });
 
         feed.feeding = function() {
-            ApplicationService.calcStatsOnClick("feed", "acted");
+            // getstats,then calcstats, then save stats
+            ApplicationService.calcStats("feed", "acted");
+            // ApplicationService.saveStats("feed", Date.now(), ApplicationService.mood, ApplicationService.health);
         }
 
         // //function to run on click
