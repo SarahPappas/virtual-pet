@@ -10,9 +10,9 @@ angular.module("VirtualPetApp")
   // constants
   this.actionInfos = {
       sleep: {
-        msUntilMissed: 6000,
+        msUntilMissed: 140000,
         // 10 * this.msPerHour
-        msSleeping: 10000,
+        msSleeping: 100000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -25,7 +25,7 @@ angular.module("VirtualPetApp")
       },
       feed: {
           // msUntilNeeded: 4 * this.msPerHour,
-          msUntilMissed: 7000,
+          msUntilMissed: 10000,
           // msUntilMissed: 5 * this.msPerHour,
           moodDeltas: {
               missed: -20,
@@ -38,7 +38,7 @@ angular.module("VirtualPetApp")
       },
       clean: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 6000,
+        msUntilMissed: 100000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -51,7 +51,7 @@ angular.module("VirtualPetApp")
       },
       exercise: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 6000,
+        msUntilMissed: 50000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: -20,
@@ -93,19 +93,44 @@ angular.module("VirtualPetApp")
 
   this.saveStats = function(activity, lastDate, mood, health) {
       // finish put route for stats
+
+      if (health === undefined) {
+        health = null;
+      }
+
+      if (mood === undefined) {
+        mood = null;
+      }
+
       return $http({
         url: "/api/users/stats",
         method: "PUT",
         data: {
           activity: activity || null,
           lastTime: lastDate || null,
-          mood: mood || null,
-          health: health || null
+          mood: mood,
+          health: health
         }
       });
   };
 
   this.calcStats = function(activity, actedOrMissed) {
+    var index = 0;
+    if (activity == "sleep") {
+      var index = 0;
+    }
+    if (activity == "feed") {
+      var index = 1;
+    }
+    if (activity == "clean") {
+      var index = 2;
+    }
+    if (activity == "exercise") {
+      var index = 3;
+    }
+    if (activity == "nurse") {
+      var index = 4;
+    }
 
     var now = Date.now();
     // set action to passed action
@@ -113,7 +138,7 @@ angular.module("VirtualPetApp")
     // seting time untill missed
     var msUntilMissed = actionInfo.msUntilMissed;
 
-    var totalTime = Number(this.stats[1].last) + msUntilMissed;
+    var totalTime = Number(this.stats[index].last) + msUntilMissed;
     // setting delta
     var delta = actionInfo.moodDeltas.missed;
     // using actedOrMissed to set equal to missed
@@ -125,6 +150,7 @@ angular.module("VirtualPetApp")
     console.log("savedTime",Number(this.stats[1].last))
     console.log("now", now);
     console.log("totalTime", totalTime);
+    console.log("countDown", totalTime - now);
 
     if( now < totalTime && actedOrMissed == "acted" ) {
       console.log("acted");
@@ -167,7 +193,7 @@ angular.module("VirtualPetApp")
         this.mood += delta;
       }
       if(this.health + delta < 0){
-        this.health = 0
+        this.health = 0;
       } else if (this.health + delta >= 100) {
         this.health = 100;
       } else {
@@ -197,9 +223,8 @@ angular.module("VirtualPetApp")
         this.sleep = res.data.pet.sleap;
       }.bind(this))
       .then(function() {
-        this.calcStats("feed", "missed");
         // for (var i = 0; i < this.stats.length; i++) {
-        //   this.calcStats(this.stats[i].name, "missed");
+        //   this.calcStats(this.stats[1].name, "missed");
         // }
       }.bind(this));
       // .then(function() {
@@ -209,28 +234,28 @@ angular.module("VirtualPetApp")
       // });
   }.bind(this);
 
-  this.onLogin = function() {
-    this.getStats()
-      .then(function(res) {
-        this.stats = res.data.pet.stats;
-        this.mood = res.data.pet.mood;
-        this.health = res.data.pet.health;
-        this.sleep = res.data.pet.sleap;
-      }.bind(this))
-      .then(function() {
-        for (var i = 0; i < this.stats.length; i++) {
-          this.calcStats(this.stats[i].name, "missed");
-          console.log("onLogin", this.stats[i].name);
-        }
-      }.bind(this))
-      .then(function() {
-        // for (var i = 0; i < this.stats.length; i++) {
-        //   this.saveStats(this.stats[i].name, Date.now(), this.mood, this.health);
-        // }
-      });
-  }.bind(this);
+  // this.onLogin = function() {
+  //   this.getStats()
+  //     .then(function(res) {
+  //       this.stats = res.data.pet.stats;
+  //       this.mood = res.data.pet.mood;
+  //       this.health = res.data.pet.health;
+  //       this.sleep = res.data.pet.sleap;
+  //     }.bind(this))
+  //     .then(function() {
+  //       for (var i = 0; i < this.stats.length; i++) {
+  //         this.calcStats(this.stats[i].name, "missed");
+  //         console.log("onLogin", this.stats[i].name);
+  //       }
+  //     }.bind(this))
+  //     .then(function() {
+  //       // for (var i = 0; i < this.stats.length; i++) {
+  //       //   this.saveStats(this.stats[i].name, Date.now(), this.mood, this.health);
+  //       // }
+  //     });
+  // }.bind(this);
 
-  this.onLogin();
+  // this.onLogin();
   // console.log(this.stats);
 
   // game loop, where should this be called?

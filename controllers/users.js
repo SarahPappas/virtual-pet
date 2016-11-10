@@ -124,13 +124,13 @@ router.route('/auth')
         }
         console.log("req.body", req.body);
         
-        if(req.body.health){
+        if(req.body.health >= 0){
           console.log("updating health");
           user.pet.health = req.body.health
         };
         console.log(req.body.mood);
         
-        if(req.body.mood){
+        if(req.body.mood >= 0){
           console.log("updating mood");
           user.pet.mood = req.body.mood
         };
