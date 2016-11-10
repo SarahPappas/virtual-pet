@@ -25,7 +25,7 @@ angular.module("VirtualPetApp")
       },
       feed: {
           // msUntilNeeded: 4 * this.msPerHour,
-          msUntilMissed: 3000,
+          msUntilMissed: 7000,
           // msUntilMissed: 5 * this.msPerHour,
           moodDeltas: {
               missed: -20,
@@ -91,7 +91,6 @@ angular.module("VirtualPetApp")
       });
   }.bind(this);
 
-
   this.saveStats = function(activity, lastDate, mood, health) {
       // finish put route for stats
       return $http({
@@ -109,30 +108,27 @@ angular.module("VirtualPetApp")
   this.calcStats = function(activity, actedOrMissed) {
 
     var now = Date.now();
-    console.log("ran ", activity);
     // set action to passed action
     var actionInfo = this.actionInfos[activity];
     // seting time untill missed
     var msUntilMissed = actionInfo.msUntilMissed;
-    console.log("this.stats", typeof Number(this.stats[1].last));
-    console.log("msUntilMissed", typeof msUntilMissed);
+
     var totalTime = Number(this.stats[1].last) + msUntilMissed;
-    console.log("totalTime", totalTime);
     // setting delta
     var delta = actionInfo.moodDeltas.missed;
     // using actedOrMissed to set equal to missed
-    if( actedOrMissed == "missed" ) {
-      var delta = actionInfo.moodDeltas.missed;
-    } else {
-      var delta = actionInfo.moodDeltas.acted;
-    }
     
     if (this.isSleeping) {
       totalTime += this.actionInfos.sleep.msSleeping;
+      console.log("sleep");
     }
+    console.log("savedTime",Number(this.stats[1].last))
+    console.log("now", now);
+    console.log("totalTime", totalTime);
 
-    if (now > totalTime) {
-      console.log("it's happening");
+    if( now < totalTime && actedOrMissed == "acted" ) {
+      console.log("acted");
+      var delta = actionInfo.moodDeltas.acted;
       if(this.mood + delta < 0){
         this.mood = 0;
       } else if (this.mood + delta >= 100) {
@@ -147,7 +143,46 @@ angular.module("VirtualPetApp")
       } else {
         this.health += delta;
       }
-      this.saveStats(activity, Date.now(), this.mood, this.health);
+      this.saveStats(activity, Date.now(), this.mood, this.health)
+        .then(function() {
+          this.getStats()
+            .then(function(res) {
+              this.stats = res.data.pet.stats;
+              this.mood = res.data.pet.mood;
+              this.health = res.data.pet.health;
+              this.sleep = res.data.pet.sleap;
+            }.bind(this))
+        });
+      $rootScope.$broadcast("update", this); 
+    }
+    
+    if (now > totalTime) {
+      var delta = actionInfo.moodDeltas.missed;
+      console.log("now is passed totalTime");
+      if(this.mood + delta < 0){
+        this.mood = 0;
+      } else if (this.mood + delta >= 100) {
+        this.mood = 100;
+      } else {
+        this.mood += delta;
+      }
+      if(this.health + delta < 0){
+        this.health = 0
+      } else if (this.health + delta >= 100) {
+        this.health = 100;
+      } else {
+        this.health += delta;
+      }
+      this.saveStats(activity, Date.now(), this.mood, this.health)
+      .then(function() {
+        this.getStats()
+          .then(function(res) {
+            this.stats = res.data.pet.stats;
+            this.mood = res.data.pet.mood;
+            this.health = res.data.pet.health;
+            this.sleep = res.data.pet.sleap;
+          }.bind(this))
+        });
       $rootScope.$broadcast("update", this);
     }
   }.bind(this);
@@ -185,12 +220,13 @@ angular.module("VirtualPetApp")
       .then(function() {
         for (var i = 0; i < this.stats.length; i++) {
           this.calcStats(this.stats[i].name, "missed");
+          console.log("onLogin", this.stats[i].name);
         }
       }.bind(this))
       .then(function() {
-        for (var i = 0; i < this.stats.length; i++) {
-          this.saveStats(this.stats[i].name, Date.now(), this.mood, this.health);
-        }
+        // for (var i = 0; i < this.stats.length; i++) {
+        //   this.saveStats(this.stats[i].name, Date.now(), this.mood, this.health);
+        // }
       });
   }.bind(this);
 

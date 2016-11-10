@@ -23,8 +23,6 @@
           }
         };
 
-
-
         $scope.$on("update", function(event, args) {
             $scope.safeApply();
         })
