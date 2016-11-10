@@ -6,7 +6,7 @@
     controllerAs: 'SignUpCtrl'
   });
 
-  function SignUpCtrl($http, $state, authService, $timeout){
+  function SignUpCtrl($http, $state, authService, $timeout, ApplicationService){
     console.log("SignUpCtrl loaded!");
     var SignUpCtrl = this;
 
@@ -80,8 +80,10 @@
     }
     else {
     $http.post('/api/users', SignUpCtrl.newUser).then(function success(res) {
-      authService.saveToken(res.data.token);
-      $state.go('play');
+      // authService.saveToken(res.data.token);
+      // $state.go('play');
+      SignUpCtrl.signingUp = false;
+      SignUpCtrl = true;
     }, function error(err) {
       console.log(err);
       if (err.status === 400){
@@ -102,6 +104,7 @@
     $http.post('/api/users/auth', SignUpCtrl.loginInfo)
     .then(function success(res){
       authService.saveToken(res.data.token);
+      ApplicationService.onLogin();
       $state.go('play');
     }, function error(err){
       if(err.status === 400){
@@ -116,6 +119,6 @@
   }
 
 
-  SignUpCtrl.$inject = ['$http', '$state', 'authService', '$timeout'];
+  SignUpCtrl.$inject = ['$http', '$state', 'authService', '$timeout', "ApplicationService"];
 }
 })()
