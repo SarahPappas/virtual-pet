@@ -39,7 +39,6 @@ router.route('/auth')
     // find the user first in case the email already exists
     User.findOne({ email: req.body.email }, function(err, user) {
       
-      
       if (err) {
         console.log("user not found. err:", err);
         return res.status(401).send({message: 'User not found', err: err});
@@ -83,7 +82,6 @@ router.route('/auth')
           return;
         }
 
-        
         res.send(user);
       })
     });
@@ -124,14 +122,12 @@ router.route('/auth')
         }
         
         
-        if(req.body.health){
-          
+        if(req.body.health >= 0){
           user.pet.health = req.body.health
         };
         
         
-        if(req.body.mood){
-          
+        if(req.body.mood >= 0){
           user.pet.mood = req.body.mood
         };
         user.save(function() {
