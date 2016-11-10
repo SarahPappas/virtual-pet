@@ -23,6 +23,10 @@ router.route('/')
           return res.status(500).send(err);
         }
 
+        var authHeader = req.headers.authorization;
+        var authHeaderParts = authHeader.split(" ");
+        var token = authHeaderParts[1];
+        return res.send({user: user, token:token});
         
         return res.send(user);
       });
@@ -49,7 +53,6 @@ router.route('/auth')
         return res.status(400).send({ message: 'email not found', status: 400 });
       }
       
-      console.log("authing");
       if (user.authenticated(req.body.password)) {
         
        
