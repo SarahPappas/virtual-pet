@@ -6,24 +6,24 @@ var router = express.Router();
 
 router.route('/')
   .get(function(req, res) {
-    console.log("This is the backend yo!");
+   
   })
   .post(function(req, res) {
     // SIGNING UP FOR THE FIRST TIME
     console.log(req.body);
     //find the user first in case the email already exists
     User.findOne({ email: req.body.email }, function(err, user) {
-      console.log("done looking for user!");
+      
       if (user) return res.status(400).send({ message: 'Email already exists' });
 
       User.create(req.body, function(err, user) {
-        console.log("tried to create user");
+        
         if (err) {
-          console.log("create user err:", err);
+          
           return res.status(500).send(err);
         }
 
-        console.log("created user", user);
+        
         return res.send(user);
       });
     });
@@ -31,14 +31,14 @@ router.route('/')
 
 router.route('/auth')
   .get(function(req, res) {
-    console.log("This is the auth backend yo!");
+    
   })
   .post(function(req, res) {
     //LOGGING IN
-    console.log(req.body);
+    
     // find the user first in case the email already exists
     User.findOne({ email: req.body.email }, function(err, user) {
-      console.log("found one user");
+      
       
       if (err) {
         console.log("user not found. err:", err);
@@ -52,10 +52,10 @@ router.route('/auth')
       
       console.log("authing");
       if (user.authenticated(req.body.password)) {
-        console.log("authed");
-        console.log("making token")
+        
+       
         var token = jwt.sign(user, secret);
-        console.log("token:", token);
+        
         res.send({user: user, token: token});
       }
       else{
@@ -83,7 +83,7 @@ router.route('/auth')
           return;
         }
 
-        console.log("backend get response firing", user);
+        
         res.send(user);
       })
     });
@@ -95,8 +95,8 @@ router.route('/auth')
     var token = authHeaderParts[1];
     jwt.verify(token, secret, function(err, decoded) {
       var userId = decoded._doc._id;
-      console.log("put backend", req.body);
-      console.log("put backend", req.body.activity);
+      
+      
       // User.findOne({_id: userId}, function(err, user)
       User.findOne({_id: userId}, function(err, user) {
         if (err) {
@@ -122,20 +122,20 @@ router.route('/auth')
         if(req.body.lastTime) {
           user.pet.stats[activityId].last = req.body.lastTime;
         }
-        console.log("req.body", req.body);
+        
         
         if(req.body.health){
-          console.log("updating health");
+          
           user.pet.health = req.body.health
         };
-        console.log(req.body.mood);
+        
         
         if(req.body.mood){
-          console.log("updating mood");
+          
           user.pet.mood = req.body.mood
         };
         user.save(function() {
-          console.log("saved!!");
+          
         });
       })
     });

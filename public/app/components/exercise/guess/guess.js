@@ -57,6 +57,7 @@
         }
         if(totalPlay >= 5 && totalWins >= 3) {
           winner.innerHTML = ' Congrats Mood Increased by 20%!';
+          loser.style.display = "none";
           winner.style.display = "block"; 
           setTimeout(function() {
             window.location.assign("http://localhost:3000/play/");
@@ -64,6 +65,7 @@
         }
         else if(totalPlay >= 5){
           loser.innerHTML = ' Sorry, Need 3 Correct :(';
+          winner.style.display = "none";
           loser.style.display = "block"; 
           setTimeout(function() {
             window.location.assign("http://localhost:3000/play/");
@@ -101,14 +103,20 @@
           }, 2000);
         }
         if(totalPlay >= 5 && totalWins >= 3) {
-          winner.innerHTML = ' Congrats Mood Increased by 25%!';
+          winner.innerHTML = ' Congrats Mood Increased by 20%!';
+          loser.style.display = "none";
           winner.style.display = "block"; 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/")
+            window.location.assign("http://localhost:3000/play/");
           }, 2000);
         }
         else if(totalPlay >= 5){
-          console.log('loser');
+          loser.innerHTML = ' Sorry, Need 3 Correct :(';
+          winner.style.display = "none";
+          loser.style.display = "block"; 
+          setTimeout(function() {
+            window.location.assign("http://localhost:3000/play/");
+          }, 2000);
         }
     }); 
   }
