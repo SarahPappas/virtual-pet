@@ -114,8 +114,9 @@ angular.module("VirtualPetApp")
     var actionInfo = this.actionInfos[activity];
     // seting time untill missed
     var msUntilMissed = actionInfo.msUntilMissed;
-    console.log(this.stats[1].name, this.stats[1].last);
-    var totalTime = this.stats[1].last + msUntilMissed;
+    console.log("this.stats", typeof Number(this.stats[1].last));
+    console.log("msUntilMissed", typeof msUntilMissed);
+    var totalTime = Number(this.stats[1].last) + msUntilMissed;
     console.log("totalTime", totalTime);
     // setting delta
     var delta = actionInfo.moodDeltas.missed;
@@ -146,8 +147,8 @@ angular.module("VirtualPetApp")
       } else {
         this.health += delta;
       }
+      this.saveStats("feed", Date.now(), this.mood, this.health);
       $rootScope.$broadcast("update", this);
-      this.saveStats(activity, Date.now(), this.mood, this.health);
     }
   }.bind(this);
 
