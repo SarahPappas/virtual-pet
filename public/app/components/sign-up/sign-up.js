@@ -83,7 +83,7 @@
       // authService.saveToken(res.data.token);
       // $state.go('play');
       SignUpCtrl.signingUp = false;
-      SignUpCtrl = true;
+      SignUpCtrl.loggingIn = true;
     }, function error(err) {
       console.log(err);
       if (err.status === 400){
