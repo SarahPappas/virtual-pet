@@ -80,6 +80,7 @@
     }
     else {
     $http.post('/api/users', SignUpCtrl.newUser).then(function success(res) {
+      authService.saveToken(res.data.token);
       $state.go('play');
     }, function error(err) {
       console.log(err);
@@ -100,8 +101,6 @@
     console.log(SignUpCtrl.loginInfo);
     $http.post('/api/users/auth', SignUpCtrl.loginInfo)
     .then(function success(res){
-      console.log(res);
-      console.log('current user:' + authService.currentUser());
       authService.saveToken(res.data.token);
       $state.go('play');
     }, function error(err){

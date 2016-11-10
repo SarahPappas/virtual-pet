@@ -1,0 +1,44 @@
+.moleBox {
+	position: absolute;
+	height: 100px;
+	width: 100px;
+	background-color: #663300;
+}
+
+#moleBox1 {
+	margin-top: 25%;
+	margin-left: 10%;
+}
+
+#moleBox2 {
+	margin-left: 70%;
+	margin-top: 40%;
+}
+
+#moleBox3 {
+	margin-left: 35%;
+	margin-top: 65%;
+}
+
+.moleYoda {
+	position: absolute;
+	height: 85px;
+	width: 85px;
+}
+
+#moleYoda1 {
+	margin-left: 10%;
+}
+
+#moleYoda2 {
+	margin-left: 70%;
+}
+
+#moleYoda3 {
+	margin-left: 35%;
+}
+
+.moleScore {
+	position: absolute;
+	margin-left: 45%;
+}
