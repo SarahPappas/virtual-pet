@@ -26,7 +26,8 @@ router.route('/')
         // var authHeader = req.headers.authorization;
         // var authHeaderParts = authHeader.split(" ");
         // var token = authHeaderParts[1];
-        return res.send({user});
+
+        return res.send(user);
         
         return res.send(user);
       });
