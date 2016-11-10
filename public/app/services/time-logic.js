@@ -190,7 +190,7 @@ angular.module("VirtualPetApp")
               this.health = res.data.pet.health;
               this.sleep = res.data.pet.sleap;
             }.bind(this))
-        });
+        }.bind(this));
       $rootScope.$broadcast("update", this); 
     }
     

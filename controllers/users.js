@@ -90,20 +90,16 @@ router.route('/auth')
     });
   })
   .put(function(req, res) {
-    console.log("saving stats:", req.body);
 
     // header is sending password!!??
     var authHeader = req.headers.authorization;
     var authHeaderParts = authHeader.split(" ");
     var token = authHeaderParts[1];
-    console.log("verifying token...")
     jwt.verify(token, secret, function(err, decoded) {
-      console.log("token verified")
       var userId = decoded._doc._id;
       
       
       // User.findOne({_id: userId}, function(err, user)
-      console.log("finding user...")
       User.findOne({_id: userId}, function(err, user) {
         if (err) {
           res.send(err);
@@ -116,7 +112,6 @@ router.route('/auth')
           return;
         }
 
-        console.log("user found")
         var activityId;
         if(req.body.activity){
           if(req.body.activity == 'sleep'){activityId = 0};
