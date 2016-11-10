@@ -41,20 +41,20 @@
       stats: [
         {
           name: "sleep",
-          last: null,
+          last: Date.now(),
           isSleeping: false
         },
         {
           name: "feed",
-          last: null
+          last: Date.now()
         },
         {
           name: "clean",
-          last: null
+          last: Date.now()
         },
         {
           name: "exercise",
-          last: null
+          last: Date.now()
         },
         {
           name: "nurse",

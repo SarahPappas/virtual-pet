@@ -2,8 +2,8 @@ angular.module("VirtualPetApp")
 .service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
   this.stats = {};  
   
-  this.mood = 100;
-  this.health = 100;
+  // this.mood = 100;
+  // this.health = 100;
   this.sleep = false;
   this.msPerHour = 1000 * 60 * 60;
 
@@ -25,7 +25,7 @@ angular.module("VirtualPetApp")
       },
       feed: {
           // msUntilNeeded: 4 * this.msPerHour,
-          msUntilMissed: 6000,
+          msUntilMissed: 3000,
           // msUntilMissed: 5 * this.msPerHour,
           moodDeltas: {
               missed: -20,
@@ -76,9 +76,6 @@ angular.module("VirtualPetApp")
         }
       }
   }
-
-  // call onlogin, setTimeouts
-  // gets all stats
   
   this.getStats = function() {
       return $http({
@@ -113,14 +110,13 @@ angular.module("VirtualPetApp")
 
     var now = Date.now();
     console.log("ran ", activity);
-    console.log("action Infos", this.actionInfos);
     // set action to passed action
     var actionInfo = this.actionInfos[activity];
     // seting time untill missed
-    console.log("actionInfo", actionInfo);
     var msUntilMissed = actionInfo.msUntilMissed;
-    console.log("msUntilMissed", msUntilMissed);
-    var totalTime = this.timeLastExecuted + msUntilMissed;
+    console.log(this.stats[1].name, this.stats[1].last);
+    var totalTime = this.stats[1].last + msUntilMissed;
+    console.log("totalTime", totalTime);
     // setting delta
     var delta = actionInfo.moodDeltas.missed;
     // using actedOrMissed to set equal to missed
@@ -135,6 +131,7 @@ angular.module("VirtualPetApp")
     }
 
     if (now > totalTime) {
+      console.log("it's happening");
       if(this.mood + delta < 0){
         this.mood = 0;
       } else if (this.mood + delta >= 100) {
@@ -150,21 +147,32 @@ angular.module("VirtualPetApp")
         this.health += delta;
       }
       $rootScope.$broadcast("update", this);
+      this.saveStats(activity, Date.now(), this.mood, this.health);
     }
   }.bind(this);
 
 
   this.checkForUpdate = function() {
-    // get function
-    // this.getStats();
-    //loop?
-    // this.calcStats("feed", "missed");
-    // get stats from db
-    // do calculations
-    // if change broadcast and change inside db
+    this.getStats()
+      .then(function(res) {
+        this.stats = res.data.pet.stats;
+        this.mood = res.data.pet.mood;
+        this.health = res.data.pet.health;
+        this.sleep = res.data.pet.sleap;
+      }.bind(this))
+      .then(function() {
+        this.calcStats("feed", "missed");
+        // for (var i = 0; i < this.stats.length; i++) {
+        //   this.calcStats(this.stats[i].name, "missed");
+        // }
+      }.bind(this));
+      // .then(function() {
+      //   for (var i = 0; i < this.stats.length; i++) {
+      //     this.saveStats(this.stats[i].name, Date.now(), this.mood, this.health);
+      //   }
+      // });
   }.bind(this);
 
-  // login function to be moved to proper controller
   this.onLogin = function() {
     this.getStats()
       .then(function(res) {
@@ -177,10 +185,12 @@ angular.module("VirtualPetApp")
         for (var i = 0; i < this.stats.length; i++) {
           this.calcStats(this.stats[i].name, "missed");
         }
-      }.bind(this));
-    // calc data
-
-    // set new base dates
+      }.bind(this))
+      .then(function() {
+        for (var i = 0; i < this.stats.length; i++) {
+          this.saveStats(this.stats[i].name, Date.now(), this.mood, this.health);
+        }
+      });
   }.bind(this);
 
   this.onLogin();

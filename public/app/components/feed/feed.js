@@ -24,7 +24,8 @@
             });
 
         feed.feeding = function() {
-            // ApplicationService.calcStatsOnClick("feed", "acted");
+            // getstats,then calcstats, then save stats
+            ApplicationService.calcStats("feed", "acted");
             // ApplicationService.saveStats("feed", Date.now(), ApplicationService.mood, ApplicationService.health);
         }
 

@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
+require('mongoose-long')(mongoose);
 var bcrypt = require('bcrypt');
+var SchemaTypes = mongoose.Schema.Types;
 
 var UserSchema = mongoose.Schema({
     email: { type: String, required: true, index: { unique: true } },
@@ -12,24 +14,24 @@ var UserSchema = mongoose.Schema({
       stats: [
         {
           name: String,
-          last: Date,
+          last: SchemaTypes.Long,
           isSleeping: Boolean
         },
         {
           name: String,
-          last: Date
+          last: SchemaTypes.Long
         },
         {
           name: String,
-          last: Date
+          last: SchemaTypes.Long
         },
         {
           name: String,
-          last: Date
+          last: SchemaTypes.Long
         },
         {
           name: String,
-          last: Date
+          last: SchemaTypes.Long
         }
       ]
     }
