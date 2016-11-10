@@ -1,3 +1,49 @@
+/*  CLEAN POOP  */
+.cleanbar {
+	width:10px;
+	height:500px;
+	background-color:lightgray;
+	position:absolute;
+	left:5px;
+	top:5px;
+	 -webkit-transition: 1s ease-in-out;
+   -moz-transition: 1s ease-in-out;
+   -o-transition: 1s ease-in-out;
+   transition: 1s ease-in-out;
+  visibility: hidden;
+}
+ .cleanpoop:hover + .cleanbar {
+    -webkit-transform: translate(3em,0);
+    -moz-transform: translate(3em,0);
+    -o-transform: translate(3em,0);
+    -ms-transform: translate(3em,0);
+    transform: translate(430px,0);
+    visibility: visible;
+  }
+
+/*  POOP  */
+.poop {
+	width: 39px;
+	height: 44px;
+  background: url('/img/animation/poop.png');
+  margin-top:240px;
+  position:absolute;
+}
+
+
+/*SICK ANIMATION*/
+.sick-anim {
+  width: 229px;
+  height: 306px;
+  margin: 2% auto;
+  background: url('/img/animation/sicksheet.png') left center;
+  animation: play 4s steps(4) infinite;
+  margin-top:90px;
+}
+@keyframes play {
+	100% { background-position: -917px; }
+}
+
 
 /*SLEEP ANIMATION*/
 /*.sleep-anim {
@@ -27,7 +73,7 @@
 }*/
 
 /*DEFAULT ANIMATION 2*/
-.default-anim {
+/*.default-anim {
   width: 229px;
   height: 304px;
   margin: 2% auto;
@@ -38,7 +84,7 @@
 @keyframes play {
 	100% { background-position: -2746px; }
 }
-
+*/
 
 
 /*FEED ANIMATION*/
