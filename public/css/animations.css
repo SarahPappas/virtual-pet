@@ -1,0 +1,100 @@
+/*  CLEAN POOP  */
+.cleanbar {
+	width:10px;
+	height:500px;
+	background-color:lightgray;
+	position:absolute;
+	left:5px;
+	top:5px;
+	 -webkit-transition: 1s ease-in-out;
+   -moz-transition: 1s ease-in-out;
+   -o-transition: 1s ease-in-out;
+   transition: 1s ease-in-out;
+  visibility: hidden;
+}
+ .cleanpoop:hover + .cleanbar {
+    -webkit-transform: translate(3em,0);
+    -moz-transform: translate(3em,0);
+    -o-transform: translate(3em,0);
+    -ms-transform: translate(3em,0);
+    transform: translate(430px,0);
+    visibility: visible;
+  }
+
+/*  POOP  */
+.poop {
+	width: 39px;
+	height: 44px;
+  background: url('/img/animation/poop.png');
+  margin-top:240px;
+  position:absolute;
+}
+
+
+/*SICK ANIMATION*/
+.sick-anim {
+  width: 229px;
+  height: 306px;
+  margin: 2% auto;
+  background: url('/img/animation/sicksheet.png') left center;
+  animation: play 4s steps(4) infinite;
+  margin-top:90px;
+}
+@keyframes play {
+	100% { background-position: -917px; }
+}
+
+
+/*SLEEP ANIMATION*/
+/*.sleep-anim {
+  width: 329px;
+  height: 270px;
+  margin: 2% auto;
+  background: url('/img/animation/sleepsheet.png') left center;
+  animation: play 5s steps(4) infinite;
+  margin-top:90px;
+}
+@keyframes play {
+	100% { background-position: -1318px; }
+}*/
+
+
+/*DEFAULT ANIMATION*/
+/*.default-anim {
+  width: 229px;
+  height: 304px;
+  margin: 2% auto;
+  background: url('/img/defaultsheet.png') left center;
+  animation: play 6s steps(8) infinite;
+  margin-top:90px;
+}
+@keyframes play {
+	100% { background-position: -1830px; }
+}*/
+
+/*DEFAULT ANIMATION 2*/
+/*.default-anim {
+  width: 229px;
+  height: 304px;
+  margin: 2% auto;
+  background: url('/img/animation/defaultsheet3.png') left center;
+  animation: play 6s steps(12) infinite;
+  margin-top:90px;
+}
+@keyframes play {
+	100% { background-position: -2746px; }
+}
+*/
+
+
+/*FEED ANIMATION*/
+/*.feed-anim {
+  width: 322px;
+  height: 265px;
+  margin: 2% auto;
+  background: url('/img/feedsheet2.png') left center;
+  animation: play 4s steps(10) infinite;
+}
+@keyframes play {
+	100% { background-position: -3236px; }
+}*/
