@@ -90,6 +90,7 @@ router.route('/auth')
     });
   })
   .put(function(req, res) {
+
     // header is sending password!!??
     var authHeader = req.headers.authorization;
     var authHeaderParts = authHeader.split(" ");
@@ -110,6 +111,7 @@ router.route('/auth')
           console.log(err);
           return;
         }
+
         var activityId;
         if(req.body.activity){
           if(req.body.activity == 'sleep'){activityId = 0};
@@ -134,7 +136,7 @@ router.route('/auth')
           user.pet.mood = req.body.mood
         };
         user.save(function() {
-          
+          res.send(user);
         });
       })
     });
