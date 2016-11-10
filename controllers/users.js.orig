@@ -6,7 +6,7 @@ var router = express.Router();
 
 router.route('/')
   .get(function(req, res) {
-    console.log("This is the backend yo!");
+   
   })
   .post(function(req, res) {
     // SIGNING UP FOR THE FIRST TIME
@@ -124,14 +124,24 @@ router.route('/auth')
         }
         
         
+<<<<<<< HEAD
+        if(req.body.health >= 0){
+          console.log("updating health");
+=======
         if(req.body.health){
           
+>>>>>>> origin
           user.pet.health = req.body.health
         };
         
         
+<<<<<<< HEAD
+        if(req.body.mood >= 0){
+          console.log("updating mood");
+=======
         if(req.body.mood){
           
+>>>>>>> origin
           user.pet.mood = req.body.mood
         };
         user.save(function() {
