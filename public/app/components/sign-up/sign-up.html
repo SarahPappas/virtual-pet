@@ -2,8 +2,8 @@
   <button class="home-button" ng-click="SignUpCtrl.clickLogin()">Login</button>
   <button class="home-button" ng-click="SignUpCtrl.clickSignUp()">Sign Up</button>
 </div>
-<!-- SIGN UP FORM -->
 
+<!-- SIGN UP FORM -->
 <div id="home-form">
   <form class="home-form" ng-if="SignUpCtrl.signingUp" ng-submit="SignUpCtrl.createUser()">
     <hr>
@@ -17,10 +17,26 @@
       <input type="password" class="form-control" id="password" placeholder="********" ng-model="SignUpCtrl.newUser.password">
     </div>
     <h4>Pick Your Pet</h4>
-    <img style="display: inline" src="http://pngimg.com/upload/dog_PNG2446.png">
-    <img style="display: inline" src="http://orig10.deviantart.net/a9a9/f/2013/228/4/d/cat_cute_rolling_png_by_princessbubblegum5-d6igiqf.png">
-    <input type="radio" ng-model="SignUpCtrl.newUser.pet.species" name="pet" value="dog" checked> Dog<br>
-    <input type="radio" ng-model="SignUpCtrl.newUser.pet.species" name="pet" value="cat"> Cat<br> 
+    <div class="pet1">
+      <input type="radio" ng-model="SignUpCtrl.newUser.pet.species" name="pet" value="pet1" checked><br>
+      <img src="/img/pickpet1.png">
+    </div>
+    <div class="pet2">
+      <input type="radio" ng-model="SignUpCtrl.newUser.pet.species" name="pet" value="pet2"><br>
+      <img src="/img/pickpet2.png">
+    </div>
+    <div class="pet3">
+      <input type="radio" ng-model="SignUpCtrl.newUser.pet.species" name="pet" value="3" checked><br>
+      <img src="/img/pickpet3.png">
+    </div>
+    <div class="pet4">
+      <input type="radio" ng-model="SignUpCtrl.newUser.pet.species" name="pet" value="4" checked><br>
+      <img src="/img/pickpet4.png">
+    </div>
+    
+     <br>
+     <div class="clear"></div>
+
     <label for="petName">Pet's Name: </label>
     <input type="text" ng-model="SignUpCtrl.newUser.pet.petname" name="petName">
     <p style="color:red" ng-if="SignUpCtrl.noPassword == true">Please enter a password at least 6 characters long.</p>
