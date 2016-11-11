@@ -215,6 +215,7 @@ angular.module("VirtualPetApp")
       }
       console.log("now is passed totalTime", activity);
       if(this.mood + deltaMood < 0){
+        this.health -= 10;
         this.mood = 0;
       } else if (this.mood + deltaMood >= 100) {
         this.mood = 100;
