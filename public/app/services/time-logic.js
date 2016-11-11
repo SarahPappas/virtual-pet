@@ -188,14 +188,14 @@ angular.module("VirtualPetApp")
         this.health += deltaHealth;
       }
       if (activity == "sleep") {
-
+        this.sleep = true;
       }
       this.saveStats(activity, Date.now(), this.mood, this.health, this.sleep)
         .then(function(res) {
               this.stats = res.data.pet.stats;
               this.mood = res.data.pet.mood;
               this.health = res.data.pet.health;
-              this.sleep = res.data.pet.sleap;
+              this.sleep = res.data.pet.stats[0].isSleeping;;
         }.bind(this));
       $rootScope.$broadcast("update", this); 
     }
@@ -233,7 +233,7 @@ angular.module("VirtualPetApp")
           this.stats = res.data.pet.stats;
           this.mood = res.data.pet.mood;
           this.health = res.data.pet.health;
-          this.sleep = res.data.pet.sleep;
+          this.sleep = res.data.pet.stats[0].isSleeping;;
         }.bind(this))
       }.bind(this));
       $rootScope.$broadcast("update", this);
@@ -249,7 +249,7 @@ angular.module("VirtualPetApp")
         this.stats = res.data.pet.stats;
         this.mood = res.data.pet.mood;
         this.health = res.data.pet.health;
-        this.sleep = res.data.pet.sleep;
+        this.sleep = res.data.pet.stats[0].isSleeping;
       }.bind(this))
       .then(function() {
         for (var i = 0; i < this.stats.length; i++) {
@@ -262,7 +262,7 @@ angular.module("VirtualPetApp")
     this.getStats()
       .then(function(res) {
         console.log("onlogin health", res.data.pet.health);
-        console.log("sleeping?", res.data.pet);
+        console.log("sleeping?", res.data.pet.stats[0]);
         this.stats = res.data.pet.stats;
         this.mood = res.data.pet.mood;
         this.health = res.data.pet.health;

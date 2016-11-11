@@ -6,7 +6,7 @@
     controllerAs: "guess"
   });
 
-  function GuessCtrl(ApplicationService) {
+  function GuessCtrl(ApplicationService, $location) {
     var exercise = this;
     var vader = document.getElementById("vader");
     var leftArrow = document.getElementById("guessArrow1");
@@ -16,6 +16,7 @@
     var userChoice;
     var totalPlay = 0;
     var totalWins = 0;
+    var gameover = false;
 
 
     ApplicationService.getStats();
@@ -107,18 +108,28 @@
           loser.style.display = "none";
           winner.style.display = "block"; 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            gameover = true;
           }, 2000);
+          // setTimeout(function() {
+          //   $state.go("play");
+          // }, 2000);
         }
         else if(totalPlay >= 5){
           loser.innerHTML = ' Sorry, Need 3 Correct :(';
           winner.style.display = "none";
           loser.style.display = "block"; 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            gameover = true;
           }, 2000);
+          
+          // setTimeout(function() {
+          //   $state.go("play/feed");
+          // }, 2000);
+        }
+        if (gamover) {
+          $location.path('play');
         }
     }); 
   }
-  GuessCtrl.$inject = ["ApplicationService"];
+  GuessCtrl.$inject = ["ApplicationService", "$location"];
 })()
