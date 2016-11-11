@@ -167,30 +167,28 @@
 
 
 /*  NURSE ANIMATION  */
-.nurse-anim {
+/*.nurse-anim {
   width: 460px;
   height: 306px;
-  margin-left:0;
-  padding:0;
-  background: url('/img/animation/nursesheetc2.png') left center;
+  background: url('/img/animation/nursesheetc2.png') 0 0 no-repeat; 
   animation: play 11s steps(10) infinite;
   margin-top:90px;
 }
 @keyframes play {
-  100% { background-position: 0, -3060px; }
+  100% { background-position: 0 -3060px; }
 }
-
+*/
 
 
 /*  SICK ANIMATION  */
-/*.sick-anim {
+.sick-anim {
   width: 229px;
   height: 306px;
   margin: 2% auto;
-  background: url('/img/animation/sicksheet.png') left center;
+  background: url('/img/animation/sicksheetc2.png') left center;
   animation: play 4s steps(4) infinite;
   margin-top:90px;
 }
 @keyframes play {
   100% { background-position: -917px; }
-}*/
+}
