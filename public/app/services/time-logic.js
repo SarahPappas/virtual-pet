@@ -3,9 +3,6 @@ angular.module("VirtualPetApp")
 .service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
   this.stats = {};  
   
-  // this.mood = 100;
-  // this.health = 100;
-  this.sleep = false;
   this.msPerHour = 1000 * 60 * 60;
 
   // constants
@@ -150,7 +147,7 @@ angular.module("VirtualPetApp")
     // console.log("savedTime",Number(this.stats[1].last))
     // console.log("now", now);
     // console.log("totalTime", totalTime);
-    // console.log("countDown", totalTime - now);
+    console.log("countDown", totalTime - now);
 
     var isTimeExpired = false;
     if (now > totalTime) {
@@ -190,6 +187,9 @@ angular.module("VirtualPetApp")
       } else {
         this.health += deltaHealth;
       }
+      if (activity == "sleep") {
+
+      }
       this.saveStats(activity, Date.now(), this.mood, this.health, this.sleep)
         .then(function(res) {
               this.stats = res.data.pet.stats;
@@ -224,8 +224,8 @@ angular.module("VirtualPetApp")
       } else {
         this.health += deltaHealth;
       }
-      console.log("saving stats:", this.mood, this.health);
-      this.saveStats(activity, Date.now(), this.mood, this.health)
+      console.log("saving stats:", this.mood, this.health, this.sleep);
+      this.saveStats(activity, Date.now(), this.mood, this.health, this.sleep)
       .then(function() {
         console.log("getting stats");
         this.getStats().then(function(res) {
@@ -243,6 +243,7 @@ angular.module("VirtualPetApp")
 
   this.checkForUpdate = function() {
     console.log("gamelooped");
+    console.log("sleeping?", this.sleep);
     this.getStats()
       .then(function(res) {
         this.stats = res.data.pet.stats;
@@ -260,10 +261,12 @@ angular.module("VirtualPetApp")
   this.onLogin = function() {
     this.getStats()
       .then(function(res) {
+        console.log("onlogin health", res.data.pet.health);
+        console.log("sleeping?", res.data.pet);
         this.stats = res.data.pet.stats;
         this.mood = res.data.pet.mood;
         this.health = res.data.pet.health;
-        this.sleep = res.data.pet.sleep;
+        this.sleep = res.data.pet.stats[0].isSleeping;
       }.bind(this))
       .then(function() {
         for (var i = 0; i < this.stats.length; i++) {

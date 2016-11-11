@@ -84,7 +84,6 @@ router.route('/auth')
           res.send(404);
           return;
         }
-
         res.send(user);
       })
     });
@@ -126,7 +125,9 @@ router.route('/auth')
           user.pet.stats[activityId].last = req.body.lastTime;
         }
         
-        user.pet.sleep = req.body.sleep;
+        if (req.body.activity == "sleep"){
+          user.pet.stats[0].isSleeping = req.body.sleep;
+        }
         
         if(req.body.health >= 0){
           user.pet.health = req.body.health;
