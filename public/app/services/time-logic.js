@@ -11,7 +11,7 @@ angular.module("VirtualPetApp")
       sleep: {
         msUntilMissed: 1000000,
         // 10 * this.msPerHour
-        msSleeping: 120000,
+        msSleeping: 60000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -208,6 +208,11 @@ angular.module("VirtualPetApp")
     }
     
     if (isTimeExpired) {
+
+      if (this.sleep && Date.now() > lastTime + this.actionInfos.sleep.msSleeping) {
+        this.sleep = false;
+      }
+
       var deltaMood = actionInfo.moodDeltas.missed;
       var deltaHealth = actionInfo.healthDeltas.missed;
       if (login) {
