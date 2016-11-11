@@ -135,7 +135,7 @@ angular.module("VirtualPetApp")
     var now = Date.now();
     // set action to passed action
     var actionInfo = this.actionInfos[activity];
-    console.log(this.actionInfos[activity], activity);
+
     // seting time untill missed
     var msUntilMissed = actionInfo.msUntilMissed;
 
@@ -144,12 +144,11 @@ angular.module("VirtualPetApp")
     
     if (this.sleep) {
       totalTime += this.actionInfos.sleep.msSleeping;
-      console.log("sleeping");
-    }
+    } 
     // console.log("savedTime",Number(this.stats[1].last))
     // console.log("now", now);
     // console.log("totalTime", totalTime);
-    console.log("countDown", totalTime - now);
+    // console.log("countDown", totalTime - now);
 
     var isTimeExpired = false;
     if (now > totalTime) {
@@ -167,9 +166,6 @@ angular.module("VirtualPetApp")
     var now = Date.now();
 
     if(!isTimeExpired && actedOrMissed == "acted" ) {
-      if (activity == "sleep") {
-        console.log("caught sleep");
-      }
       var deltaMood = actionInfo.moodDeltas.acted;
       var deltaHealth = actionInfo.healthDeltas.acted;
       if (login) {
@@ -195,7 +191,6 @@ angular.module("VirtualPetApp")
       }
       if (activity == "sleep") {
         this.sleep = "true";
-        console.log("changed sleep to true");
       }
       this.saveStats(activity, Date.now(), this.mood, this.health, this.sleep)
         .then(function(res) {
@@ -209,9 +204,6 @@ angular.module("VirtualPetApp")
     
     if (isTimeExpired) {
 
-      if (this.sleep && Date.now() > lastTime + this.actionInfos.sleep.msSleeping) {
-        this.sleep = false;
-      }
 
       var deltaMood = actionInfo.moodDeltas.missed;
       var deltaHealth = actionInfo.healthDeltas.missed;
@@ -248,7 +240,14 @@ angular.module("VirtualPetApp")
           this.sleep = res.data.pet.stats[0].isSleeping;;
         }.bind(this))
       }.bind(this));
+      
+      
       $rootScope.$broadcast("update", this);
+    }
+
+    if (this.sleep && Date.now() > Number(this.stats[0].last) + this.actionInfos.sleep.msSleeping) {
+      this.sleep = "false";
+      this.saveStats("sleep", Date.now(), this.mood, this.health, this.sleep)
     }
   }.bind(this);
 
