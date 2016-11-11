@@ -49,7 +49,7 @@ angular.module("VirtualPetApp")
       },
       exercise: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 30000,
+        msUntilMissed: 9000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: -20,
@@ -217,6 +217,7 @@ angular.module("VirtualPetApp")
       if(this.mood + deltaMood < 0){
         this.health -= 10;
         this.mood = 0;
+        this.health -= 10;
       } else if (this.mood + deltaMood >= 100) {
         this.mood = 100;
       } else {
