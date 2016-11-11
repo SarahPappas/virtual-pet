@@ -167,6 +167,7 @@ angular.module("VirtualPetApp")
     if(!isTimeExpired && actedOrMissed == "acted" ) {
       console.log("acted");
       var delta = actionInfo.moodDeltas.acted;
+      var deltaH = actionInfo.healthDeltas.acted;
       if(this.mood + delta < 0){
         this.mood = 0;
       } else if (this.mood + delta >= 100) {
@@ -174,12 +175,12 @@ angular.module("VirtualPetApp")
       } else {
         this.mood += delta;
       }
-      if(this.health + delta < 0){
+      if(this.health + deltaH < 0){
         this.health = 0
-      } else if (this.health + delta >= 100) {
+      } else if (this.health + deltaH >= 100) {
         this.health = 100;
       } else {
-        this.health += delta;
+        this.health += deltaH;
       }
       this.saveStats(activity, Date.now(), this.mood, this.health)
         .then(function() {
@@ -204,12 +205,13 @@ angular.module("VirtualPetApp")
       } else {
         this.mood += delta;
       }
-      if(this.health + delta < 0){
+      var deltaH = actionInfo.healthDeltas.missed;
+      if(this.health + deltaH < 0){
         this.health = 0;
-      } else if (this.health + delta >= 100) {
+      } else if (this.health + deltaH >= 100) {
         this.health = 100;
       } else {
-        this.health += delta;
+        this.health += deltaH;
       }
       console.log("saving stats:", this.mood, this.health);
       this.saveStats(activity, Date.now(), this.mood, this.health)
