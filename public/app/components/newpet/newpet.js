@@ -6,7 +6,7 @@
 		controllerAs: "newpet"
 	});
 
-	function NewPetCtrl($http, ApplicationService, $scope) {
+	function NewPetCtrl($http, ApplicationService, $scope, $state) {
 
 		console.log("NewPetCtrl loaded!");
 
@@ -46,11 +46,11 @@
        			method: "PUT",
        			data: this.newPet
       		}).then(function(res){
-      			console.log("new pet created!");
+      			$state.go('backPlay');
       		});
     	}
 
 	}
 
-	NewPetCtrl.$inject = ['$http', 'ApplicationService', '$scope'];
+	NewPetCtrl.$inject = ['$http', 'ApplicationService', '$scope', '$state'];
 })()
