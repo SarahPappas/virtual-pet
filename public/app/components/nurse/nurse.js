@@ -8,8 +8,7 @@
 
 	function Nurse(ApplicationService, $scope) {
 		var nurse = this;
-		nurse.data = ApplicationService;
-		nurse.isNurseAllowed = false;
+		nurse.isNurseAllowed = true;
 
 		$scope.safeApply = function(fn) {
 		  var phase = this.$root.$$phase;
@@ -24,16 +23,17 @@
 
 		$scope.$on("update", function(event, args) {
 		    $scope.safeApply();
-			console.log("nurse allowed", nurse.isNurseAllowed);
 
+			console.log("nurse allowed", nurse.isNurseAllowed);
+			console.log("nurse action", Number(ApplicationService.stats[4].last));
+			console.log("nurse countdown", Date.now() - Number(ApplicationService.stats[4].last) + ApplicationService.actionInfos.nurse.msUntilAvailable)
 		})
 
-		console.log("nurse action infos", Number(ApplicationService.stats[4].last) + ApplicationService.actionInfos.nurse.msUntilAvailable);
-		if(Date.now() < Number(ApplicationService.stats[4].last) + ApplicationService.actionInfos.nurse.msUntilAvailable)
+		if(Date.now() > Number(ApplicationService.stats[4].last) + ApplicationService.actionInfos.nurse.msUntilAvailable)
 		{
-			nurse.isNurseAllowed =  false;
-		} else {
 			nurse.isNurseAllowed =  true;
+		} else {
+			nurse.isNurseAllowed =  false;
 		}
 
 

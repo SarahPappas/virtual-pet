@@ -64,7 +64,7 @@ angular.module("VirtualPetApp")
         // msUntilNeeded: 4 * this.msPerHour,
         msUntilMissed: 24 * this.msPerHour,
         // msUntilMissed: 5 * this.msPerHour,
-        msUntilAvailable: 7000,
+        msUntilAvailable: 30000,
         moodDeltas: {
             missed: 0,
             acted: 0,
