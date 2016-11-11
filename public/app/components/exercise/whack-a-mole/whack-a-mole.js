@@ -6,7 +6,7 @@
 		controllerAs: "WhackCtrl"
 	});
 
-	function WhackCtrl() {
+	function WhackCtrl(ApplicationService) {
 		var WhackCtrl = this;
 		document.getElementById("moleYoda1").style.marginTop = '25%';
 		document.getElementById("moleYoda2").style.marginTop = '40%';
@@ -15,7 +15,7 @@
 		WhackCtrl.score = 0;
 
 
-		WhackCtrl.popUp = function(ApplicationService) {
+		WhackCtrl.popUp = function() {
 			var randomNum = Math.floor(Math.random()*3+1);
 			if(WhackCtrl.lastYoda === randomNum) {
 				WhackCtrl.popUp();

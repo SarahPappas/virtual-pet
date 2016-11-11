@@ -9,7 +9,7 @@ angular.module("VirtualPetApp")
   // constants
   this.actionInfos = {
       sleep: {
-        msUntilMissed: 30000,
+        msUntilMissed: 1000000,
         // 10 * this.msPerHour
         msSleeping: 120000,
         // msUntilMissed: 5 * this.msPerHour,
