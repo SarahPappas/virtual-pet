@@ -2,7 +2,6 @@ angular.module("VirtualPetApp")
 .service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
   this.gameLoopInterval = null;
   this.stats = {};  
-  
   this.msPerHour = 1000 * 60 * 60;
 
   // constants
@@ -198,6 +197,7 @@ angular.module("VirtualPetApp")
               this.mood = res.data.pet.mood;
               this.health = res.data.pet.health;
               this.sleep = res.data.pet.stats[0].isSleeping;
+              this.species = res.data.pet.species;
         }.bind(this));
       $rootScope.$broadcast("update", this); 
     }
@@ -239,7 +239,8 @@ angular.module("VirtualPetApp")
           this.stats = res.data.pet.stats;
           this.mood = res.data.pet.mood;
           this.health = res.data.pet.health;
-          this.sleep = res.data.pet.stats[0].isSleeping;;
+          this.sleep = res.data.pet.stats[0].isSleeping;
+          this.species = res.data.pet.species;
         }.bind(this))
       }.bind(this));
       
@@ -256,13 +257,13 @@ angular.module("VirtualPetApp")
 
   this.checkForUpdate = function() {
     console.log("gamelooped");
-    console.log("sleeping?", this.sleep);
     this.getStats()
       .then(function(res) {
         this.stats = res.data.pet.stats;
         this.mood = res.data.pet.mood;
         this.health = res.data.pet.health;
         this.sleep = res.data.pet.stats[0].isSleeping;
+        this.species = res.data.pet.species;
       }.bind(this))
       .then(function() {
         for (var i = 0; i < this.stats.length; i++) {
