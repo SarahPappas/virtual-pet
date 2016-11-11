@@ -85,7 +85,6 @@ router.route('/auth')
           res.send(404);
           return;
         }
-        console.log(user.pet.stats[0]);
         res.send(user);
       })
     });
