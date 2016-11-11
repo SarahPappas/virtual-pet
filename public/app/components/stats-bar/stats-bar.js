@@ -45,7 +45,8 @@
       	for(var j = 0; j < this.moodBarCount; j++) {
       		this.moodBars.push(j);
       	}
-}
+      }
+
 
 	StatsBarCtrl.$inject = ['$http', 'ApplicationService', '$scope', '$state'];
 })()
