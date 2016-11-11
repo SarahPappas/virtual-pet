@@ -34,7 +34,6 @@
         feed.feeding = function() {
             // getstats,then calcstats, then save stats
             ApplicationService.calcStats("feed", "acted");
-            // setTimeout(function() {}, );
             // ApplicationService.saveStats("feed", Date.now(), ApplicationService.mood, ApplicationService.health);
         }
 
