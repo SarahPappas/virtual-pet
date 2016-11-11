@@ -26,6 +26,8 @@
         $scope.$on("update", function(event, args) {
             $scope.safeApply();
         })
+
+        ApplicationService.startLoop();
         // <--------- remove above, update function below that runs on click -------->
 
         ApplicationService.getStats()

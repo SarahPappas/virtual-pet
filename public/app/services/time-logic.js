@@ -1,6 +1,7 @@
 var APPLY;
 angular.module("VirtualPetApp")
 .service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
+  this.gameLoopInterval = null;
   this.stats = {};  
   
   this.msPerHour = 1000 * 60 * 60;
@@ -188,14 +189,15 @@ angular.module("VirtualPetApp")
         this.health += deltaHealth;
       }
       if (activity == "sleep") {
-        this.sleep = true;
+        this.sleep = "true";
+        console.log("changed sleep to true");
       }
       this.saveStats(activity, Date.now(), this.mood, this.health, this.sleep)
         .then(function(res) {
               this.stats = res.data.pet.stats;
               this.mood = res.data.pet.mood;
               this.health = res.data.pet.health;
-              this.sleep = res.data.pet.stats[0].isSleeping;;
+              this.sleep = res.data.pet.stats[0].isSleeping;
         }.bind(this));
       $rootScope.$broadcast("update", this); 
     }
@@ -274,9 +276,15 @@ angular.module("VirtualPetApp")
         }
       }.bind(this))
       .then(function() {
-        setInterval(this.checkForUpdate, 3000);
+        this.startLoop()
       }.bind(this));
   }.bind(this);
+
+  this.startLoop = function() {
+    if (!this.gameLoopInteval) {
+      this.gameLoopInteval = setInterval(this.checkForUpdate, 3000);
+    }
+  };
     
   APPLY = this.applyUpdates;
 }]);
