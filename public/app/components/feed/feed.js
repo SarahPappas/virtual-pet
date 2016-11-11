@@ -30,24 +30,11 @@
         ApplicationService.startLoop();
         // <--------- remove above, update function below that runs on click -------->
 
-        ApplicationService.getStats()
-            .then(function(res) {
-                // console.log("res", res);
-            });
-
         feed.feeding = function() {
             // getstats,then calcstats, then save stats
             ApplicationService.calcStats("feed", "acted");
             // ApplicationService.saveStats("feed", Date.now(), ApplicationService.mood, ApplicationService.health);
         }
-
-        // //function to run on click
-        // feed.feeding = function () {
-        //     // update database,
-        //     var msUntilNeeded = ApplicationService.actionInfos.feed.msUntilNeeded;
-        //     ApplicationService.saveStats("feed", date.now());
-        //     //exectue game loop and game loop will braodcast if changes?
-        // };
 
     }
 
