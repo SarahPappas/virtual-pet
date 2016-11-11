@@ -1,12 +1,12 @@
 (function() {
   angular.module("VirtualPetApp")
   .component("sickpet", {
-    templateUrl: "app/components/gameover/gameover.html",
-    controller: Gameover,
-    controllerAs: "Gameover"
+    templateUrl: "app/components/petpic/petpic.html",
+    controller: SickCtrl,
+    controllerAs: "sickpet"
   });
 
-  function Gameover(ApplicationService $state) {
+  function SickCtrl(ApplicationService, $http) {
     this.health;
 
     this.checkHealth = function(){
@@ -20,8 +20,8 @@
             } 
             else {
               this.health = res.data.pet.health;
-              if(this.health === 0) {
-              $state.go('gameover');
+              if(this.health =< 30) {
+                console.log('Sick Pet!');
             }
             }
         });
@@ -32,5 +32,5 @@
 
   }
 
-  Gameover.$inject = ['$http', 'ApplicationService', '$scope', '$interval', '$state'];
+  Gameover.$inject = ['ApplicationService', '$http'];
 })()
