@@ -6,16 +6,31 @@
 		controllerAs: "WhackCtrl"
 	});
 
-	function WhackCtrl(ApplicationService) {
+	function WhackCtrl(ApplicationService, $state, $scope) {
 		var WhackCtrl = this;
+		WhackCtrl.data = ApplicationService;
 		document.getElementById("moleYoda1").style.marginTop = '25%';
 		document.getElementById("moleYoda2").style.marginTop = '40%';
 		document.getElementById("moleYoda3").style.marginTop = '65%';
 		WhackCtrl.lastYoda;
 		WhackCtrl.score = 0;
 
+		$scope.safeApply = function(fn) {
+      var phase = this.$root.$$phase;
+      if(phase == '$apply' || phase == '$digest') {
+        if(fn && (typeof(fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
+    };
 
-		WhackCtrl.popUp = function() {
+    $scope.$on("update", function(event, args) {
+      $scope.safeApply();
+    })
+
+		WhackCtrl.popUp = function(ApplicationService) {
 			var randomNum = Math.floor(Math.random()*3+1);
 			if(WhackCtrl.lastYoda === randomNum) {
 				WhackCtrl.popUp();
@@ -34,7 +49,10 @@
 		WhackCtrl.addPoint = function() {
 			WhackCtrl.score += 1;
 			if(WhackCtrl.score === 5) {
-				window.location.assign("http://localhost:3000/play/");
+				ApplicationService.calcStats("exercise", "acted"); 
+				setTimeout(function() {
+					$state.go('backPlay');
+				}, 2000);
 			}
 		}
 
@@ -42,5 +60,7 @@
 
 		ApplicationService.startLoop();
 	}
-	WhackCtrl.$inject = ["ApplicationService"];
+
+		WhackCtrl.$inject = ["ApplicationService", '$state', '$scope'];
+
 })()

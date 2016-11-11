@@ -33,7 +33,6 @@
       $scope.safeApply();
     })
 
-
     ApplicationService.getStats()
       .then(function(res) {
       });
