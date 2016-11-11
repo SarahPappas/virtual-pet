@@ -158,6 +158,7 @@ angular.module("VirtualPetApp")
     var lastTime = this.stats[index].last; 
 
     this.applyUpdates(activity, actedOrMissed, isTimeExpired, lastTime, login);
+
   }.bind(this)
 
   this.applyUpdates = function(activity, actedOrMissed, isTimeExpired, lastTime, login) {
@@ -165,6 +166,9 @@ angular.module("VirtualPetApp")
     var now = Date.now();
 
     if(!isTimeExpired && actedOrMissed == "acted" ) {
+      if (activity == "sleep") {
+        console.log("caught sleep");
+      }
       var deltaMood = actionInfo.moodDeltas.acted;
       var deltaHealth = actionInfo.healthDeltas.acted;
       if (login) {
@@ -286,5 +290,5 @@ angular.module("VirtualPetApp")
     }
   };
     
-  APPLY = this.applyUpdates;
+  // APPLY = this.applyUpdates;
 }]);
