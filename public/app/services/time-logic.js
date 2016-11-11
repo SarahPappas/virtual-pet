@@ -1,4 +1,3 @@
-var APPLY;
 angular.module("VirtualPetApp")
 .service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
   this.gameLoopInterval = null;
@@ -296,5 +295,4 @@ angular.module("VirtualPetApp")
     }
   };
     
-  // APPLY = this.applyUpdates;
 }]);
