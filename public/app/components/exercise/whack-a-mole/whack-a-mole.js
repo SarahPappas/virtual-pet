@@ -15,7 +15,7 @@
 		WhackCtrl.score = 0;
 
 
-		WhackCtrl.popUp = function() {
+		WhackCtrl.popUp = function(ApplicationService) {
 			var randomNum = Math.floor(Math.random()*3+1);
 			if(WhackCtrl.lastYoda === randomNum) {
 				WhackCtrl.popUp();
@@ -40,6 +40,7 @@
 
 		setInterval(function(){ WhackCtrl.popUp() }, 3000);
 
+		ApplicationService.startLoop();
 	}
-
+	WhackCtrl.$inject = ["ApplicationService"];
 })()

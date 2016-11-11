@@ -137,7 +137,8 @@
             $state.go('backPlay');
           }, 2000);
         }
-    }); 
+    });
+    ApplicationService.startLoop(); 
   }
   GuessCtrl.$inject = ["ApplicationService", '$state', '$scope'];
 })()

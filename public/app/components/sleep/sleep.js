@@ -15,8 +15,10 @@
     sleep.Sleeping = function() {
       ApplicationService.calcStats("sleeping", "acted");
 
-      
+  
     } 
+
+    ApplicationService.startLoop();
 
 	}
 

@@ -6,8 +6,9 @@
 		controllerAs: "clean"
 	});
 
-	function Clean() {
-
+	function Clean(ApplicationService) {
+		ApplicationService.startLoop();
 	}
-
+	
+	Clean.$inject = ["ApplicationService"];
 })()
