@@ -26,7 +26,7 @@ angular.module("VirtualPetApp")
       },
       feed: {
           // msUntilNeeded: 4 * this.msPerHour,
-          msUntilMissed: 10000,
+          msUntilMissed: 1000000,
           // msUntilMissed: 5 * this.msPerHour,
           moodDeltas: {
               missed: -20,
@@ -39,7 +39,7 @@ angular.module("VirtualPetApp")
       },
       clean: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 100000,
+        msUntilMissed: 1000000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -52,7 +52,7 @@ angular.module("VirtualPetApp")
       },
       exercise: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 50000,
+        msUntilMissed: 500000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: -20,
@@ -141,7 +141,6 @@ angular.module("VirtualPetApp")
 
     var totalTime = Number(this.stats[index].last) + msUntilMissed;
     // setting delta
-    var delta = actionInfo.moodDeltas.missed;
     // using actedOrMissed to set equal to missed
     
     if (this.isSleeping) {
@@ -174,12 +173,13 @@ angular.module("VirtualPetApp")
       } else {
         this.mood += delta;
       }
-      if(this.health + delta < 0){
+      var deltaH = actionInfo.healthDeltas.acted;
+      if(this.health + deltaH < 0){
         this.health = 0
-      } else if (this.health + delta >= 100) {
+      } else if (this.health + deltaH >= 100) {
         this.health = 100;
       } else {
-        this.health += delta;
+        this.health += deltaH;
       }
       this.saveStats(activity, Date.now(), this.mood, this.health)
         .then(function() {
