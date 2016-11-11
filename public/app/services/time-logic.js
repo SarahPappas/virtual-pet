@@ -49,7 +49,7 @@ angular.module("VirtualPetApp")
       },
       exercise: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 3000,
+        msUntilMissed: 9000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: -20,

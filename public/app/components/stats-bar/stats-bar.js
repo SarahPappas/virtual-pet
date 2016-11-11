@@ -36,8 +36,15 @@
       	this.moodBars.push(j);
       }
     }.bind(this))
-
-
+      
+      this.healthBarCount = this.data.health/10;
+      this.moodBarCount = this.data.mood/10;
+      for(var i = 0; i < this.healthBarCount; i++){
+        this.healthBars.push(i);
+      }
+      for(var j = 0; j < this.moodBarCount; j++) {
+        this.moodBars.push(j);
+      }  
 }
 
 	StatsBarCtrl.$inject = ['$http', 'ApplicationService', '$scope', '$state'];
