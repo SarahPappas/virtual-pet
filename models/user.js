@@ -9,6 +9,7 @@ var UserSchema = mongoose.Schema({
     pet : {
       petname: String,
       species: String,
+      birthday: SchemaTypes.Long,
       health: Number,
       mood: Number,
       stats: [

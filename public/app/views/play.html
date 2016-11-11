@@ -5,7 +5,7 @@
 	<div id="left-nav">
 		<a href="/play/feed"><div class="nav nav-feed"></div></a>
 		<a href="/play/exercise"><div class="nav nav-game"></div></a>
-		<div class="nav nav-train"></div>
+		<a href="/play/train"><div class="nav nav-train"></div></a>
 	</div>
 	<!-- GAME AREA -->
 	<div id="gameplay">
@@ -13,6 +13,7 @@
 		<clean ng-show="state.params.activity == 'clean'"></clean>
 		<exercise ng-show="state.params.activity == 'exercise'"></exercise>
 		<gameover ng-show="state.params.activity == 'gameover'"></gameover>
+		<train ng-show="state.params.activity == 'train' "></train>
 		<nurse ng-show="state.params.activity == 'nurse'"></nurse>
 		<sleep ng-show="state.params.activity == 'sleep'"></sleep>
 		<stats ng-show="state.params.activity == 'stats'"></stats>
