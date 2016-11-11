@@ -22,7 +22,7 @@
               this.health = res.data.pet.health;
               if(this.health <= 30) {
                 console.log('Sick Pet!')
-                document.getElementsById('pet1').addClass('sickpet');
+                // document.getElementsById('pet1').addClass('sickpet');
             }
             }
         });
