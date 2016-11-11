@@ -13,6 +13,7 @@
 		this.newPet = {
       		petname: "",
       		species: "",
+      		birthday: Date.now(),
       		health: 100,
       		mood: 100,
       		stats: [
