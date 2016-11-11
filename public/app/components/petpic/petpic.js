@@ -6,7 +6,7 @@
     controllerAs: "sickpet"
   });
 
-  function SickCtrl(ApplicationService, $http) {
+  function SickCtrl(ApplicationService, $http, $interval) {
     this.health;
 
     this.checkHealth = function(){
@@ -20,8 +20,9 @@
             } 
             else {
               this.health = res.data.pet.health;
-              if(this.health =< 30) {
-                console.log('Sick Pet!');
+              if(this.health <= 30) {
+                console.log('Sick Pet!')
+                document.getElementsById('pet1').addClass('sickpet');
             }
             }
         });
@@ -32,5 +33,5 @@
 
   }
 
-  Gameover.$inject = ['ApplicationService', '$http'];
+  SickCtrl.$inject = ['ApplicationService', '$http', '$interval'];
 })()
