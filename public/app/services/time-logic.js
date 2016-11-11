@@ -135,6 +135,7 @@ angular.module("VirtualPetApp")
     var now = Date.now();
     // set action to passed action
     var actionInfo = this.actionInfos[activity];
+    console.log(this.actionInfos[activity], activity);
     // seting time untill missed
     var msUntilMissed = actionInfo.msUntilMissed;
 

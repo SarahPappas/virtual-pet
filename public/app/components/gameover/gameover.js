@@ -20,9 +20,7 @@
 	          		console.log("front-end error when getting Stats");
 	        	} 
 	        	else {
-	          		console.log(res);
 	         		this.health = res.data.pet.health;
-	         		console.log("gameover health: " + this.health);
 	         		if(this.health === 0) {
 	     				console.log("your pet is dead!");
 	     				$state.go('gameover');

@@ -12,10 +12,8 @@
     sleep.data = ApplicationService;
     sleep.isSleeping = ApplicationService.sleep;
 
-    sleep.Sleeping = function() {
-      ApplicationService.calcStats("sleeping", "acted");
-
-  
+    sleep.sleeping = function() {
+      ApplicationService.calcStats("sleep", "acted");  
     } 
 
     ApplicationService.startLoop();
