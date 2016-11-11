@@ -6,19 +6,22 @@
 		controllerAs: "sleep"
 	});
 
-	function SleepCtrl() {
+	function SleepCtrl(ApplicationService, $scope) {
     console.log('sleep cycle awakened')
     var sleep = this;
-    sleep.sleeping = false;
-    var currentDate = Date.now();
+    sleep.data = ApplicationService;
+    sleep.isSleeping = ApplicationService.sleep;
 
-    sleep.petSleeping = function() {
-      sleep.sleeping = !sleep.sleeping;
-      if(currentDate > (ApplicationService.pet.feed.last + 72000000)) {
-        ApplicationService.minusHealth()
-      }
+    sleep.Sleeping = function() {
+      ApplicationService.calcStats("sleeping", "acted");
+
+  
     } 
 
+    ApplicationService.startLoop();
+
 	}
+
+  SleepCtrl.$inject = ["ApplicationService", "$scope"];
 
 })()

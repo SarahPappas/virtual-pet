@@ -6,8 +6,9 @@
     controllerAs: "guess"
   });
 
-  function GuessCtrl(ApplicationService) {
+  function GuessCtrl(ApplicationService, $state, $scope) {
     var exercise = this;
+    exercise.data = ApplicationService;
     var vader = document.getElementById("vader");
     var leftArrow = document.getElementById("guessArrow1");
     var rightArrow = document.getElementById("guessArrow2");
@@ -17,9 +18,25 @@
     var totalPlay = 0;
     var totalWins = 0;
 
+    $scope.safeApply = function(fn) {
+      var phase = this.$root.$$phase;
+      if(phase == '$apply' || phase == '$digest') {
+        if(fn && (typeof(fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
+    };
 
-    ApplicationService.getStats();
-    
+    $scope.$on("update", function(event, args) {
+      $scope.safeApply();
+    })
+
+
+    ApplicationService.getStats()
+      .then(function(res) {
+      });
 
     function randomNum() {
       return Math.floor(Math.random()*2+1);
@@ -56,11 +73,12 @@
           }, 2000);
         }
         if(totalPlay >= 5 && totalWins >= 3) {
-          winner.innerHTML = ' Congrats Mood Increased by 20%!';
+          winner.innerHTML = ' Congrats Mood Increased by 10%!';
           loser.style.display = "none";
-          winner.style.display = "block"; 
+          winner.style.display = "block";
+          ApplicationService.calcStats("exercise", "acted");  
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
         else if(totalPlay >= 5){
@@ -68,7 +86,7 @@
           winner.style.display = "none";
           loser.style.display = "block"; 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
     });
@@ -103,11 +121,12 @@
           }, 2000);
         }
         if(totalPlay >= 5 && totalWins >= 3) {
-          winner.innerHTML = ' Congrats Mood Increased by 20%!';
+          winner.innerHTML = ' Congrats Mood Increased by 10%!';
           loser.style.display = "none";
-          winner.style.display = "block"; 
+          winner.style.display = "block";
+          ApplicationService.calcStats("exercise", "acted"); 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
         else if(totalPlay >= 5){
@@ -115,10 +134,11 @@
           winner.style.display = "none";
           loser.style.display = "block"; 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
-    }); 
+    });
+    ApplicationService.startLoop(); 
   }
-  GuessCtrl.$inject = ["ApplicationService"];
+  GuessCtrl.$inject = ["ApplicationService", '$state', '$scope'];
 })()
