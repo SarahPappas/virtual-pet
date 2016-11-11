@@ -21,20 +21,21 @@
 		  }
 		};
 
+		console.log("last nurse", ApplicationService.stats[4].last);
 		$scope.$on("update", function(event, args) {
 		    $scope.safeApply();
 
-			console.log("nurse allowed", nurse.isNurseAllowed);
 			console.log("nurse action", Number(ApplicationService.stats[4].last));
-			console.log("nurse countdown", Date.now() - Number(ApplicationService.stats[4].last) + ApplicationService.actionInfos.nurse.msUntilAvailable)
+			console.log("nurse countdown", Date.now() - (Number(ApplicationService.stats[4].last) + ApplicationService.actionInfos.nurse.msUntilAvailable));
+			if(Date.now() > (Number(ApplicationService.stats[4].last) + ApplicationService.actionInfos.nurse.msUntilAvailable))
+			{
+				nurse.isNurseAllowed =  true;
+			} else {
+				nurse.isNurseAllowed =  false;
+			}
+			console.log("nurse allowed", nurse.isNurseAllowed);
 		})
 
-		if(Date.now() > Number(ApplicationService.stats[4].last) + ApplicationService.actionInfos.nurse.msUntilAvailable)
-		{
-			nurse.isNurseAllowed =  true;
-		} else {
-			nurse.isNurseAllowed =  false;
-		}
 
 
 		nurse.healing = function(){
