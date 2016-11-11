@@ -6,7 +6,7 @@
     controllerAs: "guess"
   });
 
-  function GuessCtrl(ApplicationService, $scope) {
+  function GuessCtrl(ApplicationService, $state, $scope) {
     var exercise = this;
     exercise.data = ApplicationService;
     var vader = document.getElementById("vader");
@@ -32,11 +32,6 @@
     $scope.$on("update", function(event, args) {
       $scope.safeApply();
     })
-
-
-    ApplicationService.getStats()
-      .then(function(res) {
-      });
 
     function randomNum() {
       return Math.floor(Math.random()*2+1);
@@ -78,7 +73,7 @@
           winner.style.display = "block";
           ApplicationService.calcStats("exercise", "acted");  
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
         else if(totalPlay >= 5){
@@ -86,7 +81,7 @@
           winner.style.display = "none";
           loser.style.display = "block"; 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
     });
@@ -126,7 +121,7 @@
           winner.style.display = "block";
           ApplicationService.calcStats("exercise", "acted"); 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
         else if(totalPlay >= 5){
@@ -134,10 +129,10 @@
           winner.style.display = "none";
           loser.style.display = "block"; 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
     }); 
   }
-  GuessCtrl.$inject = ["ApplicationService", '$scope'];
+  GuessCtrl.$inject = ["ApplicationService", '$state', '$scope'];
 })()
