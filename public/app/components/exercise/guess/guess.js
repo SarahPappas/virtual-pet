@@ -33,6 +33,10 @@
       $scope.safeApply();
     })
 
+    ApplicationService.getStats()
+      .then(function(res) {
+      });
+
     function randomNum() {
       return Math.floor(Math.random()*2+1);
     }   
@@ -132,7 +136,8 @@
             $state.go('backPlay');
           }, 2000);
         }
-    }); 
+    });
+    ApplicationService.startLoop(); 
   }
   GuessCtrl.$inject = ["ApplicationService", '$state', '$scope'];
 })()

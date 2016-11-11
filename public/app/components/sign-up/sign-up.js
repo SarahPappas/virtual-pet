@@ -42,7 +42,7 @@
         {
           name: "sleep",
           last: Date.now(),
-          isSleeping: false
+          isSleeping: "false"
         },
         {
           name: "feed",

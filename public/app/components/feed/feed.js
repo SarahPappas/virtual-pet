@@ -27,7 +27,8 @@
             $scope.safeApply();
         })
 
-        // ApplicationService.startLoop();
+        ApplicationService.startLoop();
+
         // <--------- remove above, update function below that runs on click -------->
 
         feed.feeding = function() {

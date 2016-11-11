@@ -6,8 +6,8 @@
 		controllerAs: "nurse"
 	});
 
-	function Nurse() {
-
+	function Nurse(ApplicationService) {
+		ApplicationService.startLoop();
 	}
-
+	Nurse.$inject = ["ApplicationService"];
 })()
