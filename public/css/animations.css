@@ -31,8 +31,22 @@
 }
 
 
+/* NURSE ANIMATION */
+/*.nurse-anim {
+  width: 517px;
+  height: 306px;
+  margin: 2% auto;
+  background: url('/img/animation/nurse.png') left center;
+  animation: play 10s steps(10) infinite;
+  margin-top:90px;
+}
+@keyframes play {
+  100% { background-position: -5070px; }
+}
+*/
+
 /*SICK ANIMATION*/
-.sick-anim {
+/*.sick-anim {
   width: 229px;
   height: 306px;
   margin: 2% auto;
@@ -42,7 +56,7 @@
 }
 @keyframes play {
 	100% { background-position: -917px; }
-}
+}*/
 
 
 /*SLEEP ANIMATION*/
@@ -98,3 +112,32 @@
 @keyframes play {
 	100% { background-position: -3236px; }
 }*/
+
+
+
+/* ====== CHARACTER 2 ====== */
+/*DEFAULT ANIMATION */
+/*.default-anim {
+  width: 229px;
+  height: 306px;
+  margin: 2% auto;
+  background: url('/img/animation/defaultsheetc2.png') left center;
+  animation: play 6s steps(12) infinite;
+  margin-top:90px;
+}
+@keyframes play {
+  100% { background-position: -2749px; }
+}
+*/
+
+.sleep-anim {
+  width: 329px;
+  height: 270px;
+  margin: 2% auto;
+  background: url('/img/animation/sleepsheetc2.png') left center;
+  animation: play 5s steps(4) infinite;
+  margin-top:90px;
+}
+@keyframes play {
+  100% { background-position: -1318px; }
+}
