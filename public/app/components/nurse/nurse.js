@@ -25,8 +25,8 @@
 		$scope.$on("update", function(event, args) {
 		    $scope.safeApply();
 
-			console.log("nurse action", Number(ApplicationService.stats[4].last));
-			console.log("nurse countdown", Date.now() - (Number(ApplicationService.stats[4].last) + ApplicationService.actionInfos.nurse.msUntilAvailable));
+			// console.log("nurse action", Number(ApplicationService.stats[4].last));
+			// console.log("nurse countdown", Date.now() - (Number(ApplicationService.stats[4].last) + ApplicationService.actionInfos.nurse.msUntilAvailable));
 			if(Date.now() > (Number(ApplicationService.stats[4].last) + ApplicationService.actionInfos.nurse.msUntilAvailable))
 			{
 				nurse.isNurseAllowed =  true;
