@@ -85,7 +85,6 @@ router.route('/auth')
           res.send(404);
           return;
         }
-        console.log(user.pet.stats[0]);
         res.send(user);
       })
     });
@@ -144,7 +143,36 @@ router.route('/auth')
         });
       })
     });
-  })
+  });
+
+  //Route for creating a new pet after death!
+  router.route('/newPet')
+  .put(function(req, res) {
+    // header is sending password!!??
+    var authHeader = req.headers.authorization;
+    var authHeaderParts = authHeader.split(" ");
+    var token = authHeaderParts[1];
+    jwt.verify(token, secret, function(err, decoded) {
+    var userId = decoded._doc._id;
+      
+      User.findOne({_id: userId}, function(err, user) {
+        if (err) {
+          res.send(err);
+          console.log(err);
+          return;
+        }
+        if (!user) {
+          res.send(404);
+          console.log(err);
+          return;
+        }
+        user.pet = req.body;
+        user.save(function() {
+          res.send(user);
+        });
+      })
+    });
+  });
 
 
 module.exports = router;

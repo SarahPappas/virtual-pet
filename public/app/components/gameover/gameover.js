@@ -1,13 +1,40 @@
 (function() {
 	angular.module("VirtualPetApp")
-	.component("gameover", {
+	.component("gameOver", {
 		templateUrl: "app/components/gameover/gameover.html",
 		controller: Gameover,
-		controllerAs: "gameover"
+		controllerAs: "Gameover"
 	});
 
-	function Gameover() {
-		
+	function Gameover($http, ApplicationService, $scope, $interval, $state) {
+		console.log("gameover controller loaded!");
+		this.health;
+
+		this.checkHealth = function(){
+			$http({
+	          url: "/api/users/stats",
+	          method: "GET"
+	     	})
+	      	.then(function(res) {
+	        	if(!res) {
+	          		console.log("front-end error when getting Stats");
+	        	} 
+	        	else {
+	          		console.log(res);
+	         		this.health = res.data.pet.health;
+	         		console.log("gameover health: " + this.health);
+	         		if(this.health === 0) {
+	     				console.log("your pet is dead!");
+	     				$state.go('gameover');
+	     			}
+	        	}
+	     	});
+     	};
+
+     	$interval(this.checkHealth, 3000);
+
+
 	}
 
+	Gameover.$inject = ['$http', 'ApplicationService', '$scope', '$interval', '$state'];
 })()
