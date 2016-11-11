@@ -6,7 +6,11 @@
     controllerAs: "guess"
   });
 
+<<<<<<< HEAD
   function GuessCtrl(ApplicationService, $scope) {
+=======
+  function GuessCtrl(ApplicationService, $state, $scope) {
+>>>>>>> f17e7ca7e058c40ce9396fe1dee0abca39934c7b
     var exercise = this;
     exercise.data = ApplicationService;
     var vader = document.getElementById("vader");
@@ -78,7 +82,7 @@
           winner.style.display = "block";
           ApplicationService.calcStats("exercise", "acted");  
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
         else if(totalPlay >= 5){
@@ -86,7 +90,7 @@
           winner.style.display = "none";
           loser.style.display = "block"; 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
     });
@@ -126,7 +130,7 @@
           winner.style.display = "block";
           ApplicationService.calcStats("exercise", "acted"); 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
         else if(totalPlay >= 5){
@@ -134,10 +138,15 @@
           winner.style.display = "none";
           loser.style.display = "block"; 
           setTimeout(function() {
-            window.location.assign("http://localhost:3000/play/");
+            $state.go('backPlay');
           }, 2000);
         }
-    }); 
+    });
+    ApplicationService.startLoop(); 
   }
+<<<<<<< HEAD
   GuessCtrl.$inject = ["ApplicationService", '$scope'];
+=======
+  GuessCtrl.$inject = ["ApplicationService", '$state', '$scope'];
+>>>>>>> f17e7ca7e058c40ce9396fe1dee0abca39934c7b
 })()

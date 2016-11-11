@@ -84,7 +84,7 @@ router.route('/auth')
           res.send(404);
           return;
         }
-
+        console.log(user.pet.stats[0]);
         res.send(user);
       })
     });
@@ -116,8 +116,8 @@ router.route('/auth')
         if(req.body.activity){
           if(req.body.activity == 'sleep'){activityId = 0};
           if(req.body.activity == 'feed'){activityId = 1};
-          if(req.body.activity == 'exercise'){activityId = 2};
-          if(req.body.activity == 'clean'){activityId = 3};
+          if(req.body.activity == 'clean'){activityId = 2};
+          if(req.body.activity == 'exercise'){activityId = 3};
           if(req.body.activity == 'nurse'){activityId = 4};
         }
         // if(req.body.mhi){user.pet.stats[activityId].mhi += req.body.mhi};
@@ -126,14 +126,17 @@ router.route('/auth')
           user.pet.stats[activityId].last = req.body.lastTime;
         }
         
+        if (req.body.activity == "sleep"){
+          user.pet.stats[0].isSleeping = req.body.sleep;
+        }
         
         if(req.body.health >= 0){
-          user.pet.health = req.body.health
+          user.pet.health = req.body.health;
         };
         
         
         if(req.body.mood >= 0){
-          user.pet.mood = req.body.mood
+          user.pet.mood = req.body.mood;
         };
         user.save(function() {
           res.send(user);

@@ -1,19 +1,17 @@
 var APPLY;
 angular.module("VirtualPetApp")
 .service("ApplicationService", ["$http", "$rootScope", function($http, $rootScope) {
+  this.gameLoopInterval = null;
   this.stats = {};  
   
-  // this.mood = 100;
-  // this.health = 100;
-  this.sleep = false;
   this.msPerHour = 1000 * 60 * 60;
 
   // constants
   this.actionInfos = {
       sleep: {
-        msUntilMissed: 140000,
+        msUntilMissed: 30000,
         // 10 * this.msPerHour
-        msSleeping: 100000,
+        msSleeping: 120000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -26,7 +24,7 @@ angular.module("VirtualPetApp")
       },
       feed: {
           // msUntilNeeded: 4 * this.msPerHour,
-          msUntilMissed: 10000,
+          msUntilMissed: 20000,
           // msUntilMissed: 5 * this.msPerHour,
           moodDeltas: {
               missed: -20,
@@ -39,7 +37,7 @@ angular.module("VirtualPetApp")
       },
       clean: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 100000,
+        msUntilMissed: 30000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -52,7 +50,7 @@ angular.module("VirtualPetApp")
       },
       exercise: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 50000,
+        msUntilMissed: 30000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: -20,
@@ -65,7 +63,7 @@ angular.module("VirtualPetApp")
       },
       nurse: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 6000,
+        msUntilMissed: 300000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -92,7 +90,7 @@ angular.module("VirtualPetApp")
       });
   }.bind(this);
 
-  this.saveStats = function(activity, lastDate, mood, health) {
+  this.saveStats = function(activity, lastDate, mood, health, sleep) {
       // finish put route for stats
 
       if (health === undefined) {
@@ -110,12 +108,13 @@ angular.module("VirtualPetApp")
           activity: activity || null,
           lastTime: lastDate || null,
           mood: mood,
-          health: health
+          health: health,
+          sleep: sleep
         }
       });
   };
 
-  this.calcStats = function(activity, actedOrMissed) {
+  this.calcStats = function(activity, actedOrMissed, login) {
     var index = 0;
     if (activity == "sleep") {
       var index = 0;
@@ -140,17 +139,15 @@ angular.module("VirtualPetApp")
     var msUntilMissed = actionInfo.msUntilMissed;
 
     var totalTime = Number(this.stats[index].last) + msUntilMissed;
-    // setting delta
-    var delta = actionInfo.moodDeltas.missed;
     // using actedOrMissed to set equal to missed
     
-    if (this.isSleeping) {
+    if (this.sleep) {
       totalTime += this.actionInfos.sleep.msSleeping;
-      console.log("sleep");
+      console.log("sleeping");
     }
-    console.log("savedTime",Number(this.stats[1].last))
-    console.log("now", now);
-    console.log("totalTime", totalTime);
+    // console.log("savedTime",Number(this.stats[1].last))
+    // console.log("now", now);
+    // console.log("totalTime", totalTime);
     console.log("countDown", totalTime - now);
 
     var isTimeExpired = false;
@@ -158,63 +155,79 @@ angular.module("VirtualPetApp")
       isTimeExpired = true;
     }
 
-    this.applyUpdates(activity, actedOrMissed, isTimeExpired);
-  }
+    var lastTime = this.stats[index].last; 
 
-  this.applyUpdates = function(activity, actedOrMissed, isTimeExpired) {
+    this.applyUpdates(activity, actedOrMissed, isTimeExpired, lastTime, login);
+  }.bind(this)
+
+  this.applyUpdates = function(activity, actedOrMissed, isTimeExpired, lastTime, login) {
     var actionInfo = this.actionInfos[activity];
+    var now = Date.now();
 
     if(!isTimeExpired && actedOrMissed == "acted" ) {
-      console.log("acted");
-      var delta = actionInfo.moodDeltas.acted;
-      var deltaH = actionInfo.healthDeltas.acted;
-      if(this.mood + delta < 0){
+      var deltaMood = actionInfo.moodDeltas.acted;
+      var deltaHealth = actionInfo.healthDeltas.acted;
+      if (login) {
+        var deltaMood = Math.floor((now - lastTime)/actionInfo.moodDeltas.acted);
+        var deltaHealth = Math.floor((now - lastTime)/actionInfo.healthDeltas.acted);
+      } else {
+        var delta = actionInfo.moodDeltas.acted;
+      }
+
+      if(this.mood + deltaMood < 0){
         this.mood = 0;
-      } else if (this.mood + delta >= 100) {
+      } else if (this.mood + deltaMood >= 100) {
         this.mood = 100;
       } else {
-        this.mood += delta;
+        this.mood += deltaMood;
       }
-      if(this.health + deltaH < 0){
+      if(this.health + deltaHealth < 0){
         this.health = 0
-      } else if (this.health + deltaH >= 100) {
+      } else if (this.health + deltaHealth >= 100) {
         this.health = 100;
       } else {
-        this.health += deltaH;
+        this.health += deltaHealth;
       }
-      this.saveStats(activity, Date.now(), this.mood, this.health)
-        .then(function() {
-          this.getStats()
-            .then(function(res) {
+      if (activity == "sleep") {
+        this.sleep = "true";
+        console.log("changed sleep to true");
+      }
+      this.saveStats(activity, Date.now(), this.mood, this.health, this.sleep)
+        .then(function(res) {
               this.stats = res.data.pet.stats;
               this.mood = res.data.pet.mood;
               this.health = res.data.pet.health;
-              this.sleep = res.data.pet.sleap;
-            }.bind(this))
+              this.sleep = res.data.pet.stats[0].isSleeping;
         }.bind(this));
       $rootScope.$broadcast("update", this); 
     }
     
     if (isTimeExpired) {
-      var delta = actionInfo.moodDeltas.missed;
-      console.log("now is passed totalTime");
-      if(this.mood + delta < 0){
+      var deltaMood = actionInfo.moodDeltas.missed;
+      var deltaHealth = actionInfo.healthDeltas.missed;
+      if (login) {
+        var deltaMood = Math.floor((now - lastTime)/actionInfo.moodDeltas.missed);
+        var deltaHealth = Math.floor((now - lastTime)/actionInfo.healthDeltas.missed);
+      } else {
+        var delta = actionInfo.moodDeltas.missed;;
+      }
+      console.log("now is passed totalTime", activity);
+      if(this.mood + deltaMood < 0){
         this.mood = 0;
-      } else if (this.mood + delta >= 100) {
+      } else if (this.mood + deltaMood >= 100) {
         this.mood = 100;
       } else {
-        this.mood += delta;
+        this.mood += deltaMood;
       }
-      var deltaH = actionInfo.healthDeltas.missed;
-      if(this.health + deltaH < 0){
+      if(this.health + deltaHealth < 0){
         this.health = 0;
-      } else if (this.health + deltaH >= 100) {
+      } else if (this.health + deltaHealth >= 100) {
         this.health = 100;
       } else {
-        this.health += deltaH;
+        this.health += deltaHealth;
       }
-      console.log("saving stats:", this.mood, this.health);
-      this.saveStats(activity, Date.now(), this.mood, this.health)
+      console.log("saving stats:", this.mood, this.health, this.sleep);
+      this.saveStats(activity, Date.now(), this.mood, this.health, this.sleep)
       .then(function() {
         console.log("getting stats");
         this.getStats().then(function(res) {
@@ -222,7 +235,7 @@ angular.module("VirtualPetApp")
           this.stats = res.data.pet.stats;
           this.mood = res.data.pet.mood;
           this.health = res.data.pet.health;
-          this.sleep = res.data.pet.sleap;
+          this.sleep = res.data.pet.stats[0].isSleeping;;
         }.bind(this))
       }.bind(this));
       $rootScope.$broadcast("update", this);
@@ -232,42 +245,46 @@ angular.module("VirtualPetApp")
 
   this.checkForUpdate = function() {
     console.log("gamelooped");
+    console.log("sleeping?", this.sleep);
     this.getStats()
       .then(function(res) {
         this.stats = res.data.pet.stats;
         this.mood = res.data.pet.mood;
         this.health = res.data.pet.health;
-        this.sleep = res.data.pet.sleap;
+        this.sleep = res.data.pet.stats[0].isSleeping;
       }.bind(this))
       .then(function() {
-        // for (var i = 0; i < this.stats.length; i++) {
-          console.log(this.stats[1].name);
-          this.calcStats(this.stats[1].name, "missed");
-        // }
+        for (var i = 0; i < this.stats.length; i++) {
+          this.calcStats(this.stats[i].name, "missed");
+        }
       }.bind(this));
-      // .then(function() {
-      //   for (var i = 0; i < this.stats.length; i++) {
-      //     this.saveStats(this.stats[i].name, Date.now(), this.mood, this.health);
-      //   }
-      // });
   }.bind(this);
 
   this.onLogin = function() {
     this.getStats()
       .then(function(res) {
+        console.log("onlogin health", res.data.pet.health);
+        console.log("sleeping?", res.data.pet.stats[0]);
         this.stats = res.data.pet.stats;
         this.mood = res.data.pet.mood;
         this.health = res.data.pet.health;
-        this.sleep = res.data.pet.sleep;
+        this.sleep = res.data.pet.stats[0].isSleeping;
       }.bind(this))
       .then(function() {
         for (var i = 0; i < this.stats.length; i++) {
-          this.calcStats(this.stats[i].name, "missed");
-          console.log("onLogin", this.stats[i].name);
+          this.calcStats(this.stats[i].name, "missed", "login");
         }
+      }.bind(this))
+      .then(function() {
+        this.startLoop()
       }.bind(this));
   }.bind(this);
+
+  this.startLoop = function() {
+    if (!this.gameLoopInteval) {
+      this.gameLoopInteval = setInterval(this.checkForUpdate, 3000);
+    }
+  };
     
-  setInterval(this.checkForUpdate, 3000);  
   APPLY = this.applyUpdates;
 }]);

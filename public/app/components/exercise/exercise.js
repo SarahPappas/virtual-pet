@@ -6,8 +6,9 @@
 		controllerAs: "exercise"
 	});
 
-	function Exercise() {
-
+	function Exercise(ApplicationService) {
+		ApplicationService.startLoop();
 	}
 
+	Exercise.$inject = ["ApplicationService"];
 })()
