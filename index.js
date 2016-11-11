@@ -9,7 +9,7 @@ var mongoose = require("mongoose");
 
 var User = require('./models/user');
 // mongoose.connect();
-mongoose.connect('mongodb://localhost/nanopetusers');
+mongoose.connect(process.env.MONGODB_URI ||'mongodb://localhost/nanopetusers');
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
