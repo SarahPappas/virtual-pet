@@ -108,7 +108,7 @@ angular.module("VirtualPetApp")
           lastTime: lastDate || null,
           mood: mood,
           health: health,
-          sleep: sleep,
+          sleep: sleep
         }
       });
   };
