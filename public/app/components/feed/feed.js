@@ -32,9 +32,8 @@
         // <--------- remove above, update function below that runs on click -------->
 
         feed.feeding = function() {
-            // getstats,then calcstats, then save stats
             ApplicationService.calcStats("feed", "acted");
-            // ApplicationService.saveStats("feed", Date.now(), ApplicationService.mood, ApplicationService.health);
+            // if()
         }
 
     }

@@ -7,7 +7,6 @@
 	});
 
 	function Gameover($http, ApplicationService, $scope, $interval, $state) {
-		console.log("gameover controller loaded!");
 		this.health;
 
 		this.checkHealth = function(){
@@ -22,7 +21,6 @@
 	        	else {
 	         		this.health = res.data.pet.health;
 	         		if(this.health === 0) {
-	     				console.log("your pet is dead!");
 	     				$state.go('gameover');
 	     			}
 	        	}
