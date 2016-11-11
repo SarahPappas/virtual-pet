@@ -13,7 +13,7 @@ angular.module("VirtualPetApp")
       sleep: {
         msUntilMissed: 30000,
         // 10 * this.msPerHour
-        msSleeping: 100000,
+        msSleeping: 120000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -26,7 +26,7 @@ angular.module("VirtualPetApp")
       },
       feed: {
           // msUntilNeeded: 4 * this.msPerHour,
-          msUntilMissed: 30000,
+          msUntilMissed: 20000,
           // msUntilMissed: 5 * this.msPerHour,
           moodDeltas: {
               missed: -20,
@@ -92,7 +92,7 @@ angular.module("VirtualPetApp")
       });
   }.bind(this);
 
-  this.saveStats = function(activity, lastDate, mood, health) {
+  this.saveStats = function(activity, lastDate, mood, health, sleep) {
       // finish put route for stats
 
       if (health === undefined) {
@@ -110,7 +110,8 @@ angular.module("VirtualPetApp")
           activity: activity || null,
           lastTime: lastDate || null,
           mood: mood,
-          health: health
+          health: health,
+          sleep: sleep
         }
       });
   };
@@ -142,14 +143,14 @@ angular.module("VirtualPetApp")
     var totalTime = Number(this.stats[index].last) + msUntilMissed;
     // using actedOrMissed to set equal to missed
     
-    if (this.isSleeping) {
+    if (this.sleep) {
       totalTime += this.actionInfos.sleep.msSleeping;
-      console.log("sleep");
+      console.log("sleeping");
     }
-    console.log("savedTime",Number(this.stats[1].last))
-    console.log("now", now);
-    console.log("totalTime", totalTime);
-    console.log("countDown", totalTime - now);
+    // console.log("savedTime",Number(this.stats[1].last))
+    // console.log("now", now);
+    // console.log("totalTime", totalTime);
+    // console.log("countDown", totalTime - now);
 
     var isTimeExpired = false;
     if (now > totalTime) {
@@ -159,7 +160,7 @@ angular.module("VirtualPetApp")
     var lastTime = this.stats[index].last; 
 
     this.applyUpdates(activity, actedOrMissed, isTimeExpired, lastTime, login);
-  }
+  }.bind(this)
 
   this.applyUpdates = function(activity, actedOrMissed, isTimeExpired, lastTime, login) {
     var actionInfo = this.actionInfos[activity];
@@ -168,11 +169,8 @@ angular.module("VirtualPetApp")
     if(!isTimeExpired && actedOrMissed == "acted" ) {
       var deltaMood = actionInfo.moodDeltas.acted;
       var deltaHealth = actionInfo.healthDeltas.acted;
-      console.log("acted");
       if (login) {
         var deltaMood = Math.floor((now - lastTime)/actionInfo.moodDeltas.acted);
-        console.log("deltaMood not expired", deltaMood);
-        console.log("deltaHealth expried", deltaHealth);
         var deltaHealth = Math.floor((now - lastTime)/actionInfo.healthDeltas.acted);
       } else {
         var delta = actionInfo.moodDeltas.acted;
@@ -192,7 +190,7 @@ angular.module("VirtualPetApp")
       } else {
         this.health += deltaHealth;
       }
-      this.saveStats(activity, Date.now(), this.mood, this.health)
+      this.saveStats(activity, Date.now(), this.mood, this.health, this.sleep)
         .then(function(res) {
               this.stats = res.data.pet.stats;
               this.mood = res.data.pet.mood;
@@ -208,8 +206,6 @@ angular.module("VirtualPetApp")
       if (login) {
         var deltaMood = Math.floor((now - lastTime)/actionInfo.moodDeltas.missed);
         var deltaHealth = Math.floor((now - lastTime)/actionInfo.healthDeltas.missed);
-        console.log("deltaMood expired", deltaMood);
-        console.log("deltaHealth expried", deltaHealth);
       } else {
         var delta = actionInfo.moodDeltas.missed;;
       }
@@ -256,7 +252,6 @@ angular.module("VirtualPetApp")
       }.bind(this))
       .then(function() {
         for (var i = 0; i < this.stats.length; i++) {
-          console.log(this.stats[i].name);
           this.calcStats(this.stats[i].name, "missed");
         }
       }.bind(this));
@@ -273,7 +268,6 @@ angular.module("VirtualPetApp")
       .then(function() {
         for (var i = 0; i < this.stats.length; i++) {
           this.calcStats(this.stats[i].name, "missed", "login");
-          console.log("onLogin", this.stats[i].name);
         }
       }.bind(this))
       .then(function() {

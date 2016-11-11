@@ -126,14 +126,15 @@ router.route('/auth')
           user.pet.stats[activityId].last = req.body.lastTime;
         }
         
+        user.pet.sleep = req.body.sleep;
         
         if(req.body.health >= 0){
-          user.pet.health = req.body.health
+          user.pet.health = req.body.health;
         };
         
         
         if(req.body.mood >= 0){
-          user.pet.mood = req.body.mood
+          user.pet.mood = req.body.mood;
         };
         user.save(function() {
           res.send(user);

@@ -9,10 +9,12 @@
 	function SleepCtrl(ApplicationService, $scope) {
     console.log('sleep cycle awakened')
     var sleep = this;
+    sleep.data = ApplicationService;
     sleep.isSleeping = ApplicationService.sleep;
 
     sleep.Sleeping = function() {
-      
+      ApplicationService.calcStats("sleeping", "acted");
+
       
     } 
 
