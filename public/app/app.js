@@ -11,6 +11,14 @@ angular.module("VirtualPetApp", ["ui.router"])
 		url: "/play/{activity}",
 		templateUrl: "app/views/play.html"
 	})
+	.state("gameover", {
+		url: "/gameover",
+		templateUrl: "/app/views/newpet.html"
+	})
+	.state('backPlay', {
+		url: "/play",
+		templateUrl: '/app/views/play.html'
+	})
 
 	$locationProvider.html5Mode(true);
 }])

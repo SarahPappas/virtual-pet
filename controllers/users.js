@@ -26,6 +26,7 @@ router.route('/')
         // var authHeader = req.headers.authorization;
         // var authHeaderParts = authHeader.split(" ");
         // var token = authHeaderParts[1];
+
         return res.send(user);
         
         return res.send(user);
@@ -84,7 +85,6 @@ router.route('/auth')
           res.send(404);
           return;
         }
-
         res.send(user);
       })
     });
@@ -126,21 +126,53 @@ router.route('/auth')
           user.pet.stats[activityId].last = req.body.lastTime;
         }
         
+        if (req.body.activity == "sleep"){
+          user.pet.stats[0].isSleeping = req.body.sleep;
+        }
         
         if(req.body.health >= 0){
-          user.pet.health = req.body.health
+          user.pet.health = req.body.health;
         };
         
         
         if(req.body.mood >= 0){
-          user.pet.mood = req.body.mood
+          user.pet.mood = req.body.mood;
         };
         user.save(function() {
           res.send(user);
         });
       })
     });
-  })
+  });
+
+  //Route for creating a new pet after death!
+  router.route('/newPet')
+  .put(function(req, res) {
+    // header is sending password!!??
+    var authHeader = req.headers.authorization;
+    var authHeaderParts = authHeader.split(" ");
+    var token = authHeaderParts[1];
+    jwt.verify(token, secret, function(err, decoded) {
+    var userId = decoded._doc._id;
+      
+      User.findOne({_id: userId}, function(err, user) {
+        if (err) {
+          res.send(err);
+          console.log(err);
+          return;
+        }
+        if (!user) {
+          res.send(404);
+          console.log(err);
+          return;
+        }
+        user.pet = req.body;
+        user.save(function() {
+          res.send(user);
+        });
+      })
+    });
+  });
 
 
 module.exports = router;
