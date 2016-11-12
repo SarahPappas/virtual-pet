@@ -30,10 +30,15 @@
         ApplicationService.startLoop();
 
         // <--------- remove above, update function below that runs on click -------->
-
+        feed.class = "c2-default-anim"
         feed.feeding = function() {
             ApplicationService.calcStats("feed", "acted");
-            // if()
+            setTimeout(function() {
+                feed.class= "";
+                feed.class = "c2-feed-anim";
+            }, 1000); 
+            
+            
         }
 
     }
