@@ -45,7 +45,7 @@
         } else {
         	el.className ="c4-default-anim";
         }
-      }, 1000);
+      }, 3000);
     };
 
 		ApplicationService.startLoop();
