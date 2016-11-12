@@ -74,15 +74,15 @@
 
 /*  NURSE ANIMATION  */
 .c1-nurse-anim {
-  width: 517px;
-  height: 306px;
+  width: 460px;
+  height: 340px;
   margin: 2% auto;
-  background: url('/img/animation/nursesheetc4.png') left center;
+  background: url('/img/animation/nursesheetc1.png') left center;
   animation: playc1nurse 10s steps(10) infinite;
   margin-top:90px;
 }
 @keyframes playc1nurse {
-  100% { background-position: -5070px; }
+  100% { background-position: -4600px; }
 }
 
 /*  SICK ANIMATION  */
@@ -106,7 +106,7 @@
   width: 229px;
   height: 306px;
   margin: 2% auto;
-  background: url('/img/animation/defaultsheetc1.png') left center;
+  background: url('/img/animation/defaultsheetc2.png') left center;
   animation: playc2default 6s steps(12) infinite;
   margin-top:90px;
 }
@@ -170,15 +170,15 @@
 
 /*DEFAULT ANIMATION */
 .c3-default-anim {
-  width: 229px;
-  height: 360px;
+  width: 228px;
+  height: 400px;
   margin: 2% auto;
   background: url('/img/animation/defaultsheetc3.png') left center;
-  animation: playc3default 6s steps(12) infinite;
+  animation: playc3default 6s steps(6) infinite;
   margin-top:90px;
 }
 @keyframes playc3default {
-  100% { background-position: -2746px; }
+  100% { background-position: -1373px; }
 }
 
 /*  FEED ANIMATION  */
@@ -210,12 +210,12 @@
 .c3-nurse-anim {
   width: 460px;
   height: 340px;
-  background: url('/img/animation/nursesheetc4.png') 0 0 no-repeat; 
+  background: url('/img/animation/nursesheetc3.png') 0 0 no-repeat; 
   animation: playc3nurse 11s steps(10) infinite;
   margin-top:90px;
 }
 @keyframes playc3nurse {
-  100% { background-position: 0 -4600px; }
+  100% { background-position: -4600px; }
 }
 
 /*  SICK ANIMATION  */
@@ -236,14 +236,14 @@
 
 /*DEFAULT ANIMATION */
 .c4-default-anim {
-  width: 258px;
+  width: 257px;
   height: 294px;
   margin: 2% auto;
   background: url('/img/animation/defaultsheetc4.png') left center;
-  animation: playc3default 6s steps(12) infinite;
+  animation: playc4default 6s steps(6) infinite;
   margin-top:90px;
 }
-@keyframes playc3default {
+@keyframes playc4default {
   100% { background-position: -1547px; }
 }
 

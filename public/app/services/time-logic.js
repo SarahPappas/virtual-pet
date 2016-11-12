@@ -22,7 +22,7 @@ angular.module("VirtualPetApp")
       },
       feed: {
           // msUntilNeeded: 4 * this.msPerHour,
-          msUntilMissed: 20000,
+          msUntilMissed: 30000,
           // msUntilMissed: 5 * this.msPerHour,
           moodDeltas: {
               missed: -20,
@@ -48,7 +48,7 @@ angular.module("VirtualPetApp")
       },
       exercise: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 9000,
+        msUntilMissed: 60000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: -20,
@@ -143,7 +143,26 @@ angular.module("VirtualPetApp")
     
     if (this.sleep) {
       totalTime += this.actionInfos.sleep.msSleeping;
-    } 
+      document.getElementById('left-nav').style.visibility = "hidden"
+      document.getElementById('right-nav').style.visibility = "hidden"
+      this.changeElement = function() {
+      	var el = document.getElementById("default-anim");
+        if (this.species == "cat") {
+          el.className ="c1-sleep-anim";
+        } else if (this.species == "bat") {
+          el.className ="c2-sleep-anim";
+        } else if (this.species == "monkey") {
+          el.className ="c3-sleep-anim";
+        } else {
+          el.className ="c4-sleep-anim";
+        }
+    	}
+    	this.changeElement();
+    }
+    else {
+    	document.getElementById('left-nav').style.visibility = "visible"
+    	document.getElementById('right-nav').style.visibility = "visible"
+    }	 
     // console.log("savedTime",Number(this.stats[1].last))
     // console.log("now", now);
     // console.log("totalTime", totalTime);
@@ -217,7 +236,6 @@ angular.module("VirtualPetApp")
       if(this.mood + deltaMood < 0){
         this.health -= 10;
         this.mood = 0;
-        this.health -= 10;
       } else if (this.mood + deltaMood >= 100) {
         this.mood = 100;
       } else {
@@ -281,6 +299,7 @@ angular.module("VirtualPetApp")
         this.mood = res.data.pet.mood;
         this.health = res.data.pet.health;
         this.sleep = res.data.pet.stats[0].isSleeping;
+        this.species = res.data.pet.species;
       }.bind(this))
       .then(function() {
         for (var i = 0; i < this.stats.length; i++) {
