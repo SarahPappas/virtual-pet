@@ -43,17 +43,18 @@
                 el.className ="c1-feed-anim";
             } else if (ApplicationService.species == "bat") {
                 el.className ="c2-feed-anim";
-            } else if (ApplicationService.species == "raccoon") {
+            } else if (ApplicationService.species == "monkey") {
                 el.className ="c3-feed-anim";
-            }else if (ApplicationService.species == "monkey") {
+            } else {
                 el.className ="c4-feed-anim";
             }
+
             $timeout(function() {
                 if (ApplicationService.species == "cat") {
                     el.className ="c1-default-anim";
                 } else if (ApplicationService.species == "bat") {
                     el.className ="c2-default-anim";
-                } else if (ApplicationService.species == "raccoon") {
+                } else if (ApplicationService.species == "monkey") {
                     el.className ="c3-default-anim";
                 } else {
                     el.className ="c4-default-anim";
