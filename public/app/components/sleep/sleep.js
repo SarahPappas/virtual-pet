@@ -23,9 +23,9 @@
       } else if (ApplicationService.species == "bat") {
         el.className ="c2-sleep-anim";
       } else if (ApplicationService.species == "monkey") {
-        el.className ="c3-sleep-anim";
-      } else {
         el.className ="c4-sleep-anim";
+      } else {
+        el.className ="c3-sleep-anim";
       }
     }        
 

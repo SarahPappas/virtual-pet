@@ -152,9 +152,9 @@ angular.module("VirtualPetApp")
         } else if (this.species == "bat") {
           el.className ="c2-sleep-anim";
         } else if (this.species == "monkey") {
-          el.className ="c3-sleep-anim";
-        } else {
           el.className ="c4-sleep-anim";
+        } else {
+          el.className ="c3-sleep-anim";
         }
     	}
     	this.changeElement();
@@ -315,6 +315,15 @@ angular.module("VirtualPetApp")
     if (!this.gameLoopInteval) {
       this.gameLoopInteval = setInterval(this.checkForUpdate, 3000);
     }
-  };
-    
+    var el = document.getElementById("default-anim");
+    if (this.species === "cat") {
+        el.className ="c1-default-anim";
+    } else if (this.species === "bat") {
+        el.className ="c2-default-anim";
+    } else if (this.species === "monkey") {
+        el.className ="c4-default-anim";
+    } else {
+        el.className ="c3-default-anim";
+    }
+  }.bind(this);  
 }]);
