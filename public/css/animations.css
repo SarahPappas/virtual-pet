@@ -134,12 +134,12 @@
 }
 @keyframes play {
   100% { background-position: -2749px; }
-}
-*/
+}*/
+
 
 
 /*  FEED ANIMATION  */
-/*.feed-anim {
+.feed-anim {
   width: 322px;
   height: 265px;
   margin: 2% auto;
@@ -149,7 +149,7 @@
 @keyframes play {
   100% { background-position: -3236px; }
 }
-*/
+
 
 /*  SLEEP ANIMATION  */
 /*.sleep-anim {

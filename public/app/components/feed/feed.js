@@ -33,7 +33,14 @@
 
         feed.feeding = function() {
             ApplicationService.calcStats("feed", "acted");
-            // if()
+            feed.changeElement();
+            
+        }
+
+        feed.changeElement = function() {
+            var el = document.getElementById("feed")
+            el.className = "nurse-anim"
+            console.log(el);
         }
 
     }
