@@ -288,8 +288,9 @@ angular.module("VirtualPetApp")
         }
       }.bind(this))
       .then(function() {
+        console.log(this.species)
         var el = document.getElementById("default-anim");
-        if (this.species == "cat") {
+        if (this.species =="cat") {
             el.className ="c1-default-anim";
         } else if (this.species == "bat") {
             el.className ="c2-default-anim";
@@ -306,6 +307,17 @@ angular.module("VirtualPetApp")
     if (!this.gameLoopInteval) {
       this.gameLoopInteval = setInterval(this.checkForUpdate, 3000);
     }
-  };
+    var el = document.getElementById("default-anim");
+    console.log(this.species)
+    if (this.species === "cat") {
+        el.className ="c1-default-anim";
+    } else if (this.species === "bat") {
+        el.className ="c2-default-anim";
+    } else if (this.species === "monkey") {
+        el.className ="c3-default-anim";
+    } else {
+        el.className ="c4-default-anim";
+    }
+  }.bind(this);
     
 }]);

@@ -7,6 +7,7 @@
     });
 
     function Feed(ApplicationService, $scope, $timeout) {
+        ApplicationService.startLoop();
         var feed = this;
 
         // <-------- the only thing the feed needs to do is update server on click ------->
@@ -27,7 +28,6 @@
             $scope.safeApply();
         })
 
-        ApplicationService.startLoop();
 
         // <--------- remove above, update function below that runs on click -------->
 
