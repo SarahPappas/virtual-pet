@@ -280,6 +280,7 @@ angular.module("VirtualPetApp")
         this.mood = res.data.pet.mood;
         this.health = res.data.pet.health;
         this.sleep = res.data.pet.stats[0].isSleeping;
+        this.species = res.data.pet.species;
       }.bind(this))
       .then(function() {
         for (var i = 0; i < this.stats.length; i++) {

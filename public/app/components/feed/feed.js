@@ -6,7 +6,7 @@
         controllerAs: "feed"
     });
 
-    function Feed(ApplicationService, $scope) {
+    function Feed(ApplicationService, $scope, $timeout) {
         var feed = this;
 
         // <-------- the only thing the feed needs to do is update server on click ------->
@@ -34,17 +34,37 @@
         feed.feeding = function() {
             ApplicationService.calcStats("feed", "acted");
             feed.changeElement();
-            
+
         }
 
         feed.changeElement = function() {
-            var el = document.getElementById("feed")
-            el.className = "nurse-anim"
+            var el = document.getElementById("default-anim");
+            if (ApplicationService.species == "cat") {
+                el.className ="c1-feed-anim";
+            } else if (ApplicationService.species == "bat") {
+                el.className ="c2-feed-anim";
+            } else if (ApplicationService.species == "raccoon") {
+                el.className ="c3-feed-anim";
+            }else if (ApplicationService.species == "monkey") {
+                el.className ="c4-feed-anim";
+            }
+            $timeout(function() {
+                if (ApplicationService.species == "cat") {
+                    el.className ="c1-default-anim";
+                } else if (ApplicationService.species == "bat") {
+                    el.className ="c2-default-anim";
+                } else if (ApplicationService.species == "raccoon") {
+                    el.className ="c3-default-anim";
+                } else {
+                    el.className ="c4-default-anim";
+                }
+
+            }, 8000);
             console.log(el);
         }
 
     }
 
-    Feed.$inject = ["ApplicationService", "$scope"];
+    Feed.$inject = ["ApplicationService", "$scope", "$timeout"];
 
 })()
