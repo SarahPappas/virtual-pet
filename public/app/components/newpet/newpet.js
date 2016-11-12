@@ -42,14 +42,16 @@
     	}
 
     	this.createPet = function(){
-    		$http({
+    		return $http({
         		url: "/api/users/newPet",
        			method: "PUT",
        			data: this.newPet
       		}).then(function(res){
       			$state.go('backPlay');
+      		}).then(function() {
+      			ApplicationService.setDefaultSpecies();
       		});
-    	}
+    	}.bind(this);
 
 	}
 

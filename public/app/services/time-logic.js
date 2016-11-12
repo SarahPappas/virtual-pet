@@ -218,7 +218,7 @@ angular.module("VirtualPetApp")
               this.sleep = res.data.pet.stats[0].isSleeping;
               this.species = res.data.pet.species;
         }.bind(this));
-      $rootScope.$broadcast("update", this); 
+      // $rootScope.$broadcast("update", this); 
     }
     
     if (isTimeExpired) {
@@ -263,13 +263,14 @@ angular.module("VirtualPetApp")
       }.bind(this));
       
       
-      $rootScope.$broadcast("update", this);
     }
 
     if (this.sleep && Date.now() > Number(this.stats[0].last) + this.actionInfos.sleep.msSleeping) {
       this.sleep = "false";
       this.saveStats("sleep", Date.now(), this.mood, this.health, this.sleep)
     }
+
+    $rootScope.$broadcast("update", this);
   }.bind(this);
 
 

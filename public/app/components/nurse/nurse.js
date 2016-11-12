@@ -31,7 +31,6 @@
 			} else {
 				nurse.isNurseAllowed =  false;
 			}
-			console.log("nurse allowed", nurse.isNurseAllowed);
 		})
 
 
