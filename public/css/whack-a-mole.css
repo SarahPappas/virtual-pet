@@ -42,3 +42,15 @@
 	position: absolute;
 	margin-left: 45%;
 }
+
+.redstatus {
+	background-color: red;
+}
+
+.orangestatus {
+	background-color: orange;
+}
+
+.greenstatus {
+	background-color: green;
+}

@@ -35,6 +35,12 @@
       for(var j = 0; j < this.moodBarCount; j++) {
       	this.moodBars.push(j);
       }
+      var hbars = document.getElementsByClassName("health-bar");
+      if(this.healthBars.length >= 8){
+      	for (var k = 0; k < hbars; k++){
+      		hbars[k].style.backgroundColor = "green";
+      	}
+      }
     }.bind(this))
 
       	this.healthBarCount = this.data.health/10;
