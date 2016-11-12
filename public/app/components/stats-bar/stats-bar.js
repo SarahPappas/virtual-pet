@@ -36,9 +36,20 @@
       	this.moodBars.push(j);
       }
       var hbars = document.getElementsByClassName("health-bar");
-      if(this.healthBars.length >= 8){
-      	for (var k = 0; k < hbars; k++){
+      console.log("those hbars: " + hbars);
+      if(hbars.length >= 8){
+      	for (var k = 0; k < hbars.length; k++){
       		hbars[k].style.backgroundColor = "green";
+      	}
+      }
+      else if(hbars.length >= 4){
+      	for (var k = 0; k < hbars.length; k++){
+      		hbars[k].style.backgroundColor = "orange";
+      	}
+      }
+      else if(hbars.length < 4){
+      	for (var k = 0; k < hbars.length; k++){
+      		hbars[k].style.backgroundColor = "red";
       	}
       }
     }.bind(this))
@@ -51,6 +62,23 @@
       	for(var j = 0; j < this.moodBarCount; j++) {
       		this.moodBars.push(j);
       	}
+      	      var hbars = document.getElementsByClassName("health-bar");
+      console.log("those hbars: " + hbars);
+      if(hbars.length >= 8){
+      	for (var k = 0; k < hbars.length; k++){
+      		hbars[k].style.backgroundColor = "green";
+      	}
+      }
+      else if(hbars.length >= 4){
+      	for (var k = 0; k < hbars.length; k++){
+      		hbars[k].style.backgroundColor = "orange";
+      	}
+      }
+      else if(hbars.length < 4){
+      	for (var k = 0; k < hbars.length; k++){
+      		hbars[k].style.backgroundColor = "red";
+      	}
+      }
       }
 
 
