@@ -288,6 +288,16 @@ angular.module("VirtualPetApp")
         }
       }.bind(this))
       .then(function() {
+        var el = document.getElementById("default-anim");
+        if (this.species == "cat") {
+            el.className ="c1-default-anim";
+        } else if (this.species == "bat") {
+            el.className ="c2-default-anim";
+        } else if (this.species == "monkey") {
+            el.className ="c3-default-anim";
+        } else {
+            el.className ="c4-default-anim";
+        }
         this.startLoop()
       }.bind(this));
   }.bind(this);
