@@ -271,6 +271,20 @@ angular.module("VirtualPetApp")
       }.bind(this));
   }.bind(this);
 
+  this.setDefaultSpecies = function() {
+    var el = document.getElementById("default-anim");
+    console.log(this.species);
+    if (this.species === "cat") {
+        el.className ="c1-default-anim";
+    } else if (this.species === "bat") {
+        el.className ="c2-default-anim";
+    } else if (this.species === "monkey") {
+        el.className ="c3-default-anim";
+    } else {
+        el.className ="c4-default-anim";
+    }
+  }
+
   this.onLogin = function() {
     this.getStats()
       .then(function(res) {
@@ -289,16 +303,7 @@ angular.module("VirtualPetApp")
       }.bind(this))
       .then(function() {
         console.log(this.species)
-        var el = document.getElementById("default-anim");
-        if (this.species =="cat") {
-            el.className ="c1-default-anim";
-        } else if (this.species == "bat") {
-            el.className ="c2-default-anim";
-        } else if (this.species == "monkey") {
-            el.className ="c3-default-anim";
-        } else {
-            el.className ="c4-default-anim";
-        }
+        this.setDefaultSpecies();
         this.startLoop()
       }.bind(this));
   }.bind(this);
@@ -306,18 +311,12 @@ angular.module("VirtualPetApp")
   this.startLoop = function() {
     if (!this.gameLoopInteval) {
       this.gameLoopInteval = setInterval(this.checkForUpdate, 3000);
+      this.setDefaultSpecies();
     }
-    var el = document.getElementById("default-anim");
-    console.log(this.species)
-    if (this.species === "cat") {
-        el.className ="c1-default-anim";
-    } else if (this.species === "bat") {
-        el.className ="c2-default-anim";
-    } else if (this.species === "monkey") {
-        el.className ="c3-default-anim";
-    } else {
-        el.className ="c4-default-anim";
-    }
+    
+    
+
   }.bind(this);
+
     
 }]);
