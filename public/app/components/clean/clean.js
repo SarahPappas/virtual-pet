@@ -41,9 +41,9 @@
         } else if (ApplicationService.species == "bat") {
           el.className ="c2-default-anim";
         } else if (ApplicationService.species == "monkey") {
-          el.className ="c3-default-anim";
+          el.className ="c4-default-anim";
         } else {
-        	el.className ="c4-default-anim";
+        	el.className ="c3-default-anim";
         }
       }, 3000);
     };

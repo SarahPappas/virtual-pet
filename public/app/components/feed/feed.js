@@ -44,9 +44,9 @@
           } else if (ApplicationService.species == "bat") {
             el.className ="c2-feed-anim";
           } else if (ApplicationService.species == "monkey") {
-            el.className ="c3-feed-anim";
-          } else {
             el.className ="c4-feed-anim";
+          } else {
+            el.className ="c3-feed-anim";
           }
 
           $timeout(function() {
@@ -55,9 +55,9 @@
             } else if (ApplicationService.species == "bat") {
               el.className ="c2-default-anim";
             } else if (ApplicationService.species == "monkey") {
-              el.className ="c3-default-anim";
-            } else {
               el.className ="c4-default-anim";
+            } else {
+              el.className ="c3-default-anim";
             }
           }, 4000);
         }
