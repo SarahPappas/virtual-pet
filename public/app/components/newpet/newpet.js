@@ -6,11 +6,13 @@
 		controllerAs: "newpet"
 	});
 
-	function NewPetCtrl($http, ApplicationService, $scope, $state) {
-
+	function NewPetCtrl($http, ApplicationService, $scope, $state, $timeout) {
+		var newPetCtrl = this;
 		console.log("NewPetCtrl loaded!");
+		newPetCtrl.noSpecies = false;
+		newPetCtrl.noName = false;
 
-		this.newPet = {
+		newPetCtrl.newPet = {
       		petname: "",
       		species: "",
       		birthday: Date.now(),
@@ -41,19 +43,28 @@
       		]	
     	}
 
-    	this.createPet = function(){
-    		return $http({
-        		url: "/api/users/newPet",
-       			method: "PUT",
-       			data: this.newPet
-      		}).then(function(res){
-      			$state.go('backPlay');
-      		}).then(function() {
-      			ApplicationService.setDefaultSpecies();
-      		});
-    	}.bind(this);
-
+    	newPetCtrl.createPet = function(){
+    		if(NewPetCtrl.newPet.petname.length === 0){
+    			NewPetCtrl.noName = true;
+    			$timeout(function(){NewPetCtrl.noName = !NewPetCtrl.noName}, 4000);
+    		}
+    		else if(NewPetCtrl.newPet.species.length === 0){
+    			NewPetCtrl.noSpecies = true;
+    			$timeout(function(){NewPetCtrl.noSpecies = !NewPetCtrl.noSpecies}, 4000);
+    		}
+    		else {
+	    		$http({
+	        		url: "/api/users/newPet",
+	       			method: "PUT",
+	       			data: NewPetCtrl.newPet
+	      		}).then(function(res){
+	      			$state.go('backPlay');
+	      		}).then(function() {
+      				ApplicationService.setDefaultSpecies();
+      			});
+      		}
+    	}
 	}
 
-	NewPetCtrl.$inject = ['$http', 'ApplicationService', '$scope', '$state'];
+	NewPetCtrl.$inject = ['$http', 'ApplicationService', '$scope', '$state', '$timeout'];
 })()

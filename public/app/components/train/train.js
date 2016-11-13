@@ -8,7 +8,6 @@
 
 	function TrainCtrl($http, ApplicationService, $scope, $state) {
 		var TrainCtrl = this;
-		console.log("TrainCtrl loaded!");
 		$http({
 			url: "/api/users/stats",
 			method: "GET"
