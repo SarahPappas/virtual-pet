@@ -7,27 +7,27 @@
     });
 
     function Feed(ApplicationService, $scope, $timeout) {
+        ApplicationService.startLoop();
         var feed = this;
 
         // <-------- the only thing the feed needs to do is update server on click ------->
-        feed.data = ApplicationService;
+        // feed.data = ApplicationService;
 
-        $scope.safeApply = function(fn) {
-          var phase = this.$root.$$phase;
-          if(phase == '$apply' || phase == '$digest') {
-            if(fn && (typeof(fn) === 'function')) {
-              fn();
-            }
-          } else {
-            this.$apply(fn);
-          }
-        };
+        // $scope.safeApply = function(fn) {
+        //   var phase = this.$root.$$phase;
+        //   if(phase == '$apply' || phase == '$digest') {
+        //     if(fn && (typeof(fn) === 'function')) {
+        //       fn();
+        //     }
+        //   } else {
+        //     this.$apply(fn);
+        //   }
+        // };
 
-        $scope.$on("update", function(event, args) {
-            $scope.safeApply();
-        })
+        // $scope.$on("update", function(event, args) {
+        //     $scope.safeApply();
+        // })
 
-        ApplicationService.startLoop();
 
         // <--------- remove above, update function below that runs on click -------->
 
@@ -61,6 +61,8 @@
             }
           }, 4000);
         }
+
+        
 
     }
 

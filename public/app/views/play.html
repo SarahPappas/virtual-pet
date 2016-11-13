@@ -9,16 +9,17 @@
 	</div>
 	<!-- GAME AREA -->
 	<div id="gameplay">
+
 		<div id = "default-anim"></div>
-			<feed ng-show="state.params.activity == 'feed'"></feed>
-			<clean ng-show="state.params.activity == 'clean'"></clean>
-			<exercise ng-show="state.params.activity == 'exercise'"></exercise>
-			<gameover ng-show="state.params.activity == 'gameover'"></gameover>
-			<train ng-show="state.params.activity == 'train' "></train>
-			<nurse ng-show="state.params.activity == 'nurse'"></nurse>
-			<sleep ng-show="state.params.activity == 'sleep'"></sleep>
-			<stats ng-show="state.params.activity == 'stats'"></stats>
-		
+		<feed ng-show="state.params.activity == 'feed'"></feed>
+		<clean ng-show="state.params.activity == 'clean'"></clean>
+		<exercise ng-show="state.params.activity == 'exercise'"></exercise>
+		<gameover ng-show="state.params.activity == 'gameover'"></gameover>
+		<train ng-show="state.params.activity == 'train' "></train>
+		<nurse ng-show="state.params.activity == 'nurse'"></nurse>
+		<sleep ng-show="state.params.activity == 'sleep'"></sleep>
+		<stats ng-show="state.params.activity == 'stats'"></stats>
+	
 	</div>
 	<!-- RIGHT NAV -->
 	<div id="right-nav">
@@ -27,5 +28,5 @@
 		<a href="/play/sleep"><div class="nav nav-sleep"></div></a>
 	</div>
 </div>
-<game-over></game-over>
 <sickpet></sickpet>
+<game-over></game-over>
