@@ -301,3 +301,9 @@ hr {
 	background-image:url('/img/sleep-iconH.svg');
 	width:95px;
 }
+#default-anim {
+	position: absolute;
+}
+feed, clean, gameover, train, nurse, sleep, stats {
+	position: absolute;
+}

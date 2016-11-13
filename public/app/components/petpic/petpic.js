@@ -10,7 +10,6 @@
     var sick = this;
     sick.health = ApplicationService;
 
-
       $scope.safeApply = function(fn) {
         var phase = this.$root.$$phase;
         if(phase == '$apply' || phase == '$digest') {
