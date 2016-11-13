@@ -18,6 +18,16 @@
     var totalPlay = 0;
     var totalWins = 0;
 
+    if (ApplicationService.species == "cat") {
+          vader.src = '/img/pickpet1.png';
+        } else if (ApplicationService.species == "bat") {
+          vader.src = '/img/pickpet2.png';
+        } else if (ApplicationService.species == "monkey") {
+          vader.src = '/img/pickpet3.png';
+        } else {
+          vader.src = '/img/pickpet4.png';
+        }   
+
     $scope.safeApply = function(fn) {
       var phase = this.$root.$$phase;
       if(phase == '$apply' || phase == '$digest') {

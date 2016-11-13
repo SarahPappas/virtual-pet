@@ -15,11 +15,13 @@
 			exerciseCtrl.playWhack = function() {
 				exerciseCtrl.playingWhack = true;
 				exerciseCtrl.bePLayin = true;
+				document.getElementById("default-anim").style.display = "none";
 			};
 
 			exerciseCtrl.playGuess = function() {
 				exerciseCtrl.playingGuess = true;
 				exerciseCtrl.bePLayin = true;
+				document.getElementById("default-anim").style.display = "none";
 			};
 
 			ApplicationService.startLoop();

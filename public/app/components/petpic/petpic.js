@@ -21,7 +21,6 @@
             else {
               sick.health = res.data.pet.health;
               if(sick.health <= 30) {
-                console.log('Sick Pet!')
                 var el = document.getElementById("default-anim");
                 if (ApplicationService.species == "cat") {
                     el.className ="c1-sick-anim";
