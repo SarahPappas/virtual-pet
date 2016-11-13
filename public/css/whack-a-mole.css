@@ -1,23 +1,22 @@
 .moleBox {
 	position: absolute;
-	height: 100px;
-	width: 100px;
-	background-color: #663300;
+	height: 115px;
+	width: 115px;
 }
 
 #moleBox1 {
-	margin-top: 25%;
+	margin-top: 23%;
 	margin-left: 10%;
 }
 
 #moleBox2 {
 	margin-left: 70%;
-	margin-top: 40%;
+	margin-top: 38%;
 }
 
 #moleBox3 {
 	margin-left: 35%;
-	margin-top: 65%;
+	margin-top: 63%;
 }
 
 .moleYoda {
@@ -41,16 +40,4 @@
 .moleScore {
 	position: absolute;
 	margin-left: 45%;
-}
-
-.redstatus {
-	background-color: red;
-}
-
-.orangestatus {
-	background-color: orange;
-}
-
-.greenstatus {
-	background-color: green;
 }
