@@ -23,7 +23,6 @@
 
       $scope.$on("update", function(event, args) {
         $scope.safeApply();
-        console.log(sick.health);
         var el = document.getElementById("default-anim");
         if(sick.health.health <= 50 && el.className == "c1-default-anim" || sick.health.health <= 50 && el.className == "c2-default-anim"
           || sick.health.health <= 50 && el.className == "c3-default-anim" || sick.health.health <= 50 && el.className == "c4-default-anim"
