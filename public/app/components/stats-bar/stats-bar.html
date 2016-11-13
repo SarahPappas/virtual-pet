@@ -1,10 +1,10 @@
 	<div id="stats">
 		<div id="health-stats">
 			<div id="health-stats-icon"></div>
-				<div ng-repeat="bar in StatsBarCtrl.healthBars" class="stats-bar health-bar"></div>
+				<div style="background-color: {{StatsBarCtrl.healthBarColor}}" ng-repeat="bar in StatsBarCtrl.healthBars track by $index" class="stats-bar health-bar"></div>
 		</div>
 		<div id="mood-stats">
 			<div id="mood-stats-icon"></div>
-				<div ng-repeat="bar in StatsBarCtrl.moodBars" class="stats-bar mood-bar"></div>
+				<div style="background-color: {{StatsBarCtrl.moodBarColor}}" ng-repeat="bar in StatsBarCtrl.moodBars" class="stats-bar mood-bar"></div>
 		</div>
 	</div>

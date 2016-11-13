@@ -9,76 +9,48 @@
 	function StatsBarCtrl($http, ApplicationService, $scope, $state) {
 
 		console.log("StatsBarCtrl loaded!");
-		this.healthBars = [];
-		this.moodBars = [];
-		this.data = ApplicationService;
-		$scope.safeApply = function(fn) {
-	      var phase = this.$root.$$phase;
-	      if(phase == '$apply' || phase == '$digest') {
-	        if(fn && (typeof(fn) === 'function')) {
-	          fn();
-	        }
-	      } else {
-	        this.$apply(fn);
-	      }
-	    };
 
-    $scope.$on("update", function(event, args) {
-      $scope.safeApply();
-      this.healthBars = [];
-      this.moodBars = [];
-      this.healthBarCount = this.data.health/10;
-      this.moodBarCount = this.data.mood/10;
-      for(var i = 0; i < this.healthBarCount; i++){
-      	this.healthBars.push(i);
-      }
-      for(var j = 0; j < this.moodBarCount; j++) {
-      	this.moodBars.push(j);
-      }
-      var hbars = document.getElementsByClassName("health-bar");
-      console.log("those hbars: " + hbars);
-      if(hbars.length >= 8){
-      	for (var k = 0; k < hbars.length; k++){
-      		hbars[k].style.backgroundColor = "green";
-      	}
-      }
-      else if(hbars.length >= 4){
-      	for (var k = 0; k < hbars.length; k++){
-      		hbars[k].style.backgroundColor = "orange";
-      	}
-      }
-      else if(hbars.length < 4){
-      	for (var k = 0; k < hbars.length; k++){
-      		hbars[k].style.backgroundColor = "red";
-      	}
-      }
-    }.bind(this))
+		var StatsBarCtrl = this;
+		StatsBarCtrl.healthBars = [];
+		StatsBarCtrl.moodBars = [];
 
-      	this.healthBarCount = this.data.health/10;
-      	this.moodBarCount = this.data.mood/10;
-      	for(var i = 0; i < this.healthBarCount; i++){
-      		this.healthBars.push(i);
-      	}
-      	for(var j = 0; j < this.moodBarCount; j++) {
-      		this.moodBars.push(j);
-      	}
-      	      var hbars = document.getElementsByClassName("health-bar");
-      console.log("those hbars: " + hbars);
-      if(hbars.length >= 8){
-      	for (var k = 0; k < hbars.length; k++){
-      		hbars[k].style.backgroundColor = "green";
-      	}
-      }
-      else if(hbars.length >= 4){
-      	for (var k = 0; k < hbars.length; k++){
-      		hbars[k].style.backgroundColor = "orange";
-      	}
-      }
-      else if(hbars.length < 4){
-      	for (var k = 0; k < hbars.length; k++){
-      		hbars[k].style.backgroundColor = "red";
-      	}
-      }
+		
+
+        // <-------- the only thing the feed needs to do is update server on click ------->
+        StatsBarCtrl.data = ApplicationService;
+
+        $scope.safeApply = function(fn) {
+          var phase = this.$root.$$phase;
+          if(phase == '$apply' || phase == '$digest') {
+            if(fn && (typeof(fn) === 'function')) {
+              fn();
+            }
+          } else {
+            this.$apply(fn);
+          }
+        };
+
+        $scope.$on("update", function(event, args) {
+            $scope.safeApply();
+            StatsBarCtrl.healthBars = [];
+            StatsBarCtrl.moodBars = [];
+            console.log("StatsBarCtrl health: " + StatsBarCtrl.data.health);
+            for(var i = 0; i < StatsBarCtrl.data.health/10; i++){
+            	StatsBarCtrl.healthBars.push(i);
+            };
+            for(var j = 0; j < StatsBarCtrl.data.mood/10; j++){
+            	StatsBarCtrl.moodBars.push(j);
+            }
+            if(StatsBarCtrl.data.health >= 80){StatsBarCtrl.healthBarColor = "green"}
+            else if(StatsBarCtrl.data.health >= 30){StatsBarCtrl.healthBarColor = "orange"}
+            else{StatsBarCtrl.healthBarColor = "red"};
+        	if(StatsBarCtrl.data.mood >= 80){StatsBarCtrl.moodBarColor = "green"}
+            else if(StatsBarCtrl.data.mood >= 30){StatsBarCtrl.moodBarColor = "orange"}
+            else{StatsBarCtrl.moodBarColor = "red"};
+        })
+
+        ApplicationService.startLoop();
+
       }
 
 
