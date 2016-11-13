@@ -1,4 +1,4 @@
-# ![My Pet Pal Logo](https://github.com/SarahPappas/virtual-pet/tree/master/public/img/pickpet1.png) My Pet Pal
+# ![My Pet Pal Logo](https://github.com/SarahPappas/virtual-pet/raw/master/public/img/pickpet1.png) My Pet Pal
 
 ## Brief Description
 
