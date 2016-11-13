@@ -71,7 +71,7 @@
         width: 50,
         height: 50,
         speed: 60,
-        color: '#4B0082'
+        color: '#F00'
       }
     }
 
