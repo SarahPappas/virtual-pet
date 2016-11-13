@@ -43,7 +43,7 @@
         width: 40,
         height: 50,
         speed: 200,
-        color: '#c00'
+        image: '/img/pickpet1.png'
     };
 
     var Sprites =
@@ -127,8 +127,21 @@
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       //moving red object
-      ctx.fillStyle = mySprite.color;
-      ctx.fillRect(mySprite.x, mySprite.y, mySprite.width, mySprite.height);
+      var img = new Image();
+      if (ApplicationService.species == "cat") {
+          img.src = '/img/pickpet1.png';
+        } else if (ApplicationService.species == "bat") {
+          img.src = '/img/pickpet2.png';
+        } else if (ApplicationService.species == "monkey") {
+          img.src = '/img/pickpet3.png';
+        } else {
+          img.src = '/img/pickpet4.png';
+        } 
+      img.addEventListener('load', function() {
+        ctx.drawImage(img, mySprite.x, mySprite.y, mySprite.width, mySprite.height);
+      });
+      // ctx.fillStyle = mySprite.color;
+      // ctx.fillRect(mySprite.x, mySprite.y, mySprite.width, mySprite.height);
       //falling objects
       for(index in Sprites) {
         ctx.fillStyle = Sprites[index].color;
