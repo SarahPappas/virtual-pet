@@ -6,7 +6,7 @@
 		controllerAs: "nurse"
 	});
 
-	function Nurse(ApplicationService, $scope) {
+	function Nurse(ApplicationService, $scope, $timeout) {
 		var nurse = this;
 		nurse.isNurseAllowed = true;
 
@@ -21,7 +21,7 @@
 		  }
 		};
 
-		console.log("last nurse", ApplicationService.stats[4].last);
+
 		$scope.$on("update", function(event, args) {
 		    $scope.safeApply();
 
@@ -38,9 +38,37 @@
 
 		nurse.healing = function(){
 			ApplicationService.calcStats("nurse", "acted");
+			nurse.changeElement();
 		}
+
+		nurse.changeElement = function() {
+            var el = document.getElementById("default-anim");
+            if (ApplicationService.species == "cat") {
+                el.className ="c1-nurse-anim";
+            } else if (ApplicationService.species == "bat") {
+                el.className ="c2-nurse-anim";
+            } else if (ApplicationService.species == "monkey") {
+                el.className ="c4-nurse-anim";
+            } else {
+                el.className ="c3-nurse-anim";
+            }
+
+            $timeout(function() {
+                if (ApplicationService.species == "cat") {
+                    el.className ="c1-default-anim";
+                } else if (ApplicationService.species == "bat") {
+                    el.className ="c2-default-anim";
+                } else if (ApplicationService.species == "monkey") {
+                    el.className ="c4-default-anim";
+                } else {
+                    el.className ="c3-default-anim";
+                }
+
+            }, 11000);
+            console.log(el);
+        }
 
 		ApplicationService.startLoop();
 	}
-	Nurse.$inject = ["ApplicationService", "$scope"];
+	Nurse.$inject = ["ApplicationService", "$scope", "$timeout"];
 })()

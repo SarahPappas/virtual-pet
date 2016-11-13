@@ -7,9 +7,9 @@
   });
 
   function SickCtrl(ApplicationService, $http, $interval) {
-    this.health;
+    var sick = this;
 
-    this.checkHealth = function(){
+    sick.checkHealth = function(){
       $http({
             url: "/api/users/stats",
             method: "GET"
@@ -17,18 +17,26 @@
           .then(function(res) {
             if(!res) {
                 console.log("front-end error when getting Stats");
-            } 
-            else {
-              this.health = res.data.pet.health;
-              if(this.health <= 30) {
-                console.log('Sick Pet!')
-                // document.getElementsById('pet1').addClass('sickpet');
             }
+            else {
+              sick.health = res.data.pet.health;
+              if(sick.health <= 30) {
+                var el = document.getElementById("default-anim");
+                if (ApplicationService.species == "cat") {
+                    el.className ="c1-sick-anim";
+                } else if (ApplicationService.species == "bat") {
+                    el.className ="c2-sick-anim";
+                } else if (ApplicationService.species == "monkey") {
+                    el.className ="c4-sick-anim";
+                } else {
+                    el.className ="c3-sick-anim";
+                }
+              }
             }
         });
       };
 
-      $interval(this.checkHealth, 3000);
+      $interval(sick.checkHealth, 3000);
 
 
   }

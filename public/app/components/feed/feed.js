@@ -38,30 +38,28 @@
         }
 
         feed.changeElement = function() {
-            var el = document.getElementById("default-anim");
+          var el = document.getElementById("default-anim");
+          if (ApplicationService.species == "cat") {
+            el.className ="c1-feed-anim";
+          } else if (ApplicationService.species == "bat") {
+            el.className ="c2-feed-anim";
+          } else if (ApplicationService.species == "monkey") {
+            el.className ="c4-feed-anim";
+          } else {
+            el.className ="c3-feed-anim";
+          }
+
+          $timeout(function() {
             if (ApplicationService.species == "cat") {
-                el.className ="c1-feed-anim";
+              el.className ="c1-default-anim";
             } else if (ApplicationService.species == "bat") {
-                el.className ="c2-feed-anim";
+              el.className ="c2-default-anim";
             } else if (ApplicationService.species == "monkey") {
-                el.className ="c3-feed-anim";
+              el.className ="c4-default-anim";
             } else {
-                el.className ="c4-feed-anim";
+              el.className ="c3-default-anim";
             }
-
-            $timeout(function() {
-                if (ApplicationService.species == "cat") {
-                    el.className ="c1-default-anim";
-                } else if (ApplicationService.species == "bat") {
-                    el.className ="c2-default-anim";
-                } else if (ApplicationService.species == "monkey") {
-                    el.className ="c3-default-anim";
-                } else {
-                    el.className ="c4-default-anim";
-                }
-
-            }, 8000);
-            console.log(el);
+          }, 4000);
         }
 
     }
