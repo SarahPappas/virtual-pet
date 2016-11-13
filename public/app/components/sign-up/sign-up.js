@@ -18,6 +18,7 @@
     SignUpCtrl.emailTaken = false;
     SignUpCtrl.userNotFound = false;
     SignUpCtrl.invalidPassword = false;
+    SignUpCtrl.accountCreated = false;
 
     SignUpCtrl.clickSignUp = function(){
       SignUpCtrl.signingUp = !SignUpCtrl.signingUp;
@@ -85,6 +86,8 @@
       // $state.go('play');
       SignUpCtrl.signingUp = false;
       SignUpCtrl.loggingIn = true;
+      SignUpCtrl.accountCreated = true;
+      setTimeout(function(){SignUpCtrl.accountCreated = false}, 3500)
     }, function error(err) {
       console.log(err);
       if (err.status === 400){

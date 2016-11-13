@@ -26,18 +26,22 @@
 }
 
 #moleYoda1 {
-	margin-left: 10%;
+	margin-left: 12%;
 }
 
 #moleYoda2 {
-	margin-left: 70%;
+	margin-left: 72%;
 }
 
 #moleYoda3 {
-	margin-left: 35%;
+	margin-left: 37%;
 }
 
 .moleScore {
 	position: absolute;
 	margin-left: 45%;
+}
+
+#accountCreatedMessage {
+	color: green;
 }
