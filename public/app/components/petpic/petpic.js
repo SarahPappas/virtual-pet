@@ -6,40 +6,43 @@
     controllerAs: "sickpet"
   });
 
-  function SickCtrl(ApplicationService, $http, $interval) {
+  function SickCtrl(ApplicationService, $http, $interval, $scope) {
     var sick = this;
+    sick.health = ApplicationService;
 
-    sick.checkHealth = function(){
-      $http({
-            url: "/api/users/stats",
-            method: "GET"
-        })
-          .then(function(res) {
-            if(!res) {
-                console.log("front-end error when getting Stats");
-            }
-            else {
-              sick.health = res.data.pet.health;
-              if(sick.health <= 30) {
-                var el = document.getElementById("default-anim");
-                if (ApplicationService.species == "cat") {
-                    el.className ="c1-sick-anim";
-                } else if (ApplicationService.species == "bat") {
-                    el.className ="c2-sick-anim";
-                } else if (ApplicationService.species == "monkey") {
-                    el.className ="c4-sick-anim";
-                } else {
-                    el.className ="c3-sick-anim";
-                }
-              }
-            }
-        });
+      ApplicationService.startLoop();
+      console.log(ApplicationService.species);
+
+      $scope.safeApply = function(fn) {
+        var phase = this.$root.$$phase;
+        if(phase == '$apply' || phase == '$digest') {
+          if(fn && (typeof(fn) === 'function')) {
+            fn();
+          }
+        } else {
+          this.$apply(fn);
+        }
       };
 
-      $interval(sick.checkHealth, 3000);
-
+      $scope.$on("update", function(event, args) {
+        $scope.safeApply();
+        var el = document.getElementById("default-anim");
+        if(sick.health.health <= 30 && el.className == "c1-default-anim" || sick.health.health <= 30 && el.className == "c2-default-anim"
+          || sick.health.health <= 30 && el.className == "c3-default-anim" || sick.health.health <= 30 && el.className == "c4-default-anim"
+          ) {
+          if (ApplicationService.species == "cat") {
+              el.className ="c1-sick-anim";
+          } else if (ApplicationService.species == "bat") {
+              el.className ="c2-sick-anim";
+          } else if (ApplicationService.species == "monkey") {
+              el.className ="c4-sick-anim";
+          } else {
+              el.className ="c3-sick-anim";
+          }
+        }
+      });
 
   }
 
-  SickCtrl.$inject = ['ApplicationService', '$http', '$interval'];
+  SickCtrl.$inject = ['ApplicationService', '$http', '$interval', "$scope"];
 })()

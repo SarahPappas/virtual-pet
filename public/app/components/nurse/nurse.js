@@ -10,6 +10,7 @@
 		var nurse = this;
 		nurse.isNurseAllowed = true;
 
+		ApplicationService.startLoop();
 		$scope.safeApply = function(fn) {
 		  var phase = this.$root.$$phase;
 		  if(phase == '$apply' || phase == '$digest') {
@@ -21,7 +22,6 @@
 		  }
 		};
 
-
 		$scope.$on("update", function(event, args) {
 		    $scope.safeApply();
 
@@ -31,7 +31,6 @@
 			} else {
 				nurse.isNurseAllowed =  false;
 			}
-			console.log("nurse allowed", nurse.isNurseAllowed);
 		})
 
 
@@ -68,7 +67,6 @@
             console.log(el);
         }
 
-		ApplicationService.startLoop();
 	}
 	Nurse.$inject = ["ApplicationService", "$scope", "$timeout"];
 })()

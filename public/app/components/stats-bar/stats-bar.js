@@ -6,36 +6,29 @@
 		controllerAs: "StatsBarCtrl"
 	});
 
-	function StatsBarCtrl($http, ApplicationService, $scope, $state) {
+    function StatsBarCtrl($http, ApplicationService, $scope, $state) {
+        var statsBarCtrl = this;
 
-		console.log("StatsBarCtrl loaded!");
+        statsBarCtrl.data = ApplicationService;
 
-		var StatsBarCtrl = this;
-
-		$http({
-			url: "/api/users/stats",
-			method: "GET"
-		})
-		.then(function(res){
-			StatsBarCtrl.healthBars = [];
-            StatsBarCtrl.moodBars = [];
-            for(var i = 0; i < res.data.pet.health/10; i++){
-            	StatsBarCtrl.healthBars.push(i);
+        statsBarCtrl.setStats = function() {
+            statsBarCtrl.healthBars = [];
+            statsBarCtrl.moodBars = [];
+            for(var i = 0; i < statsBarCtrl.data.health/10; i++){
+            	statsBarCtrl.healthBars.push(i);
             };
-            for(var j = 0; j < res.data.pet.mood/10; j++){
-            	StatsBarCtrl.moodBars.push(j);
+            for(var j = 0; j < statsBarCtrl.data.mood/10; j++){
+            	statsBarCtrl.moodBars.push(j);
             }
-            if(res.data.pet.health >= 80){StatsBarCtrl.healthBarColor = "green"}
-            else if(res.data.pet.health >= 30){StatsBarCtrl.healthBarColor = "orange"}
-            else{StatsBarCtrl.healthBarColor = "red"};
-        	if(res.data.pet.mood >= 80){StatsBarCtrl.moodBarColor = "green"}
-            else if(res.data.pet.mood >= 30){StatsBarCtrl.moodBarColor = "orange"}
-            else{StatsBarCtrl.moodBarColor = "red"};
-
-		});
-
-        // <-------- the only thing the feed needs to do is update server on click ------->
-        StatsBarCtrl.data = ApplicationService;
+            if(statsBarCtrl.data.health >= 80){statsBarCtrl.healthBarColor = "green"}
+            else if(statsBarCtrl.data.health >= 30){statsBarCtrl.healthBarColor = "orange"}
+            else{statsBarCtrl.healthBarColor = "red"};
+        	if(statsBarCtrl.data.mood >= 80){statsBarCtrl.moodBarColor = "green"}
+            else if(statsBarCtrl.data.mood >= 30){statsBarCtrl.moodBarColor = "orange"}
+            else{statsBarCtrl.moodBarColor = "red"};
+        }
+        
+        statsBarCtrl.setStats();
 
         $scope.safeApply = function(fn) {
           var phase = this.$root.$$phase;
@@ -50,21 +43,9 @@
 
         $scope.$on("update", function(event, args) {
             $scope.safeApply();
-            StatsBarCtrl.healthBars = [];
-            StatsBarCtrl.moodBars = [];
-            for(var i = 0; i < StatsBarCtrl.data.health/10; i++){
-            	StatsBarCtrl.healthBars.push(i);
-            };
-            for(var j = 0; j < StatsBarCtrl.data.mood/10; j++){
-            	StatsBarCtrl.moodBars.push(j);
-            }
-            if(StatsBarCtrl.data.health >= 80){StatsBarCtrl.healthBarColor = "green"}
-            else if(StatsBarCtrl.data.health >= 30){StatsBarCtrl.healthBarColor = "orange"}
-            else{StatsBarCtrl.healthBarColor = "red"};
-        	if(StatsBarCtrl.data.mood >= 80){StatsBarCtrl.moodBarColor = "green"}
-            else if(StatsBarCtrl.data.mood >= 30){StatsBarCtrl.moodBarColor = "orange"}
-            else{StatsBarCtrl.moodBarColor = "red"};
+            statsBarCtrl.setStats();
         })
+
 
         ApplicationService.startLoop();
 
