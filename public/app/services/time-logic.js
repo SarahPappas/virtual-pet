@@ -145,7 +145,7 @@ angular.module("VirtualPetApp")
       totalTime += this.actionInfos.sleep.msSleeping;
       document.getElementById('left-nav').style.visibility = "hidden"
       document.getElementById('right-nav').style.visibility = "hidden"
-      	var el = document.getElementById("default-anim");
+        var el = document.getElementById("default-anim");
         if (this.species == "cat") {
           el.className ="c1-sleep-anim";
         } else if (this.species == "bat") {
@@ -154,12 +154,12 @@ angular.module("VirtualPetApp")
           el.className ="c4-sleep-anim";
         } else {
           el.className ="c3-sleep-anim";
-        }  	
+        }   
     }
     else {
-    	document.getElementById('left-nav').style.visibility = "visible";
-    	document.getElementById('right-nav').style.visibility = "visible";
-    }	 
+      document.getElementById('left-nav').style.visibility = "visible";
+      document.getElementById('right-nav').style.visibility = "visible";
+    }  
     // console.log("savedTime",Number(this.stats[1].last))
     // console.log("now", now);
     // console.log("totalTime", totalTime);
