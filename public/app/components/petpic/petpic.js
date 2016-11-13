@@ -10,6 +10,9 @@
     var sick = this;
     sick.health = ApplicationService;
 
+      ApplicationService.startLoop();
+      console.log(ApplicationService.species);
+
       $scope.safeApply = function(fn) {
         var phase = this.$root.$$phase;
         if(phase == '$apply' || phase == '$digest') {
@@ -27,7 +30,6 @@
         if(sick.health.health <= 50 && el.className == "c1-default-anim" || sick.health.health <= 50 && el.className == "c2-default-anim"
           || sick.health.health <= 50 && el.className == "c3-default-anim" || sick.health.health <= 50 && el.className == "c4-default-anim"
           ) {
-          console.log('Sick Pet!');
           if (ApplicationService.species == "cat") {
               el.className ="c1-sick-anim";
           } else if (ApplicationService.species == "bat") {
@@ -39,6 +41,8 @@
           }
         }
       });
+
+
   }
 
   SickCtrl.$inject = ['ApplicationService', '$http', '$interval', "$scope"];
