@@ -9,7 +9,6 @@
   function DodgeCtrl(ApplicationService, $state, $scope) {
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
-
     var count = 0;
     var touchright = false;
     var touchleft = true;
@@ -35,7 +34,7 @@
     ApplicationService.getStats()
       .then(function(res) {
       });
-
+    // CHARACTER
     var mySprite =
      {
         x: 0,
@@ -45,10 +44,10 @@
         speed: 200,
         image: '/img/pickpet1.png'
     };
-
+    // HAZARDOUS OBJECTS
     var Sprites =
     {
-       mySprite1 : {
+       mySprite1: {
         x: Math.random() * 370,
         y: -50,
         width: 30,
@@ -57,13 +56,22 @@
         color: '#0c0'
       },
 
-      mySprite2:{
+      mySprite2: {
         x: Math.random() * 390,
         y: -50,
         width: 40,
         height: 40,
         speed: 90,
         color: '#00c' 
+      },
+
+      mySprite3: {
+        x: Math.random() * 400,
+        y: -50,
+        width: 50,
+        height: 50,
+        speed: 60,
+        color: '#4B0082'
       }
     }
 
@@ -73,7 +81,7 @@
     window.addEventListener('keyup', function(e) {
         delete keysDown[e.keyCode];
     });
-     
+    // SETTING LEFT ARROW TO MOVE CHARACTER AND SCORE
     function update(mod) {
       if (37 in keysDown) {
         mySprite.x -= mySprite.speed * mod;
@@ -83,21 +91,22 @@
             count+=10; 
             var alert1 = document.getElementById("dodgeScore");
             alert1.innerHTML = "Score: " + count;
-            touchright=false;
-            touchleft=true;   
+            touchright= false;
+            touchleft= true;   
           } 
       }
+      // SETTING RIGHT ARROW TO MOVE CHARACTER AND SCORE
       if (39 in keysDown) {
         mySprite.x += mySprite.speed * mod;
           if(mySprite.x>400)
             mySprite.x = 400;
-        if(mySprite.x == 400 && !touchright) {   
-          count+=10; 
-          var alert1 = document.getElementById("dodgeScore");
-          alert1.innerHTML = "Score: " + count;
-          touchright=true;
-          touchleft=false;    
-        }
+          if(mySprite.x == 400 && !touchright) {   
+            count+=10; 
+            var alert1 = document.getElementById("dodgeScore");
+            alert1.innerHTML = "Score: " + count;
+            touchright=true;
+            touchleft=false;    
+          }
       }
       else if (count >= 60) {
         alert1.innerHTML= 'Congrats Mood Increased by 10%!'
@@ -108,9 +117,7 @@
         }, 3000);
       } 
     }
-
-
-
+    // SETTING OBJECTS FALLING SPEED
     function update1(mod) {
       for(index in Sprites) {
         if (Sprites.hasOwnProperty(index)) {
@@ -123,10 +130,10 @@
     alert1.innerHTML = "Score: " + count;
           
     function render() {
-      //canvas
+      //  CANVAS
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      //moving red object
+      // PET
       var img = new Image();
       if (ApplicationService.species == "cat") {
           img.src = '/img/pickpet1.png';
@@ -140,17 +147,15 @@
       img.addEventListener('load', function() {
         ctx.drawImage(img, mySprite.x, mySprite.y, mySprite.width, mySprite.height);
       });
-      // ctx.fillStyle = mySprite.color;
-      // ctx.fillRect(mySprite.x, mySprite.y, mySprite.width, mySprite.height);
-      //falling objects
+      // OBSTACLES
       for(index in Sprites) {
         ctx.fillStyle = Sprites[index].color;
         ctx.fillRect(Sprites[index].x, Sprites[index].y, Sprites[index].width, Sprites[index].height);
-          if (Sprites[index].y > 350) { 
+          if (Sprites[index].y > 420) { 
             Sprites[index].y = -50
             Sprites[index].x = Math.random() * 400;    
           }
-          
+          // REGISTERING COLLISIONS AND ENDING THE GAME
           if (Sprites[index].x < mySprite.x + mySprite.width  && Sprites[index].x + Sprites[index].width  > mySprite.x &&
           Sprites[index].y < mySprite.y + mySprite.height && Sprites[index].y + Sprites[index].height > mySprite.y) {       
             alert1.innerHTML= "Game Over!"
@@ -158,15 +163,14 @@
             setTimeout(function() {
               $state.go('backPlay');
             }, 3000);
-
           }
       }
     }
-     
+    
+    // GAME INTERVAL FOR SHOWING WHERE OBJECTS ARE 
     function run() {
       update((Date.now() - time) / 1000);
       update1((Date.now() - time) / 1000);
-      
       render();
       time = Date.now();
     }
