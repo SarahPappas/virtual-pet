@@ -12,7 +12,29 @@ h1 {
 	text-shadow: 2px 2px 8px #1fbee8;
 	font-size: 50pt;
 }
-
+feed {
+	text-align:center;
+}
+feed button{
+	background-color:#1fbee8;
+	border:none;
+	width:180px;
+	height: 50px;
+	font-family: 'Comfortaa';
+	font-size:18pt;
+	border-radius:8px;
+	line-height:2.2;
+	text-transform:uppercase;
+	margin:10px;
+	color:white;
+	position:absolute;
+	left:120px;
+	top:330px;
+}
+feed button:hover{
+	background-color:#ffca28;
+	color:#fff;
+}
 /* ===== LOGIN/SIGNUP FORMS ===== */
 #home {
 	margin: 0 auto;
