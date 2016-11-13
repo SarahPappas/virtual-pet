@@ -178,11 +178,11 @@ hr {
 
 /* ========= GAMEPLAY PAGE ========= */
 #game {
-margin: 45px auto;
-background-image:url('/img/gamebg.png');
-width:753px;
-height:558px;
-overflow: hidden;
+	margin: 45px auto;
+	background-image:url('/img/gamebg.png');
+	width:753px;
+	height:558px;
+	overflow: hidden;
 }
 #gameplay {
 	width:444px;
@@ -203,21 +203,21 @@ overflow: hidden;
 	display:block;
 }
 #health-stats-icon {
-background-image:url('/img/health-icon.png');
-width: 57px;
-height: 46px;
-float:left;
-margin-right:6px;
-overflow: hidden;
+	background-image:url('/img/health-icon.png');
+	width: 57px;
+	height: 46px;
+	float:left;
+	margin-right:6px;
+	overflow: hidden;
 }
 #mood-stats-icon {
-background-image:url('/img/mood-icon.png');
-width: 50px;
-height: 50px;
-float:left;
-margin-left: 26px;
-margin-right:6px;
-overflow: hidden;
+	background-image:url('/img/mood-icon.png');
+	width: 50px;
+	height: 50px;
+	float:left;
+	margin-left: 26px;
+	margin-right:6px;
+	overflow: hidden;
 }
 .stats-bar {
 	float:left;
@@ -227,7 +227,7 @@ overflow: hidden;
 	border-radius: 4px;
 	margin-left:5px;
 	margin-top: 5px;
-overflow: hidden;
+	overflow: hidden;
 }
 .stats-bar:hover {
 	float:left;
@@ -277,6 +277,11 @@ overflow: hidden;
 	background-image:url('/img/feed-iconH.svg');
 	width:95px;
 }
+.nav-feed-alert {
+	background-image:url('/img/feed-iconH.svg');
+	border-radius: .5;
+	border: dashed 2px orange;
+}
 .nav-game {
 	background-image:url('/img/game-icon.svg');
 	width:95px;
@@ -317,4 +322,10 @@ overflow: hidden;
 .nav-sleep:hover {
 	background-image:url('/img/sleep-iconH.svg');
 	width:95px;
+}
+#default-anim {
+	position: absolute;
+}
+feed, clean, gameover, train, nurse, sleep, stats {
+	position: absolute;
 }

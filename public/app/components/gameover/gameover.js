@@ -6,31 +6,30 @@
 		controllerAs: "Gameover"
 	});
 
-	function Gameover($http, ApplicationService, $scope, $interval, $state) {
-		this.health;
+	function Gameover(ApplicationService, $scope, $state) {
+		var gameover = this;
+		gameover.data = ApplicationService;
 
-		this.checkHealth = function(){
-			$http({
-	          url: "/api/users/stats",
-	          method: "GET"
-	     	})
-	      	.then(function(res) {
-	        	if(!res) {
-	          		console.log("front-end error when getting Stats");
-	        	} 
-	        	else {
-	         		this.health = res.data.pet.health;
-	         		if(this.health === 0) {
-	     				$state.go('gameover');
-	     			}
-	        	}
-	     	});
-     	};
+		$scope.safeApply = function(fn) {
+		  var phase = this.$root.$$phase;
+		  if(phase == '$apply' || phase == '$digest') {
+		    if(fn && (typeof(fn) === 'function')) {
+		      fn();
+		    }
+		  } else {
+		    this.$apply(fn);
+		  }
+		};
 
-     	$interval(this.checkHealth, 3000);
+		$scope.$on("update", function(event, args) {
+		    $scope.safeApply();
+		    console.log("gameover", gameover.data.health);
 
-
+    		if(gameover.data.health === 0) {
+				$state.go('gameover');
+			}
+		})
 	}
 
-	Gameover.$inject = ['$http', 'ApplicationService', '$scope', '$interval', '$state'];
+	Gameover.$inject = ['ApplicationService', '$scope', '$state'];
 })()

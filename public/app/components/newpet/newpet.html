@@ -11,16 +11,18 @@
       <img src="/img/pickpet2.png">
     </div>
     <div class="pet3">
-      <input type="radio" ng-model="newpet.newPet.species" name="pet" value="raccoon" checked><br>
+      <input type="radio" ng-model="newpet.newPet.species" name="pet" value="monkey" checked><br>
       <img src="/img/pickpet3.png">
     </div>
     <div class="pet4">
-      <input type="radio" ng-model="newpet.newPet.species" name="pet" value="monkey" checked><br>
+      <input type="radio" ng-model="newpet.newPet.species" name="pet" value="raccoon" checked><br>
       <img src="/img/pickpet4.png">
     </div>
     <br>
     <div class="clear"></div>
     <label for="petName">Pet's Name: </label>
     <input type="text" ng-model="newpet.newPet.petname" name="petName">
+    <p ng-if="newpet.noSpecies" class="alert-red">Pick which pet you want!</p>
+    <p ng-if="newpet.noName" class="alert-red">Name your pet!</p>
     <button type="submit" class="btn btn-primary">Start!</button>
   </form>

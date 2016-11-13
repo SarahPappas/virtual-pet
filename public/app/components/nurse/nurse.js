@@ -6,10 +6,11 @@
 		controllerAs: "nurse"
 	});
 
-	function Nurse(ApplicationService, $scope) {
+	function Nurse(ApplicationService, $scope, $timeout) {
 		var nurse = this;
 		nurse.isNurseAllowed = true;
 
+		ApplicationService.startLoop();
 		$scope.safeApply = function(fn) {
 		  var phase = this.$root.$$phase;
 		  if(phase == '$apply' || phase == '$digest') {
@@ -21,7 +22,6 @@
 		  }
 		};
 
-		console.log("last nurse", ApplicationService.stats[4].last);
 		$scope.$on("update", function(event, args) {
 		    $scope.safeApply();
 
@@ -31,16 +31,42 @@
 			} else {
 				nurse.isNurseAllowed =  false;
 			}
-			console.log("nurse allowed", nurse.isNurseAllowed);
 		})
 
 
 
 		nurse.healing = function(){
 			ApplicationService.calcStats("nurse", "acted");
+			nurse.changeElement();
 		}
 
-		ApplicationService.startLoop();
+		nurse.changeElement = function() {
+            var el = document.getElementById("default-anim");
+            if (ApplicationService.species == "cat") {
+                el.className ="c1-nurse-anim";
+            } else if (ApplicationService.species == "bat") {
+                el.className ="c2-nurse-anim";
+            } else if (ApplicationService.species == "monkey") {
+                el.className ="c4-nurse-anim";
+            } else {
+                el.className ="c3-nurse-anim";
+            }
+
+            $timeout(function() {
+                if (ApplicationService.species == "cat") {
+                    el.className ="c1-default-anim";
+                } else if (ApplicationService.species == "bat") {
+                    el.className ="c2-default-anim";
+                } else if (ApplicationService.species == "monkey") {
+                    el.className ="c4-default-anim";
+                } else {
+                    el.className ="c3-default-anim";
+                }
+
+            }, 11000);
+            console.log(el);
+        }
+
 	}
-	Nurse.$inject = ["ApplicationService", "$scope"];
+	Nurse.$inject = ["ApplicationService", "$scope", "$timeout"];
 })()
