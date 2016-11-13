@@ -24,13 +24,24 @@
 
         $scope.$on("update", function(event, args) {
             $scope.safeApply();
+            // FEED TIMEOUT
             if(Date.now() > (Number(ApplicationService.stats[1].last) + (ApplicationService.actionInfos.feed.msUntilMissed / 2)))
             {
-              feed.isNurseAllowed =  true;
+              feed.isFeedAllowed =  true;
             } else {
-              feed.isNurseAllowed =  false;
+              feed.isFeedAllowed =  false;
+            }
+
+            // ALERT
+            if (feed.isFeedAllowed) {
+              var el = document.getElementById("nav-feed");
+              el.className ="nav nav-feed-alert";
+            } else {
+              var el = document.getElementById("nav-feed");
+              el.className ="nav nav-feed";
             }
         })
+
 
 
         feed.feeding = function() {

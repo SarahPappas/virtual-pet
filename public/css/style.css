@@ -285,6 +285,11 @@ hr {
 	background-image:url('/img/nurse-iconH.svg');
 	width:95px;
 }
+.nav-nurse-alert {
+	background-image:url('/img/nurse-iconH.svg');
+	border-radius: .5;
+	border: dashed 2px orange;
+}
 .nav-clean {
 	background-image:url('/img/clean-icon.svg');
 	width:95px;
@@ -293,6 +298,11 @@ hr {
 	background-image:url('/img/clean-iconH.svg');
 	width:95px;
 }
+.nav-clean-alert {
+	background-image:url('/img/clean-icon.svg');
+	border-radius: .5;
+	border: dashed 2px orange;
+}
 .nav-sleep {
 	background-image:url('/img/sleep-icon.svg');
 	width:95px;
@@ -300,6 +310,11 @@ hr {
 .nav-sleep:hover {
 	background-image:url('/img/sleep-iconH.svg');
 	width:95px;
+}
+.nav-sleep-alert {
+	background-image:url('/img/sleep-iconH.svg');
+	border-radius: .5;
+	border: dashed 2px orange;
 }
 #default-anim {
 	position: absolute;

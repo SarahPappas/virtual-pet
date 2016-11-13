@@ -31,6 +31,13 @@
 			} else {
 				nurse.isNurseAllowed =  false;
 			}
+			if (ApplicationService.health <= 30 && nurse.isNurseAllowed) {
+			  var el = document.getElementById("nav-nurse");
+			  el.className ="nav nav-nurse-alert";
+			} else {
+			  var el = document.getElementById("nav-nurse");
+			  el.className ="nav nav-nurse";
+			}
 		})
 
 
