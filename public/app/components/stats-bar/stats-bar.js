@@ -6,24 +6,12 @@
 		controllerAs: "StatsBarCtrl"
 	});
 
-	function StatsBarCtrl($http, ApplicationService, $scope, $state) {
+    function StatsBarCtrl($http, ApplicationService, $scope, $state) {
         var statsBarCtrl = this;
 
         statsBarCtrl.data = ApplicationService;
 
-        $scope.safeApply = function(fn) {
-          var phase = this.$root.$$phase;
-          if(phase == '$apply' || phase == '$digest') {
-            if(fn && (typeof(fn) === 'function')) {
-              fn();
-            }
-          } else {
-            this.$apply(fn);
-          }
-        };
-
-        $scope.$on("update", function(event, args) {
-            $scope.safeApply();
+        statsBarCtrl.setStats = function() {
             statsBarCtrl.healthBars = [];
             statsBarCtrl.moodBars = [];
             for(var i = 0; i < statsBarCtrl.data.health/10; i++){
@@ -38,7 +26,26 @@
         	if(statsBarCtrl.data.mood >= 80){statsBarCtrl.moodBarColor = "green"}
             else if(statsBarCtrl.data.mood >= 30){statsBarCtrl.moodBarColor = "orange"}
             else{statsBarCtrl.moodBarColor = "red"};
+        }
+        
+        statsBarCtrl.setStats();
+
+        $scope.safeApply = function(fn) {
+          var phase = this.$root.$$phase;
+          if(phase == '$apply' || phase == '$digest') {
+            if(fn && (typeof(fn) === 'function')) {
+              fn();
+            }
+          } else {
+            this.$apply(fn);
+          }
+        };
+
+        $scope.$on("update", function(event, args) {
+            $scope.safeApply();
+            statsBarCtrl.setStats();
         })
+
 
         ApplicationService.startLoop();
 

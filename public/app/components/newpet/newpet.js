@@ -59,9 +59,7 @@
 	       			data: newPetCtrl.newPet
 	      		}).then(function(res){
 	      			$state.go('backPlay');
-	      		}).then(function() {
-      				ApplicationService.setDefaultSpecies();
-      			});
+	      		});
       		}
     	}
 	}
