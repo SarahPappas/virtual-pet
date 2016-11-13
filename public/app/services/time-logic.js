@@ -320,7 +320,7 @@ angular.module("VirtualPetApp")
       }.bind(this))
       .then(function() {
         console.log(this.species)
-        this.setDefaultSpecies();
+        // this.setDefaultSpecies();
         $rootScope.$broadcast("update", this);
         this.startLoop()
       }.bind(this));
@@ -331,6 +331,17 @@ angular.module("VirtualPetApp")
       this.onLogin();
       this.setDefaultSpecies();
       this.gameLoopInteval = setInterval(this.checkForUpdate, 3000);
+    }
+    var el = document.getElementById("default-anim");
+    console.log("species", this.species);
+    if (this.species === "cat") {
+        el.className ="c1-default-anim";
+    } else if (this.species === "bat") {
+        el.className ="c2-default-anim";
+    } else if (this.species === "monkey") {
+        el.className ="c4-default-anim";
+    } else {
+        el.className ="c3-default-anim";
     }
   }.bind(this);  
 }]);

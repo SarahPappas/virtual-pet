@@ -11,6 +11,7 @@
     sick.health = ApplicationService;
 
       ApplicationService.startLoop();
+      
       console.log(ApplicationService.species);
 
       $scope.safeApply = function(fn) {

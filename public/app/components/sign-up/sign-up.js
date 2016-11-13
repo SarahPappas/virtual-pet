@@ -105,11 +105,11 @@
 
   SignUpCtrl.loginUser = function() {
     console.log(SignUpCtrl.loginInfo);
-    $http.post('/api/users/auth', SignUpCtrl.loginInfo)
+    return $http.post('/api/users/auth', SignUpCtrl.loginInfo)
     .then(function success(res){
       authService.saveToken(res.data.token);
       ApplicationService.onLogin();
-      $state.go('play');
+      return "success"
     }, function error(err){
       if(err.status === 400){
         SignUpCtrl.userNotFound = true;
@@ -119,6 +119,15 @@
         SignUpCtrl.invalidPassword = true;
         $timeout(function(){ SignUpCtrl.invalidPassword = !SignUpCtrl.invalidPassword }, 3000);
       }
+      return "error"
+    })
+    .then(function(successOrError){
+      if (successOrError == "error"){
+        return
+      } else {
+        $state.go('play');
+      }
+
     })
   }
 
