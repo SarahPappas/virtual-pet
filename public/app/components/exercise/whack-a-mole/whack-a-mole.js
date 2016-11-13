@@ -8,12 +8,31 @@
 
 	function WhackCtrl(ApplicationService, $state, $scope) {
 		var WhackCtrl = this;
+    var yoda = document.getElementsByClassName('moleYoda');
 		WhackCtrl.data = ApplicationService;
 		document.getElementById("moleYoda1").style.marginTop = '25%';
 		document.getElementById("moleYoda2").style.marginTop = '40%';
 		document.getElementById("moleYoda3").style.marginTop = '65%';
 		WhackCtrl.lastYoda;
 		WhackCtrl.score = 0;
+
+    if (ApplicationService.species == "cat") {
+      for(i=0; i<yoda.length;i++) {
+        yoda[i].src = '/img/pickpet1.png';
+      }  
+    } else if (ApplicationService.species == "bat") {
+      for(i=0; i<yoda.length;i++) {
+        yoda[i].src = '/img/pickpet2.png';
+      }  
+    } else if (ApplicationService.species == "monkey") {
+      for(i=0; i<yoda.length;i++) {
+        yoda[i].src = '/img/pickpet3.png';
+      }  
+    } else {
+      for(i=0; i<yoda.length;i++) {
+        yoda[i].src = '/img/pickpet4.png';
+      }  
+    }   
 
 		$scope.safeApply = function(fn) {
       var phase = this.$root.$$phase;
@@ -49,7 +68,7 @@
 		WhackCtrl.addPoint = function() {
 			WhackCtrl.score += 1;
 			if(WhackCtrl.score === 5) {
-				ApplicationService.calcStats("exercise", "acted"); 
+        ApplicationService.calcStats("exercise", "acted"); 
 				setTimeout(function() {
 					$state.go('backPlay');
 				}, 2000);
