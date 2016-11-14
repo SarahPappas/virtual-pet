@@ -32,7 +32,7 @@
       // SLEEP TIMEOUT
       if(!ApplicationService.sleep){ 
 
-        if(Date.now() > (Number(ApplicationService.stats[0].last) + (ApplicationService.actionInfos.sleep.msUntilMissed / 1.2)))
+        if(Date.now() > (Number(ApplicationService.stats[0].last) + (ApplicationService.actionInfos.sleep.msUntilMissed / 2)))
         {
           sleep.shouldSleep =  true;
         } else {
@@ -40,7 +40,7 @@
         }
         // ALERT
         var el = document.getElementById("nav-sleep");
-        if (sleep.shouldSleep) {
+        if (Date.now() > (Number(ApplicationService.stats[0].last) + (ApplicationService.actionInfos.sleep.msUntilMissed / 1.15))) {
           el.className ="nav nav-sleep-alert";
         } else {
           el.className ="nav nav-sleep";
