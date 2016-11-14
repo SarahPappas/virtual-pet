@@ -79,7 +79,7 @@
         el.className ="c3-default-anim";
       }
 
-      }, ApplicationService.actionInfos.sleep.msSleeping + 3000);
+      }, ApplicationService.actionInfos.sleep.msSleeping + 1000);
     }
 
 

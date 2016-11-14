@@ -7,9 +7,9 @@ angular.module("VirtualPetApp")
   // constants
   this.actionInfos = {
       sleep: {
-        msUntilMissed: 90000,
+        msUntilMissed: 30000,
         // 10 * this.msPerHour
-        msSleeping: 30000,
+        msSleeping: 20000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -144,8 +144,18 @@ angular.module("VirtualPetApp")
     // check if sleeping
     if (this.sleep) {
       totalTime += this.actionInfos.sleep.msSleeping;
-      document.getElementById('left-nav').style.visibility = "hidden"
-      document.getElementById('right-nav').style.visibility = "hidden"  
+      var el = document.getElementById("default-anim");
+      if (this.species == "cat") {
+        el.className ="c1-sleep-anim";
+      } else if (this.species == "bat") {
+        el.className ="c2-sleep-anim";
+      } else if (this.species == "monkey") {
+        el.className ="c4-sleep-anim";
+      } else {
+        el.className ="c3-sleep-anim";
+      }
+      document.getElementById('left-nav').style.visibility = "hidden";
+      document.getElementById('right-nav').style.visibility = "hidden";  
     }
     else {
       document.getElementById('left-nav').style.visibility = "visible";
@@ -281,7 +291,6 @@ angular.module("VirtualPetApp")
 
   this.setDefaultSpecies = function() {
     var el = document.getElementById("default-anim");
-    console.log(this.species);
     if (this.species === "cat") {
         el.className ="c1-default-anim";
     } else if (this.species === "bat") {
@@ -324,7 +333,6 @@ angular.module("VirtualPetApp")
       this.gameLoopInteval = setInterval(this.checkForUpdate, 1000);
     }
     var el = document.getElementById("default-anim");
-    console.log("species", this.species);
     if (this.species === "cat") {
         el.className ="c1-default-anim";
     } else if (this.species === "bat") {
