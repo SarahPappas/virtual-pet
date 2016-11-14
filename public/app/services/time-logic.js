@@ -7,9 +7,9 @@ angular.module("VirtualPetApp")
   // constants
   this.actionInfos = {
       sleep: {
-        msUntilMissed: 1000000,
+        msUntilMissed: 90000,
         // 10 * this.msPerHour
-        msSleeping: 60000,
+        msSleeping: 30000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -35,7 +35,7 @@ angular.module("VirtualPetApp")
       },
       clean: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 30000,
+        msUntilMissed: 40000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -140,31 +140,19 @@ angular.module("VirtualPetApp")
 
     var totalTime = Number(this.stats[index].last) + msUntilMissed;
     // using actedOrMissed to set equal to missed
-    
+
+    // check if sleeping
     if (this.sleep) {
       totalTime += this.actionInfos.sleep.msSleeping;
       document.getElementById('left-nav').style.visibility = "hidden"
-      document.getElementById('right-nav').style.visibility = "hidden"
-        var el = document.getElementById("default-anim");
-        if (this.species == "cat") {
-          el.className ="c1-sleep-anim";
-        } else if (this.species == "bat") {
-          el.className ="c2-sleep-anim";
-        } else if (this.species == "monkey") {
-          el.className ="c4-sleep-anim";
-        } else {
-          el.className ="c3-sleep-anim";
-        }   
+      document.getElementById('right-nav').style.visibility = "hidden"  
     }
     else {
       document.getElementById('left-nav').style.visibility = "visible";
       document.getElementById('right-nav').style.visibility = "visible";
     }  
-    // console.log("savedTime",Number(this.stats[1].last))
-    // console.log("now", now);
-    // console.log("totalTime", totalTime);
-    // console.log("countDown", totalTime - now);
 
+    // check if time for activity has expired
     var isTimeExpired = false;
     if (now > totalTime) {
       isTimeExpired = true;
@@ -215,12 +203,11 @@ angular.module("VirtualPetApp")
               this.sleep = res.data.pet.stats[0].isSleeping;
               this.species = res.data.pet.species;
         }.bind(this));
-      // $rootScope.$broadcast("update", this); 
     }
     
     if (isTimeExpired) {
 
-
+      // determine deltas
       var deltaMood = actionInfo.moodDeltas.missed;
       var deltaHealth = actionInfo.healthDeltas.missed;
       if (login) {
@@ -229,7 +216,8 @@ angular.module("VirtualPetApp")
       } else {
         var delta = actionInfo.moodDeltas.missed;;
       }
-      console.log("now is passed totalTime", activity);
+
+      // affect mood
       if(this.mood + deltaMood < 0){
         this.health -= 10;
         this.mood = 0;
@@ -245,6 +233,7 @@ angular.module("VirtualPetApp")
       } else {
         this.health += deltaHealth;
       }
+      // save stats
       console.log("saving stats:", this.mood, this.health, this.sleep);
       this.saveStats(activity, Date.now(), this.mood, this.health, this.sleep)
       .then(function() {
@@ -262,11 +251,13 @@ angular.module("VirtualPetApp")
       
     }
 
+    // reset sleeping
     if (this.sleep && Date.now() > Number(this.stats[0].last) + this.actionInfos.sleep.msSleeping) {
       this.sleep = "false";
       this.saveStats("sleep", Date.now(), this.mood, this.health, this.sleep)
     }
 
+    // broadcast results
     $rootScope.$broadcast("update", this);
   }.bind(this);
 
@@ -330,7 +321,7 @@ angular.module("VirtualPetApp")
     if (!this.gameLoopInteval) {
       this.onLogin();
       this.setDefaultSpecies();
-      this.gameLoopInteval = setInterval(this.checkForUpdate, 3000);
+      this.gameLoopInteval = setInterval(this.checkForUpdate, 1000);
     }
     var el = document.getElementById("default-anim");
     console.log("species", this.species);
