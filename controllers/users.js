@@ -3,6 +3,7 @@ var jwt = require('jsonwebtoken');
 var secret = "supersecretstarwars" || process.env.JWT_SECRET;
 var User = require('../models/user');
 var router = express.Router();
+const util = require('util');
 
 router.route('/')
   .get(function(req, res) {
@@ -15,7 +16,7 @@ router.route('/')
     User.findOne({ email: req.body.email }, function(err, user) {
       
       if (user) return res.status(400).send({ message: 'Email already exists' });
-
+      console.log("trying to create this user: " + util.inspect(req.body, {showHidden: false, depth: null}));
       User.create(req.body, function(err, user) {
         
         if (err) {
@@ -173,6 +174,34 @@ router.route('/auth')
       })
     });
   });
+
+  router.route('/poop')
+  .put(function(req, res) {
+    var authHeader = req.headers.authorization;
+    var authHeaderParts = authHeader.split(" ");
+    var token = authHeaderParts[1];
+    jwt.verify(token, secret, function(err, decoded) {
+    var userId = decoded._doc._id;
+      
+      User.findOne({_id: userId}, function(err, user) {
+        if (err) {
+          res.send(err);
+          console.log(err);
+          return;
+        }
+        if (!user) {
+          res.send(404);
+          console.log(err);
+          return;
+        }
+        console.log(req.body);
+        user.pet.stats[2].hasPooped = req.body.hasPooped;
+        user.save(function() {
+          res.send(user);
+        });
+      })
+    });
+  })
 
 
 module.exports = router;

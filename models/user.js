@@ -24,7 +24,8 @@ var UserSchema = mongoose.Schema({
         },
         {
           name: String,
-          last: SchemaTypes.Long
+          last: SchemaTypes.Long,
+          hasPooped: Boolean
         },
         {
           name: String,

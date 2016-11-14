@@ -8,6 +8,7 @@
 
 	function Clean(ApplicationService, $scope, $timeout) {
 		var clean = this;
+    clean.hasPooped = 'false';
 
 		clean.data = ApplicationService;
 
@@ -24,6 +25,18 @@
 
     $scope.$on("update", function(event, args) {
       $scope.safeApply();
+      console.log(clean.data.stats[2]);
+      if (Date.now()-clean.data.stats[2].last > 30000) {
+        clean.hasPooped = 'true';
+        $http({
+          url: "/api/users/newPet",
+          method: "PUT",
+          data: clean.hasPooped
+        }).then(function(res){
+          ApplicationService.onLogin();
+        });
+      }
+      console.log("has pooped: " + clean.hasPooped);
     })
 
     clean.cleaning = function() {

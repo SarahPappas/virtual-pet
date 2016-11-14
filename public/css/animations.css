@@ -26,7 +26,8 @@
 	width: 39px;
 	height: 44px;
   background: url('/img/animation/poop.png');
-  margin-top:240px;
+  margin-top: 80%;
+  margin-left: 5%;
   position:absolute;
 }
 
