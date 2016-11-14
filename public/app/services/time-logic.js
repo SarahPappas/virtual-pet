@@ -7,7 +7,7 @@ angular.module("VirtualPetApp")
   // constants
   this.actionInfos = {
       sleep: {
-        msUntilMissed: 30000,
+        msUntilMissed: 90000,
         // 10 * this.msPerHour
         msSleeping: 30000,
         // msUntilMissed: 5 * this.msPerHour,
@@ -35,7 +35,7 @@ angular.module("VirtualPetApp")
       },
       clean: {
         // msUntilNeeded: 4 * this.msPerHour,
-        msUntilMissed: 30000,
+        msUntilMissed: 40000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -322,7 +322,7 @@ angular.module("VirtualPetApp")
     if (!this.gameLoopInteval) {
       this.onLogin();
       // this.setDefaultSpecies();
-      this.gameLoopInteval = setInterval(this.checkForUpdate, 3000);
+      this.gameLoopInteval = setInterval(this.checkForUpdate, 1000);
     }
     var el = document.getElementById("default-anim");
     console.log("species", this.species);
