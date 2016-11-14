@@ -33,7 +33,7 @@
           method: "PUT",
           data: clean.hasPooped
         }).then(function(res){
-          ApplicationService.onLogin();
+          console.log("your pet has pooped!");
         });
       }
       console.log("has pooped: " + clean.hasPooped);
