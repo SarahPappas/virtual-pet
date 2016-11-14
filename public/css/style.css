@@ -14,10 +14,18 @@ h1 {
 }
 
 /* ===== LOGIN/SIGNUP FORMS ===== */
+#logo {
+	margin-top:20%;
+	margin-bottom:40px;
+}
+#gameover {
+	margin-top:10%;
+	margin-bottom:30px;
+}
 #home {
 	margin: 0 auto;
 	width: 500px;
-	min-height:500px;	
+	min-height:550px;	
 	text-align:center;
 	padding:30px;
 	background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.5)); /* For Safari 5.1 to 6.0 */
@@ -417,4 +425,34 @@ exercise {
 font-family: 'Comfortaa';
 font-size:16pt;
 color:#1fbee8;
+}
+
+
+
+/* ========= GAMEPLAY PAGE ========= */
+
+/* NEW PET */
+#new-pet {
+	text-align:center;
+	width:600px;
+	margin:0 auto;
+}
+.newpet-form h5 {
+	font-family: 'Comfortaa';
+	font-size:22pt;
+	margin-bottom:10px;
+	color: #20a1ce;
+}
+.newpet-form input{
+	width:200px;
+}
+.pick-pet {
+	margin-left:50px;
+	position:relative;
+	background-color:pink;
+}
+
+.name {
+	display:block;
+	clear:both;
 }
