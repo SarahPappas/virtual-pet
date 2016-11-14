@@ -7,9 +7,9 @@ angular.module("VirtualPetApp")
   // constants
   this.actionInfos = {
       sleep: {
-        msUntilMissed: 1000000,
+        msUntilMissed: 30000,
         // 10 * this.msPerHour
-        msSleeping: 60000,
+        msSleeping: 30000,
         // msUntilMissed: 5 * this.msPerHour,
         moodDeltas: {
             missed: 0,
@@ -140,21 +140,12 @@ angular.module("VirtualPetApp")
 
     var totalTime = Number(this.stats[index].last) + msUntilMissed;
     // using actedOrMissed to set equal to missed
-    
+    console.log("game loop sleeping?", this.sleep);
+
     if (this.sleep) {
       totalTime += this.actionInfos.sleep.msSleeping;
       document.getElementById('left-nav').style.visibility = "hidden"
-      document.getElementById('right-nav').style.visibility = "hidden"
-        var el = document.getElementById("default-anim");
-        if (this.species == "cat") {
-          el.className ="c1-sleep-anim";
-        } else if (this.species == "bat") {
-          el.className ="c2-sleep-anim";
-        } else if (this.species == "monkey") {
-          el.className ="c4-sleep-anim";
-        } else {
-          el.className ="c3-sleep-anim";
-        }   
+      document.getElementById('right-nav').style.visibility = "hidden"  
     }
     else {
       document.getElementById('left-nav').style.visibility = "visible";

@@ -72,7 +72,7 @@
             } else {
               el.className ="c3-default-anim";
             }
-          }, 4000);
+          }, 8000);
         }
 
 

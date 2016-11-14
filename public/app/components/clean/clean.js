@@ -8,7 +8,7 @@
 
 	function Clean(ApplicationService, $scope, $timeout) {
 		var clean = this;
-
+    clean.isCleanAllowed = false;
 		clean.data = ApplicationService;
 
 		$scope.safeApply = function(fn) {
@@ -24,6 +24,22 @@
 
     $scope.$on("update", function(event, args) {
       $scope.safeApply();
+
+      if(Date.now() > (Number(ApplicationService.stats[2].last) + (ApplicationService.actionInfos.clean.msUntilMissed / 1.5)))
+      {
+        clean.isCleanAllowed =  true;
+      } else {
+        clean.isCleanAllowed =  false;
+      }
+
+      // ALERT
+      if (clean.isCleanAllowed) {
+        var el = document.getElementById("nav-clean");
+        el.className ="nav nav-clean-alert";
+      } else {
+        var el = document.getElementById("nav-clean");
+        el.className ="nav nav-clean";
+      }
     })
 
     clean.cleaning = function() {
