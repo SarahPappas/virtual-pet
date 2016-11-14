@@ -61,7 +61,7 @@
         } else {
         	el.className ="c3-default-anim";
         }
-      }, 3000);
+      }, 1000);
     };
 
 		ApplicationService.startLoop();
