@@ -25,8 +25,7 @@
 
     $scope.$on("update", function(event, args) {
       $scope.safeApply();
-      console.log(clean.data.stats[2]);
-      if (Date.now()-clean.data.stats[2].last > ApplicationService.actionInfos.clean.msUntilMissed) {
+      if (Date.now()-clean.data.stats[2].last > ApplicationService.actionInfos.clean.msUntilMissed && clean.data.stats[2].hasPooped === 'false') {
         ApplicationService.calcStats("clean", "missed");
         clean.hasPooped = 'true';
         $http({
