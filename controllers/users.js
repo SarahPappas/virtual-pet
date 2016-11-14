@@ -27,9 +27,8 @@ router.route('/')
         // var authHeader = req.headers.authorization;
         // var authHeaderParts = authHeader.split(" ");
         // var token = authHeaderParts[1];
-
-        return res.send(user);
         
+        console.log("response", user.pet.stats);
         return res.send(user);
       });
     });

@@ -25,11 +25,10 @@
 
     $scope.$on("update", function(event, args) {
       $scope.safeApply();
-      if (Date.now()-clean.data.stats[2].last > ApplicationService.actionInfos.clean.msUntilMissed && clean.data.stats[2].hasPooped === 'false') {
-        ApplicationService.calcStats("clean", "missed");
+      if (Date.now()-clean.data.stats[2].last > 60000 && clean.data.stats[2].hasPooped === 'false') {
         clean.hasPooped = 'true';
         $http({
-          url: "/api/users/newPet",
+          url: "/api/users/poop",
           method: "PUT",
           data: clean.hasPooped
         }).then(function(res){
@@ -37,6 +36,10 @@
         });
       }
       console.log("has pooped: " + clean.hasPooped);
+
+      if (Date.now()-clean.data.stats[2].last > ApplicationService.actionInfos.clean.msUntilMissed && clean.data.stats[2].hasPooped === 'true'){
+        ApplicationService.calcStats("clean", "missed");
+      }
 
       if(Date.now() > (Number(ApplicationService.stats[2].last) + (ApplicationService.actionInfos.clean.msUntilMissed / 1.5)))
       {
@@ -59,7 +62,7 @@
     	ApplicationService.calcStats("clean", "acted");
       clean.hasPooped = 'false';
       $http({
-          url: "/api/users/newPet",
+          url: "/api/users/poop",
           method: "PUT",
           data: clean.hasPooped
       }).then(function(res){

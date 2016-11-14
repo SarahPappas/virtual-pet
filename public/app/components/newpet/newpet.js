@@ -31,7 +31,7 @@
 			        {
 			          name: "clean",
 			          last: Date.now(),
-			          hasPooped: "false"
+			          isPoop: "false"
 			        },
 			        {
 			          name: "exercise",
