@@ -52,8 +52,7 @@
 		WhackCtrl.popUp = function(ApplicationService) {
 			var randomNum = Math.floor(Math.random()*3+1);
 			if(WhackCtrl.lastYoda === randomNum) {
-				WhackCtrl.popUp();
-				return;
+				randomNum = Math.floor(Math.random()*3+1);
 			}
 			else {
 				WhackCtrl.lastYoda = randomNum;
