@@ -19,6 +19,7 @@
 		<nurse ng-show="state.params.activity == 'nurse'"></nurse>
 		<sleep ng-show="state.params.activity == 'sleep'"></sleep>
 		<stats ng-show="state.params.activity == 'stats'"></stats>
+		<div ng-if="clean.hasPooped === 'true'" class="poop"></div>
 	
 	</div>
 	<!-- RIGHT NAV -->

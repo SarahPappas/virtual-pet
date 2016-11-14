@@ -52,7 +52,8 @@
         },
         {
           name: "clean",
-          last: Date.now()
+          last: Date.now(),
+          pooped: false
         },
         {
           name: "exercise",
