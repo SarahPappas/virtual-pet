@@ -68,7 +68,7 @@
 
 
   SignUpCtrl.createUser = function() {
-    if(SignUpCtrl.newUser.password.length <= 6) {
+    if(SignUpCtrl.newUser.password.length <= 5) {
       SignUpCtrl.noPassword = true;
       $timeout(function(){ SignUpCtrl.noPassword = !SignUpCtrl.noPassword }, 3000);
     }
