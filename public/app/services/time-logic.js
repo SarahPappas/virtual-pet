@@ -140,7 +140,6 @@ angular.module("VirtualPetApp")
 
     var totalTime = Number(this.stats[index].last) + msUntilMissed;
     // using actedOrMissed to set equal to missed
-    console.log("game loop sleeping?", this.sleep);
 
     // check if sleeping
     if (this.sleep) {

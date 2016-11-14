@@ -47,7 +47,6 @@
         }
       }
 
-      console.log("sleeping?", ApplicationService.sleep);
     })
 
 
