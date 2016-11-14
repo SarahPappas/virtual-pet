@@ -321,7 +321,7 @@ angular.module("VirtualPetApp")
   this.startLoop = function() {
     if (!this.gameLoopInteval) {
       this.onLogin();
-      // this.setDefaultSpecies();
+      this.setDefaultSpecies();
       this.gameLoopInteval = setInterval(this.checkForUpdate, 1000);
     }
     var el = document.getElementById("default-anim");
