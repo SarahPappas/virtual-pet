@@ -12,6 +12,7 @@
 		exerciseCtrl.playingGuess = false;
 		exerciseCtrl.playingDodge = false;
 		exerciseCtrl.bePLayin = false;
+		exerciseCtrl.shouldPlay = false;
 
 			exerciseCtrl.playWhack = function() {
 				exerciseCtrl.playingWhack = true;
@@ -53,20 +54,20 @@
 			$scope.$on("update", function(event, args) {
 			    $scope.safeApply();
 			    // FEED TIMEOUT
-			    if(Date.now() > (Number(ApplicationService.stats[1].last) + (ApplicationService.actionInfos.feed.msUntilMissed / 2)))
+			    if(Date.now() > (Number(ApplicationService.stats[3].last) + (ApplicationService.actionInfos.exercise.msUntilMissed / 1.5)))
 			    {
-			      feed.isFeedAllowed =  true;
+			      exerciseCtrl.shouldPlay =  true;
 			    } else {
-			      feed.isFeedAllowed =  false;
+			      exerciseCtrl.shouldPlay =  false;
 			    }
 
 			    // ALERT
-			    if (feed.isFeedAllowed) {
-			      var el = document.getElementById("nav-feed");
-			      el.className ="nav nav-feed-alert";
+			    if (exerciseCtrl.shouldPlay) {
+			      var el = document.getElementById("nav-game");
+			      el.className ="nav nav-game-alert";
 			    } else {
-			      var el = document.getElementById("nav-feed");
-			      el.className ="nav nav-feed";
+			      var el = document.getElementById("nav-game");
+			      el.className ="nav nav-game";
 			    }
 			})
 

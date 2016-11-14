@@ -25,7 +25,7 @@
         $scope.$on("update", function(event, args) {
             $scope.safeApply();
             // FEED TIMEOUT
-            if(Date.now() > (Number(ApplicationService.stats[1].last) + (ApplicationService.actionInfos.feed.msUntilMissed / 2)))
+            if(Date.now() > (Number(ApplicationService.stats[1].last) + (ApplicationService.actionInfos.feed.msUntilMissed / 1.5)))
             {
               feed.isFeedAllowed =  true;
             } else {
