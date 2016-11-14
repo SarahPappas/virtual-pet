@@ -38,7 +38,8 @@
 .c1-default-anim {
   width: 229px;
   height: 304px;
-  margin: 2% auto;
+  left:110px;
+  top:5px;
   background: url('/img/animation/defaultsheetc1.png') left center;
   animation: playc1default 6s steps(12) infinite;
   margin-top:90px;
@@ -51,7 +52,8 @@
 .c1-feed-anim {
   width: 323px;
   height: 265px;
-  margin: 2% auto;
+  left:80px;
+  top:110px;
   background: url('/img/animation/feedsheetc1.png') left center;
   animation: playc1feed 4s steps(10) infinite;
 }
@@ -63,7 +65,9 @@
 .c1-sleep-anim {
   width: 329px;
   height: 270px;
-  margin: 2% auto;
+  height: 293px;
+  left:20px;
+  top:20px;
   background: url('/img/animation/sleepsheetc1.png') left center;
   animation: playc1sleep 5s steps(4) infinite;
   margin-top:90px;
@@ -89,7 +93,8 @@
 .c1-sick-anim {
   width: 229px;
   height: 306px;
-  margin: 2% auto;
+  left:110px;
+  top:0px;
   background: url('/img/animation/sicksheetc1.png') left center;
   animation: playc1sick 4s steps(4) infinite;
   margin-top:90px;
@@ -105,7 +110,8 @@
 .c2-default-anim {
   width: 229px;
   height: 306px;
-  margin: 2% auto;
+  left:110px;
+  top:5px;
   background: url('/img/animation/defaultsheetc2.png') left center;
   animation: playc2default 6s steps(12) infinite;
   margin-top:90px;
@@ -118,7 +124,8 @@
 .c2-feed-anim {
   width: 322px;
   height: 265px;
-  margin: 2% auto;
+  left:80px;
+  top:110px;
   background: url('/img/animation/feedsheetc2.png') left center;
   animation: playc2feed 4s steps(10) infinite;
 }
@@ -131,7 +138,8 @@
 .c2-sleep-anim {
   width: 329px;
   height: 270px;
-  margin: 2% auto;
+  left:20px;
+  top:20px;
   background: url('/img/animation/sleepsheetc2.png') left center;
   animation: playc2sleep 5s steps(4) infinite;
   margin-top:90px;
@@ -156,7 +164,8 @@
 .c2-sick-anim {
   width: 229px;
   height: 306px;
-  margin: 2% auto;
+  left:110px;
+  top:0px;
   background: url('/img/animation/sicksheetc2.png') left center;
   animation: playc2sick 4s steps(4) infinite;
   margin-top:90px;
@@ -172,7 +181,8 @@
 .c3-default-anim {
   width: 228px;
   height: 400px;
-  margin: 2% auto;
+  left:110px;
+  top:-40px;
   background: url('/img/animation/defaultsheetc3.png') left center;
   animation: playc3default 6s steps(6) infinite;
   margin-top:90px;
@@ -185,7 +195,8 @@
 .c3-feed-anim {
   width: 322px;
   height: 292px;
-  margin: 2% auto;
+  left:80px;
+  top:90px;
   background: url('/img/animation/feedsheetc3.png') left center;
   animation: playc3feed 4s steps(10) infinite;
 }
@@ -197,7 +208,8 @@
 .c3-sleep-anim {
   width: 329px;
   height: 293px;
-  margin: 2% auto;
+  left:20px;
+  top:20px;
   background: url('/img/animation/sleepsheetc3.png') left center;
   animation: playc3sleep 5s steps(4) infinite;
   margin-top:90px;
@@ -222,7 +234,8 @@
 .c3-sick-anim {
   width: 229px;
   height: 306px;
-  margin: 2% auto;
+  left:110px;
+  top:0px;
   background: url('/img/animation/sicksheetc3.png') left center;
   animation: playc3sick 4s steps(4) infinite;
   margin-top:90px;
@@ -238,7 +251,8 @@
 .c4-default-anim {
   width: 257px;
   height: 294px;
-  margin: 2% auto;
+  left:110px;
+  top:5px;
   background: url('/img/animation/defaultsheetc4.png') left center;
   animation: playc4default 6s steps(6) infinite;
   margin-top:90px;
@@ -251,7 +265,8 @@
 .c4-feed-anim {
   width: 384px;
   height: 297px;
-  margin: 2% auto;
+  left:80px;
+  top:110px;
   background: url('/img/animation/feedsheetc4.png') left center;
   animation: playc4feed 4s steps(10) infinite;
 }
@@ -263,7 +278,8 @@
 .c4-sleep-anim {
   width: 383px;
   height: 248px;
-  margin: 2% auto;
+  left:20px;
+  top:20px;
   background: url('/img/animation/sleepsheetc4.png') left center;
   animation: playc4sleep 5s steps(4) infinite;
   margin-top:90px;
@@ -288,7 +304,8 @@
 .c4-sick-anim {
   width: 278px;
   height: 259px;
-  margin: 2% auto;
+  left:110px;
+  top:0px;
   background: url('/img/animation/sicksheetc4.png') left center;
   animation: playc4sick 4s steps(4) infinite;
   margin-top:90px;
