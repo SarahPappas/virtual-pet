@@ -14,10 +14,18 @@ h1 {
 }
 
 /* ===== LOGIN/SIGNUP FORMS ===== */
+#logo {
+	margin-top:20%;
+	margin-bottom:40px;
+}
+#gameover {
+	margin-top:10%;
+	margin-bottom:30px;
+}
 #home {
 	margin: 0 auto;
 	width: 500px;
-	min-height:500px;	
+	min-height:550px;	
 	text-align:center;
 	padding:30px;
 	background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.5)); /* For Safari 5.1 to 6.0 */
@@ -164,7 +172,7 @@ hr {
 }
 #gameplay {
 	width:444px;
-	height:404px;
+	height:416px;
 	float:left;
 	position: relative;
 	left:60px;
@@ -326,4 +334,125 @@ hr {
 }
 feed, clean, gameover, train, nurse, sleep, stats {
 	position: absolute;
+}
+
+
+/* ===== COMPONENTS (activities) ===== */
+
+/* ALL */
+
+h4 {
+	font-family:'Comfortaa';
+	color:#1fbee8;
+	font-size: 25pt;
+	margin-top:10px;
+	margin-left:25px;
+	margin-bottom:0;
+}
+
+feed button, clean button, nurse button, sleep button{
+	background-color:#1fbee8;
+	border:none;
+	width:180px;
+	height: 43px;
+	font-family: 'Comfortaa';
+	font-size:18pt;
+	border-radius:8px;
+	line-height:2;
+	text-transform:uppercase;
+	margin:10px;
+	color:white;
+	position:absolute;
+	left:120px;
+	top:360px;
+}
+
+exercise button {
+	background-color:#1fbee8;
+	border:none;
+	width:200px;
+	height: 43px;
+	font-family: 'Comfortaa';
+	font-size:14pt;
+	margin:8px;
+	border-radius:8px;
+	line-height:2.5;
+	text-transform:uppercase;
+	color:white;
+	position:relative;
+}
+
+feed button:hover, clean button:hover, nurse button:hover, sleep button:hover, exercise button:hover{
+	background-color:#ffca28;
+	color:#fff;
+}
+
+feed button:active, clean button:active, nurse button:active, sleep button:active, exercise button:active{
+	background-color:#1fbee8;
+	color:#fff;
+}
+
+/* PET STATS */
+#pet-stats {
+	background-color:rgba(255,255,255,.8); 
+	border:4px solid #1fbee8;
+	border-radius:18px;
+	width:398px;
+	height:170px;
+	margin-top:20px;
+	margin-left:20px;
+}
+h5 {
+margin-left:25px;
+margin-top:20px;
+margin-bottom:0;
+font-family: 'Comfortaa';
+font-size:20pt;
+color:gray;
+}
+h6 {
+margin-left:25px;
+margin-top:20px;
+margin-bottom:0;
+font-family: 'Comfortaa';
+font-size:16pt;
+color:gray;
+}
+
+/* PLAY */
+
+exercise {
+font-family: 'Comfortaa';
+font-size:16pt;
+color:#1fbee8;
+}
+
+
+
+/* ========= GAMEPLAY PAGE ========= */
+
+/* NEW PET */
+#new-pet {
+	text-align:center;
+	width:600px;
+	margin:0 auto;
+}
+.newpet-form h5 {
+	font-family: 'Comfortaa';
+	font-size:22pt;
+	margin-bottom:10px;
+	color: #20a1ce;
+}
+.newpet-form input{
+	width:200px;
+}
+.pick-pet {
+	margin-left:50px;
+	position:relative;
+	background-color:pink;
+}
+
+.name {
+	display:block;
+	clear:both;
 }

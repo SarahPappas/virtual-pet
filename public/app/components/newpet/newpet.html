@@ -1,28 +1,36 @@
-<div>
-  <form class="home-form" ng-submit="newpet.createPet()">
-    <h4>Get A New Pet</h4>
-    <h3>cuz yours be dead</h3>
-    <div class="pet1">
-      <input type="radio" ng-model="newpet.newPet.species" name="pet" value="cat" checked><br>
-      <img src="/img/pickpet1.png">
+<div id="new-pet">
+<div id="gameover">
+  <img src="/img/gameover.png">
+</div>
+  <form class="home-form newpet-form" ng-submit="newpet.createPet()">
+    <h5>Get A New Pet<br>
+    cuz yours be dead</h5><br>
+    <div class="pick-pet">
+      <div class="pet1">
+        <input type="radio" ng-model="newpet.newPet.species" name="pet" value="cat" checked><br>
+        <img src="/img/pickpet1.png">
+      </div>
+      <div class="pet2">
+        <input type="radio" ng-model="newpet.newPet.species" name="pet" value="bat"><br>
+        <img src="/img/pickpet2.png">
+      </div>
+      <div class="pet3">
+        <input type="radio" ng-model="newpet.newPet.species" name="pet" value="monkey" checked><br>
+        <img src="/img/pickpet3.png">
+      </div>
+      <div class="pet4">
+        <input type="radio" ng-model="newpet.newPet.species" name="pet" value="raccoon" checked><br>
+        <img src="/img/pickpet4.png">
+      </div>
     </div>
-    <div class="pet2">
-      <input type="radio" ng-model="newpet.newPet.species" name="pet" value="bat"><br>
-      <img src="/img/pickpet2.png">
+    
+    <div class="name">
+      <label for="petName"><h5>Pet's Name:</h5> </label>
+      <input type="text" ng-model="newpet.newPet.petname" name="petName">
+      <p ng-if="newpet.noSpecies" class="alert-red">Pick which pet you want!</p>
+      <p ng-if="newpet.noName" class="alert-red">Name your pet!</p>
+      <button type="submit" class="btn btn-primary">Start!</button>
     </div>
-    <div class="pet3">
-      <input type="radio" ng-model="newpet.newPet.species" name="pet" value="monkey" checked><br>
-      <img src="/img/pickpet3.png">
-    </div>
-    <div class="pet4">
-      <input type="radio" ng-model="newpet.newPet.species" name="pet" value="raccoon" checked><br>
-      <img src="/img/pickpet4.png">
-    </div>
-    <br>
-    <div class="clear"></div>
-    <label for="petName">Pet's Name: </label>
-    <input type="text" ng-model="newpet.newPet.petname" name="petName">
-    <p ng-if="newpet.noSpecies" class="alert-red">Pick which pet you want!</p>
-    <p ng-if="newpet.noName" class="alert-red">Name your pet!</p>
-    <button type="submit" class="btn btn-primary">Start!</button>
   </form>
+  
+</div>
