@@ -26,7 +26,8 @@
     $scope.$on("update", function(event, args) {
       $scope.safeApply();
       console.log(clean.data.stats[2]);
-      if (Date.now()-clean.data.stats[2].last > 30000) {
+      if (Date.now()-clean.data.stats[2].last > ApplicationService.actionInfos.clean.msUntilMissed) {
+        ApplicationService.calcStats("clean", "missed");
         clean.hasPooped = 'true';
         $http({
           url: "/api/users/newPet",
