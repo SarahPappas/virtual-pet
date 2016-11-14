@@ -25,7 +25,7 @@
         $scope.$on("update", function(event, args) {
             $scope.safeApply();
             // FEED TIMEOUT
-            if(Date.now() > (Number(ApplicationService.stats[1].last) + (ApplicationService.actionInfos.feed.msUntilMissed / 1.5)))
+            if(Date.now() > (Number(ApplicationService.stats[1].last) + (ApplicationService.actionInfos.feed.msUntilMissed / 2)))
             {
               feed.isFeedAllowed =  true;
             } else {
@@ -33,7 +33,7 @@
             }
 
             // ALERT
-            if (feed.isFeedAllowed) {
+            if (Date.now() > (Number(ApplicationService.stats[1].last) + (ApplicationService.actionInfos.feed.msUntilMissed / 1.2))){
               var el = document.getElementById("nav-feed");
               el.className ="nav nav-feed-alert";
             } else {
