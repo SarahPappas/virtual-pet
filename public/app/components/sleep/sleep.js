@@ -31,17 +31,6 @@
       
       // SLEEP TIMEOUT
       if(!ApplicationService.sleep){ 
-        var el = document.getElementById("default-anim");
-
-        if (ApplicationService.species == "cat") {
-          el.className ="c1-default-anim";
-        } else if (ApplicationService.species == "bat") {
-          el.className ="c2-default-anim";
-        } else if (ApplicationService.species == "monkey") {
-          el.className ="c4-default-anim";
-        } else {
-          el.className ="c3-default-anim";
-        }
 
         if(Date.now() > (Number(ApplicationService.stats[0].last) + (ApplicationService.actionInfos.sleep.msUntilMissed / 1.2)))
         {
@@ -80,7 +69,20 @@
         el.className ="c3-sleep-anim";
       }
 
+      $timeout(function() {
+      if (ApplicationService.species == "cat") {
+        el.className ="c1-default-anim";
+      } else if (ApplicationService.species == "bat") {
+        el.className ="c2-default-anim";
+      } else if (ApplicationService.species == "monkey") {
+        el.className ="c4-default-anim";
+      } else {
+        el.className ="c3-default-anim";
+      }
+
+      }, ApplicationService.actionInfos.sleep.msSleeping + 3000);
     }
+
 
 
     ApplicationService.startLoop();
