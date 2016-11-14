@@ -23,7 +23,6 @@
 
 		$scope.$on("update", function(event, args) {
 		    $scope.safeApply();
-		    console.log("gameover", gameover.data.health);
 
     		if(gameover.data.health === 0) {
 				$state.go('gameover');

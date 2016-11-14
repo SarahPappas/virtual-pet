@@ -9,7 +9,7 @@
 	function Clean(ApplicationService, $scope, $timeout) {
 		var clean = this;
     clean.hasPooped = 'false';
-
+    clean.isCleanAllowed = false;
 		clean.data = ApplicationService;
 
 		$scope.safeApply = function(fn) {
@@ -37,6 +37,22 @@
         });
       }
       console.log("has pooped: " + clean.hasPooped);
+
+      if(Date.now() > (Number(ApplicationService.stats[2].last) + (ApplicationService.actionInfos.clean.msUntilMissed / 1.5)))
+      {
+        clean.isCleanAllowed =  true;
+      } else {
+        clean.isCleanAllowed =  false;
+      }
+
+      // ALERT
+      if (clean.isCleanAllowed) {
+        var el = document.getElementById("nav-clean");
+        el.className ="nav nav-clean-alert";
+      } else {
+        var el = document.getElementById("nav-clean");
+        el.className ="nav nav-clean";
+      }
     })
 
     clean.cleaning = function() {
@@ -66,7 +82,7 @@
         } else {
         	el.className ="c3-default-anim";
         }
-      }, 3000);
+      }, 1000);
     };
 
 		ApplicationService.startLoop();

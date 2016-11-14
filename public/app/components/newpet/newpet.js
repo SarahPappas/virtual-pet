@@ -59,8 +59,6 @@
 	       			method: "PUT",
 	       			data: newPetCtrl.newPet
 	      		}).then(function(res){
-	      			ApplicationService.onLogin();
-	      		}).then(function() {
 	      			$state.go('backPlay');
 	      		});
       		}
