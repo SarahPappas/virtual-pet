@@ -1,8 +1,2 @@
-	<h1>Feeding</h1>
-	<button id="feedMe" ng-click="feed.feeding()">Feed</button>
-<!-- 	<div> 
-	    Health: {{feed.data.health}}
-	</div>
-	<div>
-	    Mood: {{feed.data.mood}}
-	</div> -->
+<h1>Feeding</h1>
+<button id="feedMe" ng-click="feed.feeding()" ng-show="feed.isFeedAllowed">Feed</button>
