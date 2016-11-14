@@ -72,3 +72,5 @@ After a long day of fun activities, your pet will need to wind down and get some
 This application uses HTML, CSS, Javascript, Node/Express, & mongo. 
 
 ## Problems
+
+Pooping is not stored in the database. 
