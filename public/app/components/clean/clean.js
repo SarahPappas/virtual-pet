@@ -41,6 +41,14 @@
 
     clean.cleaning = function() {
     	ApplicationService.calcStats("clean", "acted");
+      clean.hasPooped = 'false';
+      $http({
+          url: "/api/users/newPet",
+          method: "PUT",
+          data: clean.hasPooped
+      }).then(function(res){
+          console.log("poop has been cleaned!");
+      });
     	clean.changeElement();
     }
 
